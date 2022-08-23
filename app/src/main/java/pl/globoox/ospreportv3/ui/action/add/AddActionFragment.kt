@@ -1,4 +1,4 @@
-package pl.globoox.ospreportv3.ui.dashboard
+package pl.globoox.ospreportv3.ui.action.add
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +12,6 @@ import pl.globoox.ospreportv3.databinding.FragmentAddActionBinding
 class AddActionFragment : Fragment() {
 
     private var _binding: FragmentAddActionBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +19,8 @@ class AddActionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val addActionViewModel = ViewModelProvider(this).get(AddActionViewModel::class.java)
-
         _binding = FragmentAddActionBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        addActionViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {

@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/activity_main.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_add_action.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_add_fireman.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_dashboard.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_list_fireman.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_fireman_main_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4041666666666667" />
       </map>
     </option>

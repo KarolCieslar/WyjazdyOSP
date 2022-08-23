@@ -7,19 +7,35 @@
 
     <fragment
         android:id="@+id/navigation_list_action"
-        android:name="pl.globoox.ospreportv3.ui.home.ListActionFragment"
+        android:name="pl.globoox.ospreportv3.ui.action.list.ListActionFragment"
         android:label="@string/title_list_action"
         tools:layout="@layout/fragment_list_action" />
 
     <fragment
         android:id="@+id/navigation_add_action"
-        android:name="pl.globoox.ospreportv3.ui.dashboard.AddActionFragment"
+        android:name="pl.globoox.ospreportv3.ui.action.add.AddActionFragment"
         android:label="@string/title_add_action"
         tools:layout="@layout/fragment_add_action" />
 
     <fragment
         android:id="@+id/navigation_forces"
-        android:name="pl.globoox.ospreportv3.ui.notifications.ForcesFragment"
-        android:label="@string/title_forces"
-        tools:layout="@layout/fragment_forces" />
+        android:name="pl.globoox.ospreportv3.ui.forces.fireman.list.ListFiremanFragment"
+        android:label="Lista Strażaków"
+        tools:layout="@layout/fragment_list_fireman">
+        <action
+            android:id="@+id/action_listFiremanFragment_to_addFireman"
+            app:destination="@id/addFiremanFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addFiremanFragment"
+        android:name="pl.globoox.ospreportv3.ui.forces.fireman.add.AddFireman"
+        android:label="fragment_add_fireman"
+        tools:layout="@layout/fragment_add_fireman">
+        <action
+            android:id="@+id/action_addFireman_to_listFiremanFragment"
+            app:destination="@id/navigation_forces" />
+    </fragment>
+
+
 </navigation>
