@@ -8,7 +8,7 @@ import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.data.MainDatabase
 import pl.globoox.ospreportv3.repository.FiremanRepository
 
-class FiremanViewModel(application: Application) : AndroidViewModel(application) {
+class ForcesViewModel(application: Application) : AndroidViewModel(application) {
 
     val getAllFiremans: LiveData<List<Fireman>>
     private val repository: FiremanRepository

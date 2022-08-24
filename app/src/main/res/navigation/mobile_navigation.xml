@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/forcesFragment"
         android:name="pl.globoox.ospreportv3.ui.forces.ForcesFragment"
-        android:label="Lista Strażaków"
+        android:label="@string/title_forces"
         tools:layout="@layout/fragment_forces">
     </fragment>
 
