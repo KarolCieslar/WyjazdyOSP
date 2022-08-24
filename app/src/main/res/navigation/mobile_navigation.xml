@@ -3,38 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_list_action">
+    app:startDestination="@+id/listAction">
 
     <fragment
-        android:id="@+id/navigation_list_action"
+        android:id="@+id/listAction"
         android:name="pl.globoox.ospreportv3.ui.action.list.ListActionFragment"
         android:label="@string/title_list_action"
         tools:layout="@layout/fragment_list_action" />
 
     <fragment
-        android:id="@+id/navigation_add_action"
+        android:id="@+id/addAction"
         android:name="pl.globoox.ospreportv3.ui.action.add.AddActionFragment"
         android:label="@string/title_add_action"
         tools:layout="@layout/fragment_add_action" />
 
     <fragment
-        android:id="@+id/navigation_forces"
-        android:name="pl.globoox.ospreportv3.ui.forces.fireman.list.ListFiremanFragment"
+        android:id="@+id/forcesFragment"
+        android:name="pl.globoox.ospreportv3.ui.forces.ForcesFragment"
         android:label="Lista Strażaków"
-        tools:layout="@layout/fragment_list_fireman">
-        <action
-            android:id="@+id/action_listFiremanFragment_to_addFireman"
-            app:destination="@id/addFiremanFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/addFiremanFragment"
-        android:name="pl.globoox.ospreportv3.ui.forces.fireman.add.AddFireman"
-        android:label="fragment_add_fireman"
-        tools:layout="@layout/fragment_add_fireman">
-        <action
-            android:id="@+id/action_addFireman_to_listFiremanFragment"
-            app:destination="@id/navigation_forces" />
+        tools:layout="@layout/fragment_forces">
     </fragment>
 
 
