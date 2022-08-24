@@ -26,12 +26,12 @@ class CarFragment : Fragment() {
     ): View {
         _binding = FragmentForcesCarsListBinding.inflate(inflater, container, false)
 
-        val adapter = FiremanListAdapter()
+        val adapter = CarListAdapter()
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.getAllFiremans.observe(viewLifecycleOwner, Observer {
+        viewModel.carList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isNotEmpty()
             if (it.isNotEmpty()) binding.emptyView.apply {
                 setMainText(resources.getString(R.string.car_fragment_empty_view_main))

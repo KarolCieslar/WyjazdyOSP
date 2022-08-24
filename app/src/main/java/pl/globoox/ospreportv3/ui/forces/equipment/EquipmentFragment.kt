@@ -24,12 +24,12 @@ class EquipmentFragment : Fragment() {
     ): View {
         _binding = FragmentForcesEquipmentListBinding.inflate(inflater, container, false)
 
-        val adapter = FiremanListAdapter()
+        val adapter = EquipmentListAdapter()
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.getAllFiremans.observe(viewLifecycleOwner, Observer {
+        viewModel.equipmentList.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
 

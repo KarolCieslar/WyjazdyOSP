@@ -22,8 +22,7 @@ class FiremanListAdapter : RecyclerView.Adapter<FiremanListAdapter.MyViewHolder>
         with(holder){
             with(firemanList[position]){
                 binding.position.text = position.toString()
-                binding.name.text = this.firstName
-                binding.surname.text = this.lastName
+                binding.name.text = this.name
                 binding.item.setOnClickListener {
                 }
             }

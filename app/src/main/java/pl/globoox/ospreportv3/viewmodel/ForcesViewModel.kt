@@ -6,22 +6,51 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.data.MainDatabase
+import pl.globoox.ospreportv3.model.Car
+import pl.globoox.ospreportv3.model.Equipment
+import pl.globoox.ospreportv3.repository.CarRepository
+import pl.globoox.ospreportv3.repository.EquipmentRepository
 import pl.globoox.ospreportv3.repository.FiremanRepository
 
 class ForcesViewModel(application: Application) : AndroidViewModel(application) {
 
-    val getAllFiremans: LiveData<List<Fireman>>
-    private val repository: FiremanRepository
+    val carList: LiveData<List<Car>>
+    private val carRepository: CarRepository
+
+    val firemanList: LiveData<List<Fireman>>
+    private val firemanRepository: FiremanRepository
+
+    val equipmentList: LiveData<List<Equipment>>
+    private val equipmentRepository: EquipmentRepository
+
 
     init {
-       val firemanDao = MainDatabase.getFiremansDatabase(application).firemanDao()
-        repository = FiremanRepository(firemanDao)
-        getAllFiremans = repository.getAllFiremans
+        val database = MainDatabase.getFiremansDatabase(application)
+        carRepository = CarRepository(database.carDao())
+        carList = carRepository.getAllCars
+
+        firemanRepository = FiremanRepository(database.firemanDao())
+        firemanList = firemanRepository.getAllFiremans
+
+        equipmentRepository = EquipmentRepository(database.equipmentDao())
+        equipmentList = equipmentRepository.getAllEquipment
+    }
+
+    fun addCar(car: Car) {
+        viewModelScope.launch(Dispatchers.IO) {
+            carRepository.addCar(car)
+        }
     }
 
     fun addFireman(fireman: Fireman) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addFireman(fireman)
+            firemanRepository.addFireman(fireman)
+        }
+    }
+
+    fun addEquipment(equipment: Equipment) {
+        viewModelScope.launch(Dispatchers.IO) {
+            equipmentRepository.addEquipment(equipment)
         }
     }
 }

@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.databinding.ItemFiremanMainListBinding
+import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
 
 class CarListAdapter : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
 
-    private var carList: List<Fireman> = emptyList()
+    private var carList: List<Car> = emptyList()
 
     inner class MyViewHolder(val binding: ItemFiremanMainListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -21,8 +22,7 @@ class CarListAdapter : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
         with(holder){
             with(carList[position]){
                 binding.position.text = position.toString()
-                binding.name.text = this.firstName
-                binding.surname.text = this.lastName
+                binding.name.text = this.name
                 binding.item.setOnClickListener {
                 }
             }
@@ -33,8 +33,8 @@ class CarListAdapter : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
         return carList.size
     }
 
-    fun setData(firemanList: List<Fireman>) {
-        this.carList = firemanList
+    fun setData(carList: List<Car>) {
+        this.carList = carList
         notifyDataSetChanged()
     }
 }

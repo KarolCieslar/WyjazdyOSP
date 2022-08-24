@@ -28,7 +28,7 @@ class FiremanFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.getAllFiremans.observe(viewLifecycleOwner, Observer {
+        viewModel.firemanList.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
 

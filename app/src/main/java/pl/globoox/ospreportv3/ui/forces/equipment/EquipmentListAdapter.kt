@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.databinding.ItemFiremanMainListBinding
+import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.model.Fireman
 
 class EquipmentListAdapter : RecyclerView.Adapter<EquipmentListAdapter.MyViewHolder>() {
 
-    private var equipmentList: List<Fireman> = emptyList()
+    private var equipmentList: List<Equipment> = emptyList()
 
     inner class MyViewHolder(val binding: ItemFiremanMainListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -22,8 +23,7 @@ class EquipmentListAdapter : RecyclerView.Adapter<EquipmentListAdapter.MyViewHol
         with(holder){
             with(equipmentList[position]){
                 binding.position.text = position.toString()
-                binding.name.text = this.firstName
-                binding.surname.text = this.lastName
+                binding.name.text = this.name
                 binding.item.setOnClickListener {
                 }
             }
@@ -34,8 +34,8 @@ class EquipmentListAdapter : RecyclerView.Adapter<EquipmentListAdapter.MyViewHol
         return equipmentList.size
     }
 
-    fun setData(firemanList: List<Fireman>) {
-        this.equipmentList = firemanList
+    fun setData(equipmentList: List<Equipment>) {
+        this.equipmentList = equipmentList
         notifyDataSetChanged()
     }
 }
