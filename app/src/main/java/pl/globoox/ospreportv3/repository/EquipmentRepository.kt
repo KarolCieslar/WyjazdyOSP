@@ -15,4 +15,12 @@ class EquipmentRepository(private val equipmentDao: EquipmentDao) {
     suspend fun addEquipment(equipment: Equipment) {
         equipmentDao.addEquipment(equipment)
     }
+
+    suspend fun editEquipment(equipment: Equipment) {
+        equipmentDao.editEquipment(equipment)
+    }
+
+    suspend fun removeEquipment(equipment: Equipment) {
+        equipmentDao.removeEquipment(equipment)
+    }
 }

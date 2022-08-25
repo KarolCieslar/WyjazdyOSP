@@ -1,10 +1,7 @@
 package pl.globoox.ospreportv3.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
 
@@ -13,6 +10,12 @@ import pl.globoox.ospreportv3.model.Fireman
 interface CarDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addCar(vararg users: Car)
+
+    @Update
+    suspend fun editCar(car: Car)
+
+    @Delete
+    suspend fun removeCar(car: Car)
 
     @Query("SELECT * FROM cars_table ORDER BY id ASC")
     fun getAllCars(): LiveData<List<Car>>

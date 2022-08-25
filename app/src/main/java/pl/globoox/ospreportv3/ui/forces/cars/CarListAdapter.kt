@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.databinding.ItemForcesCarListBinding
 import pl.globoox.ospreportv3.model.Car
 
-class CarListAdapter : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
+class CarListAdapter(
+    val onItemClick: ((car: Car) -> Unit),
+    val onRemoveClick: ((car: Car) -> Unit)
+) : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
 
     private var carList: List<Car> = emptyList()
 
@@ -22,6 +25,10 @@ class CarListAdapter : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
             with(carList[position]){
                 binding.name.text = this.name
                 binding.item.setOnClickListener {
+                    onItemClick(this)
+                }
+                binding.removeIcon.setOnClickListener {
+                    onRemoveClick(this)
                 }
             }
         }

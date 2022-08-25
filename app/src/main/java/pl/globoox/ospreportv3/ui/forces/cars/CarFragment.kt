@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesCarsListBinding
 import pl.globoox.ospreportv3.model.Car
-import pl.globoox.ospreportv3.ui.forces.fireman.FiremanListAdapter
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
 import pl.globoox.ospreportv3.views.AddForcesDialogView
+import pl.globoox.ospreportv3.views.ConfirmDialogView
+import pl.globoox.ospreportv3.views.EditForcesDialogView
+import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 class CarFragment : Fragment() {
 
@@ -29,10 +30,15 @@ class CarFragment : Fragment() {
     ): View {
         _binding = FragmentForcesCarsListBinding.inflate(inflater, container, false)
 
-        val adapter = CarListAdapter()
+        val adapter = CarListAdapter(
+            onItemClick = { car -> openEditDialog(car) },
+            onRemoveClick = {car -> removeCar(car) })
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.addItemDecoration(
+            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin10))
+        )
 
         viewModel.carList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isEmpty()
@@ -40,16 +46,40 @@ class CarFragment : Fragment() {
             if (it.isEmpty()) binding.emptyView.apply {
                 setMainText(resources.getString(R.string.car_fragment_empty_view_main))
                 setDescription(resources.getString(R.string.car_fragment_empty_view_description))
-                setButtonData(resources.getString(R.string.car_fragment_empty_view_button)) {
-                    val dialog = AddForcesDialogView(context)
-                    dialog.setOnPrimaryButtonClickListener { editTextString -> viewModel.addCar(Car(0, editTextString)) }
-                }
+                setButtonData(resources.getString(R.string.car_fragment_empty_view_button)) { openAddDialog() }
             }
             adapter.setData(it)
         })
 
-        binding.floatingActionButton.setOnClickListener {
-        }
+        binding.floatingActionButton.setOnClickListener { openAddDialog() }
         return binding.root
+    }
+
+    private fun removeCar(car: Car) {
+        val dialog = ConfirmDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.confirm_dialog_title))
+            setDescription(resources.getString(R.string.car_fragment_remove_dialog_description, car.name))
+            setOnPrimaryButtonClickListener { viewModel.removeCar(car) }
+        }
+    }
+
+    private fun openAddDialog() {
+        val dialog = AddForcesDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.car_fragment_add_dialog_title))
+            setDescription(resources.getString(R.string.car_fragment_add_dialog_description))
+            setOnPrimaryButtonClickListener { editTextString -> viewModel.addCar(Car(0, editTextString)) }
+        }
+    }
+
+    private fun openEditDialog(car: Car) {
+        val dialog = EditForcesDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.car_fragment_edit_dialog_title))
+            setDescription(resources.getString(R.string.car_fragment_edit_dialog_description))
+            setContent(car.name.toString())
+            setOnPrimaryButtonClickListener { editTextString -> viewModel.editCar(Car(car.id, editTextString)) }
+        }
     }
 }

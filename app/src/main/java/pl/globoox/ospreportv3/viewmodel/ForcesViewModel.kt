@@ -42,15 +42,51 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun editCar(car: Car) {
+        viewModelScope.launch(Dispatchers.IO) {
+            carRepository.editCar(car)
+        }
+    }
+
+    fun removeCar(car: Car) {
+        viewModelScope.launch(Dispatchers.IO) {
+            carRepository.removeCar(car)
+        }
+    }
+
     fun addFireman(fireman: Fireman) {
         viewModelScope.launch(Dispatchers.IO) {
             firemanRepository.addFireman(fireman)
         }
     }
 
+    fun editFireman(fireman: Fireman) {
+        viewModelScope.launch(Dispatchers.IO) {
+            firemanRepository.editFireman(fireman)
+        }
+    }
+
+    fun removeFireman(fireman: Fireman) {
+        viewModelScope.launch(Dispatchers.IO) {
+            firemanRepository.removeFireman(fireman)
+        }
+    }
+
     fun addEquipment(equipment: Equipment) {
         viewModelScope.launch(Dispatchers.IO) {
             equipmentRepository.addEquipment(equipment)
+        }
+    }
+
+    fun editEquipment(equipment: Equipment) {
+        viewModelScope.launch(Dispatchers.IO) {
+            equipmentRepository.editEquipment(equipment)
+        }
+    }
+
+    fun removeEquipment(equipment: Equipment) {
+        viewModelScope.launch(Dispatchers.IO) {
+            equipmentRepository.removeEquipment(equipment)
         }
     }
 }

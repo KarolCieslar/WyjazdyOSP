@@ -11,14 +11,15 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ViewAddForcesDialogBinding
+import pl.globoox.ospreportv3.databinding.ViewConfirmDialogBinding
 
 
-class AddForcesDialogView @JvmOverloads constructor(
+class ConfirmDialogView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
     private var dialog: Dialog
-    private val binding = ViewAddForcesDialogBinding.inflate(LayoutInflater.from(context), this, false)
+    private val binding = ViewConfirmDialogBinding.inflate(LayoutInflater.from(context), this, false)
 
     init {
         dialog = Dialog(context)
@@ -29,10 +30,10 @@ class AddForcesDialogView @JvmOverloads constructor(
         dialog.window!!.setBackgroundDrawable(inset)
 
         binding.cancelButton.apply {
-            setText(resources.getString(R.string.button_cancel))
+            setText(resources.getString(R.string.button_remove_decline))
             setClickListener { dialog.dismiss() }
         }
-        binding.primaryButton.setText(resources.getString(R.string.button_add))
+        binding.primaryButton.setText(resources.getString(R.string.button_remove_confirm))
         dialog.show()
     }
 
@@ -44,10 +45,10 @@ class AddForcesDialogView @JvmOverloads constructor(
         binding.description.text = text
     }
 
-    fun setOnPrimaryButtonClickListener(action: ((editTextField: String) -> Unit)) {
+    fun setOnPrimaryButtonClickListener(action: (() -> Unit)) {
         binding.primaryButton.setClickListener {
             dialog.dismiss()
-            action(binding.editText.text.toString())
+            action()
         }
     }
 }

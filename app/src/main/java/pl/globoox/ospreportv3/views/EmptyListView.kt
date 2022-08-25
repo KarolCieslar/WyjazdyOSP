@@ -20,9 +20,6 @@ class EmptyListView @JvmOverloads constructor(
 
     fun setDescription(text: String) {
         binding.description.text = text
-        binding.description.setOnClickListener {
-            Toast.makeText(context, "Odpalam dialog xx x", Toast.LENGTH_SHORT).show()
-           }
     }
 
     fun setButtonData(text: String, action: (() -> Unit)) {

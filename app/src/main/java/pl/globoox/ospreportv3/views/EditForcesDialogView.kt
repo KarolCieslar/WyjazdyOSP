@@ -11,14 +11,15 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ViewAddForcesDialogBinding
+import pl.globoox.ospreportv3.databinding.ViewEditForcesDialogBinding
 
 
-class AddForcesDialogView @JvmOverloads constructor(
+class EditForcesDialogView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
     private var dialog: Dialog
-    private val binding = ViewAddForcesDialogBinding.inflate(LayoutInflater.from(context), this, false)
+    private val binding = ViewEditForcesDialogBinding.inflate(LayoutInflater.from(context), this, false)
 
     init {
         dialog = Dialog(context)
@@ -32,7 +33,7 @@ class AddForcesDialogView @JvmOverloads constructor(
             setText(resources.getString(R.string.button_cancel))
             setClickListener { dialog.dismiss() }
         }
-        binding.primaryButton.setText(resources.getString(R.string.button_add))
+        binding.primaryButton.setText(resources.getString(R.string.button_save))
         dialog.show()
     }
 
@@ -42,6 +43,10 @@ class AddForcesDialogView @JvmOverloads constructor(
 
     fun setDescription(text: String) {
         binding.description.text = text
+    }
+
+    fun setContent(text: String) {
+        binding.editText.setText(text)
     }
 
     fun setOnPrimaryButtonClickListener(action: ((editTextField: String) -> Unit)) {

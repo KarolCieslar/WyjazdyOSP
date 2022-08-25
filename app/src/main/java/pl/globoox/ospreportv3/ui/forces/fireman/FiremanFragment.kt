@@ -11,7 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesFiremanListBinding
+import pl.globoox.ospreportv3.model.Car
+import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
+import pl.globoox.ospreportv3.views.AddForcesDialogView
+import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 class FiremanFragment : Fragment() {
 
@@ -29,6 +33,9 @@ class FiremanFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.addItemDecoration(
+            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin10))
+        )
 
         viewModel.firemanList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isEmpty()
@@ -36,29 +43,19 @@ class FiremanFragment : Fragment() {
             if (it.isEmpty()) binding.emptyView.apply {
                 setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
                 setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
-                setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button), {})
+                setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) { openAddDialog() }
             }
             adapter.setData(it)
         })
 
-        binding.floatingActionButton.setOnClickListener {
-        }
+        binding.floatingActionButton.setOnClickListener { openAddDialog() }
         return binding.root
     }
 
-//    private fun addNewFireman() {
-//        val firstName = binding.etName.text.toString()
-//        val lastName = binding.etSurname.text.toString()
-//        val fireman = Fireman(0, firstName, lastName)
-//        viewModel.addFireman(fireman)
-//        findNavController().navigateUp()
-//    }
-
-//    private fun updateFireman() {
-//        val firstName = binding.etName.text.toString()
-//        val lastName = binding.etSurname.text.toString()
-//        val fireman = Fireman(0, firstName, lastName)
-//        viewModel.addFireman(fireman)
-//        findNavController().navigateUp()
-//    }
+    private fun openAddDialog() {
+        val dialog = AddForcesDialogView(requireContext())
+        dialog.setTitle(resources.getString(R.string.fireman_fragment_add_dialog_title))
+        dialog.setDescription(resources.getString(R.string.fireman_fragment_add_dialog_description))
+        dialog.setOnPrimaryButtonClickListener { editTextString -> viewModel.addFireman(Fireman(0, editTextString)) }
+    }
 }

@@ -11,4 +11,12 @@ class FiremanRepository(private val firemanDao: FiremanDao) {
     suspend fun addFireman(fireman: Fireman) {
         firemanDao.addFireman(fireman)
     }
+
+    suspend fun editFireman(fireman: Fireman) {
+        firemanDao.editFireman(fireman)
+    }
+
+    suspend fun removeFireman(fireman: Fireman) {
+        firemanDao.removeFireman(fireman)
+    }
 }
