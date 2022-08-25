@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import android.widget.Toast
 import pl.globoox.ospreportv3.databinding.ViewEmptyListBinding
 
 class EmptyListView @JvmOverloads constructor(
@@ -19,12 +20,15 @@ class EmptyListView @JvmOverloads constructor(
 
     fun setDescription(text: String) {
         binding.description.text = text
+        binding.description.setOnClickListener {
+            Toast.makeText(context, "Odpalam dialog xx x", Toast.LENGTH_SHORT).show()
+           }
     }
 
     fun setButtonData(text: String, action: (() -> Unit)) {
         binding.button.apply {
             setText(text)
-            setOnClickListener { action }
+            setClickListener(action)
         }
     }
 }

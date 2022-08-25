@@ -4,14 +4,13 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.Toast
-import pl.globoox.ospreportv3.databinding.ViewPrimaryButtonBinding
+import pl.globoox.ospreportv3.databinding.ViewCancelButtonBinding
 
-class PrimaryButtonView @JvmOverloads constructor(
+class CancelButtonView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val binding = ViewPrimaryButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = ViewCancelButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setText(text: String) {
         binding.button.text = text

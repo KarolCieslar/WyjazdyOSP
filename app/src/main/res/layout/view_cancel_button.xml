@@ -3,10 +3,10 @@
     android:id="@+id/button"
     android:layout_width="match_parent"
     android:layout_height="42dp"
+    android:background="@drawable/custom_rounded_corners_with_border"
+    android:backgroundTint="@null"
     android:paddingHorizontal="25dp"
-    android:textSize="12sp"
     android:textAllCaps="false"
-    tools:text="Button texsaast"
-    android:background="@drawable/custom_rounded_corners"
-    android:backgroundTint="@color/red"
-    android:textColor="@color/white" />
+    android:textColor="@color/gray"
+    android:textSize="12sp"
+    tools:text="Button texsaast" />

@@ -5,7 +5,22 @@
     <string name="title_forces">Siły i Środki</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="button_cancel">Anuluj</string>
+    <string name="button_add">Dodaj</string>
+
+    <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>
-    <string name="car_fragment_empty_view_description">Niestety nie posiadasz wproawdzonych żadnych samochodów, które mogą brać udział w akcji.</string>
+    <string name="car_fragment_empty_view_description">Niestety nie posiadasz \nwproawdzonych żadnych \nsamochodów, które mogą brać \nudział w akcji.</string>
     <string name="car_fragment_empty_view_button">Dodaj nowy samochód</string>
+
+    <!-- Forces FiremanFragment -->
+    <string name="fireman_fragment_empty_view_main">BRAK RATOWNIKÓW</string>
+    <string name="fireman_fragment_empty_view_description">Niestety nie posiadasz \nwproawdzonych żadnych \nratowników!</string>
+    <string name="fireman_fragment_empty_view_button">Dodaj nowego ratownika</string>
+
+    <!-- Forces EquipmentFragment -->
+    <string name="equipment_fragment_empty_view_main">BRAK SPRZĘTU</string>
+    <string name="equipment_fragment_empty_view_description">Niestety nie posiadasz \nwproawdzonego żadnego sprzętu!</string>
+    <string name="equipment_fragment_empty_view_button">Dodaj nowy sprzęt</string>
 </resources>

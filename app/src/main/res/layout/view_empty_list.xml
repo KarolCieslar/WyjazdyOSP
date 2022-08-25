@@ -22,13 +22,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:textSize="25sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:text="BRAK CZEGOS" />
+        tools:text="Brak czegos!" />
 
     <TextView
         android:id="@+id/description"
@@ -38,6 +39,7 @@
         android:layout_marginHorizontal="30dp"
         android:textAlignment="center"
         android:textColor="@color/closeBlack"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +48,7 @@
 
     <pl.globoox.ospreportv3.views.PrimaryButtonView
         android:id="@+id/button"
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
