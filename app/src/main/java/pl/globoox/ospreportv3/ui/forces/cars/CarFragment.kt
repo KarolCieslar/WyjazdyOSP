@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesCarsListBinding
 import pl.globoox.ospreportv3.model.Car
@@ -31,8 +32,9 @@ class CarFragment : Fragment() {
         _binding = FragmentForcesCarsListBinding.inflate(inflater, container, false)
 
         val adapter = CarListAdapter(
-            onItemClick = { car -> openEditDialog(car) },
-            onRemoveClick = {car -> removeCar(car) })
+            onItemClick = { },
+            onRemoveClick = {car -> removeCar(car) },
+            onEditClick = {car -> openEditDialog(car) })
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -60,7 +62,14 @@ class CarFragment : Fragment() {
         dialog.apply {
             setTitle(resources.getString(R.string.confirm_dialog_title))
             setDescription(resources.getString(R.string.car_fragment_remove_dialog_description, car.name))
-            setOnPrimaryButtonClickListener { viewModel.removeCar(car) }
+            setOnPrimaryButtonClickListener {
+                Snackbar.make(
+                    binding.snackbarContainer,
+                    R.string.removed_successfully,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.removeCar(car)
+            }
         }
     }
 

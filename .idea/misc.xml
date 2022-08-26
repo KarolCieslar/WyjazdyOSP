@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/custom_rounded_corners.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/custom_rounded_corners_with_border.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/edit_text_outline_border.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_car.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_empty.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_equipment.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_options.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_settings.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/tab_indicator.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/font/fonts.xml" value="0.4266666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/activity_main.xml" value="0.4041666666666667" />
@@ -36,6 +38,7 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_empty_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_primary_button.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/menu/popup_forces_menu.xml" value="0.4041666666666667" />
       </map>
     </option>
   </component>

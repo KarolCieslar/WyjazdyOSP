@@ -9,11 +9,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesEquipmentListBinding
 import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
 import pl.globoox.ospreportv3.views.AddForcesDialogView
+import pl.globoox.ospreportv3.views.ConfirmDialogView
+import pl.globoox.ospreportv3.views.EditForcesDialogView
 import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 class EquipmentFragment : Fragment() {
@@ -28,7 +31,10 @@ class EquipmentFragment : Fragment() {
     ): View {
         _binding = FragmentForcesEquipmentListBinding.inflate(inflater, container, false)
 
-        val adapter = EquipmentListAdapter()
+        val adapter = EquipmentListAdapter(
+            onItemClick = { },
+            onRemoveClick = {equipment -> removeEquipment(equipment) },
+            onEditClick = {equipment -> openEditDialog(equipment) })
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -50,11 +56,39 @@ class EquipmentFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener { openAddDialog() }
         return binding.root
     }
-    
+
+    private fun removeEquipment(equipment: Equipment) {
+        val dialog = ConfirmDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.confirm_dialog_title))
+            setDescription(resources.getString(R.string.equipment_fragment_remove_dialog_description, equipment.name))
+            setOnPrimaryButtonClickListener {
+                Snackbar.make(
+                    binding.snackbarContainer,
+                    R.string.removed_successfully,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.removeEquipment(equipment)
+            }
+        }
+    }
+
     private fun openAddDialog() {
         val dialog = AddForcesDialogView(requireContext())
-        dialog.setTitle(resources.getString(R.string.equipment_fragment_add_dialog_title))
-        dialog.setDescription(resources.getString(R.string.equipment_fragment_add_dialog_description))
-        dialog.setOnPrimaryButtonClickListener { editTextString -> viewModel.addEquipment(Equipment(0, editTextString)) }
+        dialog.apply {
+            setTitle(resources.getString(R.string.equipment_fragment_add_dialog_title))
+            setDescription(resources.getString(R.string.equipment_fragment_add_dialog_description))
+            setOnPrimaryButtonClickListener { editTextString -> viewModel.addEquipment(Equipment(0, editTextString)) }
+        }
+    }
+
+    private fun openEditDialog(equipment: Equipment) {
+        val dialog = EditForcesDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.equipment_fragment_edit_dialog_title))
+            setDescription(resources.getString(R.string.equipment_fragment_edit_dialog_description))
+            setContent(equipment.name.toString())
+            setOnPrimaryButtonClickListener { editTextString -> viewModel.editEquipment(Equipment(equipment.id, editTextString)) }
+        }
     }
 }

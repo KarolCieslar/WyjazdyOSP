@@ -9,12 +9,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesFiremanListBinding
-import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
 import pl.globoox.ospreportv3.views.AddForcesDialogView
+import pl.globoox.ospreportv3.views.ConfirmDialogView
+import pl.globoox.ospreportv3.views.EditForcesDialogView
 import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 class FiremanFragment : Fragment() {
@@ -29,7 +31,10 @@ class FiremanFragment : Fragment() {
     ): View {
         _binding = FragmentForcesFiremanListBinding.inflate(inflater, container, false)
 
-        val adapter = FiremanListAdapter()
+        val adapter = FiremanListAdapter(
+            onItemClick = { },
+            onRemoveClick = {fireman -> removeFireman(fireman) },
+            onEditClick = {fireman -> openEditDialog(fireman) })
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -52,10 +57,38 @@ class FiremanFragment : Fragment() {
         return binding.root
     }
 
+    private fun removeFireman(fireman: Fireman) {
+        val dialog = ConfirmDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.confirm_dialog_title))
+            setDescription(resources.getString(R.string.fireman_fragment_remove_dialog_description, fireman.name))
+            setOnPrimaryButtonClickListener {
+                Snackbar.make(
+                    binding.snackbarContainer,
+                    R.string.removed_successfully,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.removeFireman(fireman)
+            }
+        }
+    }
+
     private fun openAddDialog() {
         val dialog = AddForcesDialogView(requireContext())
-        dialog.setTitle(resources.getString(R.string.fireman_fragment_add_dialog_title))
-        dialog.setDescription(resources.getString(R.string.fireman_fragment_add_dialog_description))
-        dialog.setOnPrimaryButtonClickListener { editTextString -> viewModel.addFireman(Fireman(0, editTextString)) }
+        dialog.apply {
+            setTitle(resources.getString(R.string.fireman_fragment_add_dialog_title))
+            setDescription(resources.getString(R.string.fireman_fragment_add_dialog_description))
+            setOnPrimaryButtonClickListener { editTextString -> viewModel.addFireman(Fireman(0, editTextString)) }
+        }
+    }
+
+    private fun openEditDialog(fireman: Fireman) {
+        val dialog = EditForcesDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.fireman_fragment_edit_dialog_title))
+            setDescription(resources.getString(R.string.fireman_fragment_edit_dialog_description))
+            setContent(fireman.name.toString())
+            setOnPrimaryButtonClickListener { editTextString -> viewModel.editFireman(Fireman(fireman.id, editTextString)) }
+        }
     }
 }

@@ -13,6 +13,7 @@
     <string name="button_remove_decline">Nie, nie chcę!</string>
 
     <string name="confirm_dialog_title">Potwierdź usunięcie</string>
+    <string name="removed_successfully">Usunięto obiekt z listy</string>
 
     <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>
@@ -22,7 +23,7 @@
     <string name="car_fragment_add_dialog_description">Wpisz nazwę pojazdu. Będzie ona widoczna na liście Twoich wyjazdów.</string>
     <string name="car_fragment_edit_dialog_title">Edytuj samochód</string>
     <string name="car_fragment_edit_dialog_description">Wpisz nową nazwę samochodu w polu poniżej.</string>
-    <string name="car_fragment_remove_dialog_description">Jesteś pewny, że chcesz usunąć pojazd <b>%1$s</b> z listy ratowników Twojej jednostki OSP?</string>
+    <string name="car_fragment_remove_dialog_description">Jesteś pewny, że chcesz usunąć pojazd <b>%1$s</b> z listy pojazdów Twojej jednostki OSP?</string>
 
     <!-- Forces FiremanFragment -->
     <string name="fireman_fragment_empty_view_main">BRAK RATOWNIKÓW</string>
@@ -32,7 +33,7 @@
     <string name="fireman_fragment_add_dialog_description">Dodaj ratownika do listy aby mieć możliwość dopisania go do wyjazdu.</string>
     <string name="fireman_fragment_edit_dialog_title">Edytuj ratownika</string>
     <string name="fireman_fragment_edit_dialog_description">Wpisz nową nazwę ratownika w polu poniżej.</string>
-    <string name="fireman_fragment_remove_dialog_description">Jesteś pewny, że chcesz usunąć ratownika <b>%1$s</b> z listy pojazdów Twojej jednostki OSP?</string>
+    <string name="fireman_fragment_remove_dialog_description">Jesteś pewny, że chcesz usunąć ratownika <b>%1$s</b> z listy ratowników Twojej jednostki OSP? \nStracisz wszelkie informacje na temat ekwiwalentu oraz statystyk wyjazdów tego strażaka!</string>
 
     <!-- Forces EquipmentFragment -->
     <string name="equipment_fragment_empty_view_main">BRAK SPRZĘTU</string>
