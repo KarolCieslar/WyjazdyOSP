@@ -1,6 +1,7 @@
 package pl.globoox.ospreportv3.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import pl.globoox.ospreportv3.data.CarDao
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.data.FiremanDao

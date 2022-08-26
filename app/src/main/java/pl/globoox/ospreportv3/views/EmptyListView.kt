@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.view.isVisible
 import pl.globoox.ospreportv3.databinding.ViewEmptyListBinding
 
 class EmptyListView @JvmOverloads constructor(
@@ -24,6 +25,7 @@ class EmptyListView @JvmOverloads constructor(
 
     fun setButtonData(text: String, action: (() -> Unit)) {
         binding.button.apply {
+            isVisible = true
             setText(text)
             setClickListener(action)
         }

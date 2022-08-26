@@ -11,6 +11,10 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_equipment.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_options.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_settings.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_current.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_done.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_next.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_selected.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/tab_indicator.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/font/fonts.xml" value="0.4266666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/activity_main.xml" value="0.4041666666666667" />
@@ -30,6 +34,7 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_forces_equipment_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_forces_fireman_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/primary_button_view.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/step_view.xml" value="0.39010416666666664" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_add_forces_dialog.xml" value="0.4" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_cacel_button.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_cancel_button.xml" value="0.4041666666666667" />

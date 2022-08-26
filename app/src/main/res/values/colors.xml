@@ -12,5 +12,8 @@
     <color name="red">#d0494d</color>
     <color name="gray">#4F4F4F</color>
     <color name="lightGray">#D3D8E1</color>
-    <color name="blue">#2B4BF2</color>
+    <color name="blue">#00A4EC</color>
+    <color name="darkBlue">#0B4566</color>
+
+    <color name="stepLineColor">#86A2B3</color>
 </resources>
