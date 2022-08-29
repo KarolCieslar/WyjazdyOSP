@@ -6,109 +6,157 @@
     android:layout_height="match_parent"
     tools:context=".ui.forces.ForcesFragment">
 
-
     <!-- STEP 1 -->
     <TextView
-        android:id="@+id/stepOne"
+        android:id="@+id/StepFirst"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/step_current"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/white"
+        android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/StepFirstText"
+        app:layout_constraintStart_toStartOf="@id/StepFirstText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/stepOneText"
+        android:id="@+id/StepFirstText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:text="Opis"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/stepOne"
-        app:layout_constraintStart_toStartOf="@id/stepOne"
-        app:layout_constraintTop_toBottomOf="@id/stepOne" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/StepFirst" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginHorizontal="10dp"
         android:background="@color/stepLineColor"
-        app:layout_constraintBottom_toBottomOf="@id/stepOne"
-        app:layout_constraintEnd_toStartOf="@id/stepTwo"
-        app:layout_constraintStart_toEndOf="@id/stepOne"
-        app:layout_constraintTop_toTopOf="@id/stepOne" />
+        app:layout_constraintBottom_toBottomOf="@id/StepFirst"
+        app:layout_constraintEnd_toStartOf="@id/StepSecond"
+        app:layout_constraintStart_toEndOf="@id/StepFirst"
+        app:layout_constraintTop_toTopOf="@id/StepFirst" />
 
-    <!-- STEP 2 -->
-    <TextView
-        android:id="@+id/stepTwo"
+    <ImageView
+        android:id="@+id/StepFirstIcon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/step_current"
         android:gravity="center"
-        android:text="2"
+        android:padding="3dp"
+        android:src="@drawable/ic_done"
         android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/StepFirstText"
+        app:layout_constraintStart_toStartOf="@id/StepFirstText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- STEP 2 -->
+    <TextView
+        android:id="@+id/StepSecond"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/step_next"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@color/black"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/guideline"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/stepTwoText"
+        android:id="@+id/StepSecondText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="Pojazdy i Sprzęt"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/stepTwo"
-        app:layout_constraintStart_toStartOf="@id/stepTwo"
-        app:layout_constraintTop_toBottomOf="@id/stepTwo" />
+        app:layout_constraintEnd_toEndOf="@id/StepSecond"
+        app:layout_constraintStart_toStartOf="@id/StepSecond"
+        app:layout_constraintTop_toBottomOf="@id/StepSecond" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginHorizontal="10dp"
         android:background="@color/stepLineColor"
-        app:layout_constraintBottom_toBottomOf="@id/stepOne"
-        app:layout_constraintEnd_toStartOf="@id/stepTwo"
-        app:layout_constraintStart_toEndOf="@id/stepOne"
-        app:layout_constraintTop_toTopOf="@id/stepOne" />
+        app:layout_constraintBottom_toBottomOf="@id/StepFirst"
+        app:layout_constraintEnd_toStartOf="@id/StepSecond"
+        app:layout_constraintStart_toEndOf="@id/StepFirst"
+        app:layout_constraintTop_toTopOf="@id/StepFirst" />
 
-    <!-- STEP 3 -->
-    <TextView
-        android:id="@+id/stepThree"
+    <ImageView
+        android:id="@+id/StepSecondIcon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/step_current"
         android:gravity="center"
-        android:text="2"
+        android:padding="3dp"
+        android:src="@drawable/ic_done"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/StepSecondText"
+        app:layout_constraintStart_toStartOf="@id/StepSecondText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- STEP 3 -->
+    <TextView
+        android:id="@+id/StepThird"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/step_next"
+        android:gravity="center"
+        android:text="3"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/StepThirdText"
+        app:layout_constraintStart_toStartOf="@id/StepThirdText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/stepThreeText"
+        android:id="@+id/StepThirdText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="Obsada"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/stepThree"
-        app:layout_constraintStart_toStartOf="@id/stepThree"
-        app:layout_constraintTop_toBottomOf="@id/stepThree" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/StepThird" />
+
+    <ImageView
+        android:id="@+id/StepThirdIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/step_current"
+        android:gravity="center"
+        android:padding="3dp"
+        android:src="@drawable/ic_done"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/StepThirdText"
+        app:layout_constraintStart_toStartOf="@id/StepThirdText"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginHorizontal="10dp"
         android:background="@color/stepLineColor"
-        app:layout_constraintBottom_toBottomOf="@id/stepOne"
-        app:layout_constraintEnd_toStartOf="@id/stepThree"
-        app:layout_constraintStart_toEndOf="@id/stepTwo"
-        app:layout_constraintTop_toTopOf="@id/stepOne" />
+        app:layout_constraintBottom_toBottomOf="@id/StepFirst"
+        app:layout_constraintEnd_toStartOf="@id/StepThird"
+        app:layout_constraintStart_toEndOf="@id/StepSecond"
+        app:layout_constraintTop_toTopOf="@id/StepFirst" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

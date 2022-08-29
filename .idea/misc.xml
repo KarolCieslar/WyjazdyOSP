@@ -7,10 +7,12 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/custom_rounded_corners_with_border.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/edit_text_outline_border.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_car.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_done.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_empty.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_equipment.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_options.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_settings.xml" value="0.2345" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/ic_timer.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_current.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_done.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/step_next.xml" value="0.2345" />
@@ -28,13 +30,20 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_forces_equipment_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_forces_fireman_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_list_fireman.xml" value="0.264" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_step_first.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_step_one.xml" value="0.264" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_step_second.xml" value="0.39166666666666666" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_step_third.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_update_fireman.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_fireman_main_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_forces_car_list.xml" value="0.39166666666666666" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_forces_equipment_list.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_forces_fireman_list.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_step_second_car.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_step_second_equipment.xml" value="0.4041666666666667" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/item_step_second_separator.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/primary_button_view.xml" value="0.4041666666666667" />
-        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/step_view.xml" value="0.39010416666666664" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/step_view.xml" value="0.4" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_add_forces_dialog.xml" value="0.4" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_cacel_button.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_cancel_button.xml" value="0.4041666666666667" />

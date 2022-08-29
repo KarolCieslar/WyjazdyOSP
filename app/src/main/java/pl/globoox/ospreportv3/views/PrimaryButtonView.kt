@@ -4,14 +4,26 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.Toast
+import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ViewPrimaryButtonBinding
 
-class PrimaryButtonView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : FrameLayout(context, attrs) {
+
+class PrimaryButtonView : FrameLayout {
 
     private val binding = ViewPrimaryButtonBinding.inflate(LayoutInflater.from(context), this, true)
+
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        val a = context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.PrimaryButtonView, 0, 0
+        )
+        val buttonText: CharSequence? = a.getString(R.styleable.PrimaryButtonView_custom_buttonText)
+
+        binding.button.text = buttonText
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
     fun setText(text: String) {
         binding.button.text = text

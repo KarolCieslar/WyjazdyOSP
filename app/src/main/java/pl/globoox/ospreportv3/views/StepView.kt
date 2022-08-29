@@ -1,12 +1,12 @@
 package pl.globoox.ospreportv3.views
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.FrameLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.StepViewBinding
 import pl.globoox.ospreportv3.databinding.ViewPrimaryButtonBinding
@@ -16,9 +16,9 @@ class StepView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs) {
 
     private val binding = StepViewBinding.inflate(LayoutInflater.from(context), this, true)
-    private val stepsTextView: List<TextView> = listOf(binding.stepOneText, binding.stepTwoText, binding.stepThreeText)
-    private val stepsCircleView: List<TextView> = listOf(binding.stepOne, binding.stepThree, binding.stepThree)
-
+    private val stepsDoneIcon: List<ImageView> = listOf(binding.StepFirstIcon, binding.StepSecondIcon, binding.StepThirdIcon)
+    private val stepsTextView: List<TextView> = listOf(binding.StepFirstText, binding.StepSecondText, binding.StepThirdText)
+    private val stepsCircleView: List<TextView> = listOf(binding.StepFirst, binding.StepSecond, binding.StepThird)
 
     fun setCurrentStep(step: Int) {
         when (step) {
@@ -41,21 +41,27 @@ class StepView @JvmOverloads constructor(
     }
 
     private fun setCurrentState(step: Int) {
+        stepsDoneIcon[step].isVisible = false
         stepsTextView[step].setTextColor(ContextCompat.getColor(context, R.color.blue))
+        stepsTextView[step].setTypeface(stepsCircleView[step].getTypeface(), Typeface.BOLD)
         stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.white))
-        stepsCircleView[step].setBackgroundResource(ContextCompat.getDrawable(context, R.drawable.step_current))
+        stepsCircleView[step].setBackgroundResource(R.drawable.step_current)
     }
 
     private fun setDoneState(step: Int) {
+        stepsDoneIcon[step].isVisible = true
         stepsTextView[step].setTextColor(ContextCompat.getColor(context, R.color.darkBlue))
-        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.white))
-        stepsCircleView[step].setBackgroundResource(ContextCompat.getDrawable(context, R.drawable.step_done))
+        stepsTextView[step].setTypeface(stepsCircleView[step].getTypeface(), Typeface.NORMAL)
+        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.red))
+        stepsCircleView[step].setBackgroundResource(R.drawable.step_done)
     }
 
     private fun setNextState(step: Int) {
+        stepsDoneIcon[step].isVisible = false
         stepsTextView[step].setTextColor(ContextCompat.getColor(context, R.color.darkBlue))
+        stepsTextView[step].setTypeface(stepsCircleView[step].getTypeface(), Typeface.NORMAL)
         stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.darkBlue))
-        stepsCircleView[step].setBackgroundResource(ContextCompat.getDrawable(context, R.drawable.step_next))
+        stepsCircleView[step].setBackgroundResource(R.drawable.step_next)
     }
 
     enum class StepState {

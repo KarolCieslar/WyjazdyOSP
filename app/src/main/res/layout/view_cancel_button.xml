@@ -5,6 +5,7 @@
     android:layout_height="42dp"
     android:background="@drawable/custom_rounded_corners_with_border"
     android:backgroundTint="@null"
+    android:foreground="?attr/selectableItemBackground"
     android:paddingHorizontal="25dp"
     android:textAllCaps="false"
     android:textColor="@color/gray"

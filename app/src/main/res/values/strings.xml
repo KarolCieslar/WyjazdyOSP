@@ -15,6 +15,9 @@
     <string name="confirm_dialog_title">Potwierdź usunięcie</string>
     <string name="removed_successfully">Usunięto obiekt z listy</string>
 
+    <string name="add_action_step_first_description">Uzupełnij wszystkie informacje o zdarzeniu. W kolejnym kroku będziesz mógł wybrać pojazdy oraz sprzęt biorący udział w akcji.</string>
+    <string name="add_action_step_second_description">Wybierz pojazdy oraz sprzęt jaki brał udział w akcji. W kolejnym kroku będziesz mógł dopisać ratowników do poszczególnych samochodów.</string>
+    <string name="add_action_step_third_description">Kliknij na pojazd aby dodać obsadę. Musisz wybrać kierowcę oraz dowódce akcji. Ikona samochodu oznacza, że ratownik dojechał własnym transportem na miejsce akcji.</string>
     <string name="add_action_empty_view_main">TROCHĘ TU PUSTO</string>
     <string name="add_action_empty_view_additional_description">\n\nPrzejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
 

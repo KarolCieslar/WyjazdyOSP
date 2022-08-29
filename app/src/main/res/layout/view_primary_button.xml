@@ -6,6 +6,7 @@
     android:paddingHorizontal="25dp"
     android:textSize="12sp"
     android:textAllCaps="false"
+    android:foreground="?attr/selectableItemBackground"
     tools:text="Button texsaast"
     android:background="@drawable/custom_rounded_corners"
     android:backgroundTint="@color/red"

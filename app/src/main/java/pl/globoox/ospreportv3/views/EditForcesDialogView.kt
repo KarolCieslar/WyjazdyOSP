@@ -29,11 +29,7 @@ class EditForcesDialogView @JvmOverloads constructor(
         val inset = InsetDrawable(back, 60)
         dialog.window!!.setBackgroundDrawable(inset)
 
-        binding.cancelButton.apply {
-            setText(resources.getString(R.string.button_cancel))
-            setClickListener { dialog.dismiss() }
-        }
-        binding.primaryButton.setText(resources.getString(R.string.button_save))
+        binding.cancelButton.setClickListener { dialog.dismiss() }
         dialog.show()
     }
 

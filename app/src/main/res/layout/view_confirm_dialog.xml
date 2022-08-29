@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
+            app:custom_buttonText="@string/button_remove_decline"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description" />
@@ -50,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            app:custom_buttonText="@string/button_remove_confirm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@id/description" />
