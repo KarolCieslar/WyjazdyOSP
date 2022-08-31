@@ -8,15 +8,23 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import org.greenrobot.eventbus.EventBus
+import pl.globoox.ospreportv3.MainActivity
+import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepFirstBinding
+import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
+import pl.globoox.ospreportv3.utils.checkIsNullAndSetError
+import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class StepFirstFragment : Fragment() {
 
@@ -37,6 +45,9 @@ class StepFirstFragment : Fragment() {
     ): View {
         _binding = FragmentStepFirstBinding.inflate(inflater, container, false)
 
+        binding.etLocation.setText("TESTOWA LOKACJA")
+        binding.etRaportNumber.setText("12321321A/AF/WA")
+
         setCurrentInOutDate()
         setInOutDateTimeClickListener()
         setBottomButtonListener()
@@ -44,16 +55,31 @@ class StepFirstFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     private fun setBottomButtonListener() {
-        binding.primaryButton.setClickListener {
-            val parentFrag: AddActionFragment = this.parentFragment as AddActionFragment
-            parentFrag.setCurrentStep(1)
+        binding.cancelButton.setClickListener {
+            findNavController().navigateUp()
         }
+        binding.primaryButton.setClickListener {
+            if (isFormValid()) {
+                EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.SECOND))
+            }
+        }
+    }
+
+    private fun isFormValid(): Boolean {
+        val errorList: MutableList<Boolean> = mutableListOf()
+        errorList.add(binding.etLocation.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
+        errorList.add(binding.etRaportNumber.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
+
+        val outDate = LocalDateTime.parse("${binding.etOutDate.text} ${binding.etOutTime.text}", dateFormatterHelper)
+        val inDate = LocalDateTime.parse("${binding.etInDate.text} ${binding.etInTime.text}", dateFormatterHelper)
+        if (inDate.isBefore(outDate)){
+            showSnackBar(resources.getString(R.string.form_date_range_error))
+            errorList.add(true)
+        }
+
+        return errorList.filter { it == true}.isEmpty()
     }
 
     private fun setInOutDateTimeClickListener() {
@@ -109,5 +135,10 @@ class StepFirstFragment : Fragment() {
             view.setText(String.format("%02d:%02d", newHour, newMinute));
         }
         timePicker.show(childFragmentManager, "Wybierz godzinę")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

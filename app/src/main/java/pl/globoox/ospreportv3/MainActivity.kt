@@ -4,10 +4,13 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
+import org.greenrobot.eventbus.EventBus
 import pl.globoox.ospreportv3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -31,10 +34,25 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.addAction -> navView.isVisible = false
+                else -> navView.isVisible = true
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    fun showSnackBar(text: String) {
+        Snackbar.make(
+            binding.snackbarContainer,
+            text,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }

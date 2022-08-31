@@ -82,6 +82,10 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         return itemList.size
     }
 
+    fun getSelectedItems(): List<Any> {
+        return selectedItemList
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (itemList[position]) {
             is Car -> ViewType.CAR

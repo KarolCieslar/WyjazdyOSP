@@ -24,6 +24,10 @@ class CancelButtonView : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
+    fun setText(text: String) {
+        binding.button.text = text
+    }
+
     fun setClickListener(action: (() -> Unit)) {
         binding.button.setOnClickListener { action() }
     }

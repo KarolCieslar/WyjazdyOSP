@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.StepViewBinding
 import pl.globoox.ospreportv3.databinding.ViewPrimaryButtonBinding
+import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
 
 class StepView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -20,19 +21,19 @@ class StepView @JvmOverloads constructor(
     private val stepsTextView: List<TextView> = listOf(binding.StepFirstText, binding.StepSecondText, binding.StepThirdText)
     private val stepsCircleView: List<TextView> = listOf(binding.StepFirst, binding.StepSecond, binding.StepThird)
 
-    fun setCurrentStep(step: Int) {
+    fun setCurrentStep(step: AddActionFragment.StepNumber) {
         when (step) {
-            0 -> {
+            AddActionFragment.StepNumber.FIRST -> {
                 setCurrentState(0)
                 setNextState(1)
                 setNextState(2)
             }
-            1 -> {
+            AddActionFragment.StepNumber.SECOND -> {
                 setDoneState(0)
                 setCurrentState(1)
                 setNextState(2)
             }
-            2 -> {
+            AddActionFragment.StepNumber.THIRD -> {
                 setDoneState(0)
                 setDoneState(1)
                 setCurrentState(2)

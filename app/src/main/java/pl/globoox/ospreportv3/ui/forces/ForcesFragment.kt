@@ -7,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import pl.globoox.ospreportv3.databinding.FragmentForcesBinding
-import pl.globoox.ospreportv3.ui.forces.cars.CarFragment
-import pl.globoox.ospreportv3.ui.forces.equipment.EquipmentFragment
-import pl.globoox.ospreportv3.ui.forces.fireman.FiremanFragment
 
 class ForcesFragment : Fragment() {
 
@@ -39,7 +36,7 @@ class ForcesFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = ViewPagerAdapter(requireActivity(), 3)
+        val adapter = ForcesViewPagerAdapter(requireActivity(), 3)
         binding.viewPager.adapter = adapter
     }
 }

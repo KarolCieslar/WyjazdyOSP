@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
-import pl.globoox.ospreportv3.R
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import pl.globoox.ospreportv3.databinding.FragmentAddActionBinding
-import pl.globoox.ospreportv3.ui.action.add.stepFirst.StepFirstFragment
-import pl.globoox.ospreportv3.ui.action.add.stepSecond.StepSecondFragment
-import pl.globoox.ospreportv3.ui.action.add.stepThird.StepThirdFragment
+import pl.globoox.ospreportv3.eventbus.OnClickNextButtonInAddActionFragment
+import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 
 
@@ -20,6 +22,7 @@ class AddActionFragment : Fragment() {
     private val viewModel: AddActionViewModel by viewModels()
     private var _binding: FragmentAddActionBinding? = null
     private val binding get() = _binding!!
+    private var currentStep = StepNumber.FIRST
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +31,8 @@ class AddActionFragment : Fragment() {
     ): View {
         _binding = FragmentAddActionBinding.inflate(inflater, container, false)
 
-        setCurrentStep(0)
+        setCurrentStep(StepNumber.FIRST)
+        setupViewPager()
 
         return binding.root
     }
@@ -38,16 +42,42 @@ class AddActionFragment : Fragment() {
         _binding = null
     }
 
-    fun setCurrentStep(step: Int) {
+    private fun setCurrentStep(step: StepNumber) {
+        currentStep = step
         binding.stepView.setCurrentStep(step)
-        val fragment = when (step) {
-            0 -> StepFirstFragment()
-            1 -> StepSecondFragment()
-            else -> StepThirdFragment()
-        }
+        binding.viewPager.currentItem = step.getIndex()
+    }
 
-        val ft: FragmentTransaction = childFragmentManager.beginTransaction()
-        ft.replace(R.id.stepFrameLayout, fragment)
-        ft.commit()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SetCurrentViewPagerItem?) {
+        setCurrentStep(event!!.stepNumber)
+    }
+
+    private fun setupViewPager() {
+        val adapter = ActionViewPagerAdapter(requireActivity(), 3)
+        binding.viewPager.isUserInputEnabled = false
+        binding.viewPager.adapter = adapter
+    }
+
+    enum class StepNumber {
+        FIRST, SECOND, THIRD;
+
+        fun getIndex(): Int {
+            return when (this) {
+                FIRST -> 0
+                SECOND -> 1
+                THIRD -> 2
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 }

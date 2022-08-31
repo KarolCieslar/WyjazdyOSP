@@ -12,6 +12,15 @@ import pl.globoox.ospreportv3.repository.FiremanRepository
 
 class AddActionViewModel(application: Application) : AndroidViewModel(application) {
 
+    // SaveState - Step 1
+    private var cachedOutDate: String? = null
+    private var cachedOutTime: String? = null
+    private var cachedInDate: String? = null
+    private var cachedInTime: String? = null
+    private var cachedLocation: String? = null
+    private var cachedReportNumber: String? = null
+    private var cachedDescription: String? = null
+
 
     val database = MainDatabase.getFiremansDatabase(application)
 

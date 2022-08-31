@@ -12,6 +12,10 @@
     <string name="button_remove_confirm">Tak, usuń!</string>
     <string name="button_remove_decline">Nie, nie chcę!</string>
 
+    <string name="field_empty">To pole nie może być puste!</string>
+    <string name="form_date_range_error">Błędna data lub godzina! Akcja nie trwała nawet jednej minuty!</string>
+    <string name="form_none_cars_selected">Należy zaznaczyć minimum jeden pojazd, który brał udział a akcji!</string>
+
     <string name="confirm_dialog_title">Potwierdź usunięcie</string>
     <string name="removed_successfully">Usunięto obiekt z listy</string>
 

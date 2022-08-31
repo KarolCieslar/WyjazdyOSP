@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesEquipmentListBinding
 import pl.globoox.ospreportv3.model.Equipment
+import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
 import pl.globoox.ospreportv3.views.AddForcesDialogView
 import pl.globoox.ospreportv3.views.ConfirmDialogView
@@ -63,11 +64,7 @@ class EquipmentFragment : Fragment() {
             setTitle(resources.getString(R.string.confirm_dialog_title))
             setDescription(resources.getString(R.string.equipment_fragment_remove_dialog_description, equipment.name))
             setOnPrimaryButtonClickListener {
-                Snackbar.make(
-                    binding.snackbarContainer,
-                    R.string.removed_successfully,
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                showSnackBar(resources.getString(R.string.removed_successfully))
                 viewModel.removeEquipment(equipment)
             }
         }
