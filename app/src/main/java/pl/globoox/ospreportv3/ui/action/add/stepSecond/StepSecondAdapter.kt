@@ -4,7 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemStepSecondCarBinding
@@ -53,7 +56,7 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         fun bind(car: Car) {
             binding.name.text = car.name
             binding.item.setOnClickListener {
-                handleItemClick(it, car)
+                handleItemClick(binding.item, binding.name, binding.icon, car)
             }
         }
     }
@@ -63,18 +66,22 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         fun bind(equipment: Equipment) {
             binding.name.text = equipment.name
             binding.item.setOnClickListener {
-                handleItemClick(it, equipment)
+                handleItemClick(binding.item, binding.name, binding.icon, equipment)
             }
         }
     }
 
-    private fun handleItemClick(view: View, item: Any) {
+    private fun handleItemClick(view: View, name: TextView, icon: ImageView, item: Any) {
         if (selectedItemList.contains(item)) {
             selectedItemList.remove(item)
-            view.backgroundTintList = (ContextCompat.getColorStateList(context, R.color.white))
+            view.background = null
+            name.setTextColor(ContextCompat.getColor(context, R.color.black))
+            icon.setColorFilter(ContextCompat.getColor(context, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
         } else {
             selectedItemList.add(item)
-            view.backgroundTintList = (ContextCompat.getColorStateList(context, R.color.yellow))
+            view.background = (ContextCompat.getDrawable(context, R.drawable.selected_car_background))
+            name.setTextColor(ContextCompat.getColor(context, R.color.white))
+            icon.setColorFilter(ContextCompat.getColor(context, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
         }
     }
 

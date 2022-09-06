@@ -3,4 +3,8 @@
     <declare-styleable name="PrimaryButtonView">
         <attr name="custom_buttonText" format="string" />
     </declare-styleable>
+    <declare-styleable name="DateTimeFormFieldView">
+        <attr name="custom_labelText" format="string" />
+        <attr name="custom_iconDrawable" format="reference" />
+    </declare-styleable>
 </resources>

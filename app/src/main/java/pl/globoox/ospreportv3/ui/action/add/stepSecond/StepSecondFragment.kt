@@ -5,30 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepSecondBinding
-import pl.globoox.ospreportv3.eventbus.OnClickNextButtonInAddActionFragment
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
-import pl.globoox.ospreportv3.ui.action.add.stepFirst.StepFirstFragment
-import pl.globoox.ospreportv3.utils.checkIsNullAndSetError
+import pl.globoox.ospreportv3.ui.action.add.stepThird.StepThirdAdapter
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 import pl.globoox.ospreportv3.views.MarginItemDecoration
-import java.time.LocalDateTime
 
 class StepSecondFragment : Fragment() {
 
-    private val viewModel: AddActionViewModel by viewModels()
+    private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepSecondBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: StepSecondAdapter
@@ -61,7 +54,7 @@ class StepSecondFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(
-            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin10))
+            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin16))
         )
     }
 
@@ -72,6 +65,8 @@ class StepSecondFragment : Fragment() {
     private fun setBottomButtonsListener() {
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
+                val selectedCars = adapter.getSelectedItems().filterIsInstance<Car>()
+                viewModel.setSelectedCars(selectedCars)
                 EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.THIRD))
             } else {
                 showSnackBar(resources.getString(R.string.form_none_cars_selected))

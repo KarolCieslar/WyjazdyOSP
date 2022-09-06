@@ -9,18 +9,9 @@ import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.repository.CarRepository
 import pl.globoox.ospreportv3.repository.EquipmentRepository
 import pl.globoox.ospreportv3.repository.FiremanRepository
+import pl.globoox.ospreportv3.utils.CombinedLiveData
 
 class AddActionViewModel(application: Application) : AndroidViewModel(application) {
-
-    // SaveState - Step 1
-    private var cachedOutDate: String? = null
-    private var cachedOutTime: String? = null
-    private var cachedInDate: String? = null
-    private var cachedInTime: String? = null
-    private var cachedLocation: String? = null
-    private var cachedReportNumber: String? = null
-    private var cachedDescription: String? = null
-
 
     val database = MainDatabase.getFiremansDatabase(application)
 
@@ -33,7 +24,9 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
     private val equipmentRepository: EquipmentRepository = EquipmentRepository(database.equipmentDao())
     val equipmentList: LiveData<List<Equipment>> = equipmentRepository.getAllEquipment
 
-    val checkSomeListEmpty = MediatorLiveData<Boolean>()
+    var selectedCarsList: MutableLiveData<List<Car>> = MutableLiveData()
 
-
+    fun setSelectedCars(list: List<Car>) {
+        selectedCarsList.postValue(list)
+    }
 }

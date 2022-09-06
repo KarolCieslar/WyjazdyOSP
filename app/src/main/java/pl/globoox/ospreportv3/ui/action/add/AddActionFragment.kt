@@ -1,9 +1,11 @@
 package pl.globoox.ospreportv3.ui.action.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,12 +16,16 @@ import org.greenrobot.eventbus.ThreadMode
 import pl.globoox.ospreportv3.databinding.FragmentAddActionBinding
 import pl.globoox.ospreportv3.eventbus.OnClickNextButtonInAddActionFragment
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
+import pl.globoox.ospreportv3.eventbus.ShowChooseFunctionDialog
+import pl.globoox.ospreportv3.eventbus.UpdateFiremanFunction
+import pl.globoox.ospreportv3.ui.action.add.stepThird.FiremanFunction
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
+import pl.globoox.ospreportv3.views.ChooseFunctionDialogView
 
 
 class AddActionFragment : Fragment() {
 
-    private val viewModel: AddActionViewModel by viewModels()
+    val viewModel: AddActionViewModel by viewModels()
     private var _binding: FragmentAddActionBinding? = null
     private val binding get() = _binding!!
     private var currentStep = StepNumber.FIRST
@@ -53,10 +59,24 @@ class AddActionFragment : Fragment() {
         setCurrentStep(event!!.stepNumber)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ShowChooseFunctionDialog?) {
+        binding.chooseFunctionView.isVisible = true
+        binding.darknessView.isVisible = true
+        binding.chooseFunctionView.setFireman(event!!.fireman)
+        binding.darknessView.setOnClickListener {
+            Log.d("asasddsa", "onMessageEvent RUN")
+            EventBus.getDefault().post(UpdateFiremanFunction(event.fireman))
+            binding.chooseFunctionView.isVisible = false
+            binding.darknessView.isVisible = false
+        }
+    }
+
     private fun setupViewPager() {
         val adapter = ActionViewPagerAdapter(requireActivity(), 3)
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = adapter
+        binding.viewPager.offscreenPageLimit = 1
     }
 
     enum class StepNumber {

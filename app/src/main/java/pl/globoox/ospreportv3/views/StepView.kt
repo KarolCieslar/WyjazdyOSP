@@ -43,25 +43,22 @@ class StepView @JvmOverloads constructor(
 
     private fun setCurrentState(step: Int) {
         stepsDoneIcon[step].isVisible = false
-        stepsTextView[step].setTextColor(ContextCompat.getColor(context, R.color.blue))
         stepsTextView[step].setTypeface(stepsCircleView[step].getTypeface(), Typeface.BOLD)
-        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.white))
+        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.red))
         stepsCircleView[step].setBackgroundResource(R.drawable.step_current)
     }
 
     private fun setDoneState(step: Int) {
         stepsDoneIcon[step].isVisible = true
-        stepsTextView[step].setTextColor(ContextCompat.getColor(context, R.color.darkBlue))
-        stepsTextView[step].setTypeface(stepsCircleView[step].getTypeface(), Typeface.NORMAL)
-        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.red))
+        stepsTextView[step].setTypeface(null)
+        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.white))
         stepsCircleView[step].setBackgroundResource(R.drawable.step_done)
     }
 
     private fun setNextState(step: Int) {
         stepsDoneIcon[step].isVisible = false
-        stepsTextView[step].setTextColor(ContextCompat.getColor(context, R.color.darkBlue))
-        stepsTextView[step].setTypeface(stepsCircleView[step].getTypeface(), Typeface.NORMAL)
-        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.darkBlue))
+        stepsTextView[step].setTypeface(null)
+        stepsCircleView[step].setTextColor(ContextCompat.getColor(context, R.color.white))
         stepsCircleView[step].setBackgroundResource(R.drawable.step_next)
     }
 

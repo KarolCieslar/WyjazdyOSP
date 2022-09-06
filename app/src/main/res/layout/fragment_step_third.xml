@@ -8,7 +8,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="25dp"
         tools:context=".ui.action.add.AddActionFragment">
 
         <TextView
@@ -16,25 +15,39 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_regular"
+            android:lineSpacingExtra="5sp"
+            android:paddingHorizontal="15dp"
             android:text="@string/add_action_step_third_description"
-            android:textColor="@color/mediumGray"
-            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
 
         <pl.globoox.ospreportv3.views.CancelButtonView
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:paddingBottom="20dp"
-            app:custom_buttonText="Cofnij"
+            app:custom_buttonText="Powrót"
             app:layout_constraintEnd_toEndOf="@id/guidelineCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
         <pl.globoox.ospreportv3.views.PrimaryButtonView
             android:id="@+id/primaryButton"
@@ -42,11 +55,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
             android:paddingBottom="20dp"
-            app:custom_buttonText="Przejdź dalej"
+            app:custom_buttonText="Dodaj wyjazd!"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineCenter"

@@ -5,7 +5,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatEditText
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +21,7 @@ import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
 import pl.globoox.ospreportv3.utils.checkIsNullAndSetError
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
+import pl.globoox.ospreportv3.views.DateTimeFormFieldView
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -34,8 +35,7 @@ class StepFirstFragment : Fragment() {
         val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
     }
 
-    private val viewModel: AddActionViewModel by viewModels()
-    private var _binding: FragmentStepFirstBinding? = null
+    private var _binding: FragmentStepFirstBinding? = null // TODO: PRzebudować bo za długo się ładuje
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -72,8 +72,8 @@ class StepFirstFragment : Fragment() {
         errorList.add(binding.etLocation.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
         errorList.add(binding.etRaportNumber.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
 
-        val outDate = LocalDateTime.parse("${binding.etOutDate.text} ${binding.etOutTime.text}", dateFormatterHelper)
-        val inDate = LocalDateTime.parse("${binding.etInDate.text} ${binding.etInTime.text}", dateFormatterHelper)
+        val outDate = LocalDateTime.parse("${binding.outDate.getValue()} ${binding.outTime.getValue()}", dateFormatterHelper)
+        val inDate = LocalDateTime.parse("${binding.inDate.getValue()} ${binding.inTime.getValue()}", dateFormatterHelper)
         if (inDate.isBefore(outDate)){
             showSnackBar(resources.getString(R.string.form_date_range_error))
             errorList.add(true)
@@ -83,33 +83,29 @@ class StepFirstFragment : Fragment() {
     }
 
     private fun setInOutDateTimeClickListener() {
-        binding.etOutDate.apply {
-            inputType = InputType.TYPE_NULL
-            setOnClickListener { openDatePicker(binding.etOutDate) }
+        binding.outDate.apply {
+            setOnClickListener { openDatePicker(binding.outDate) }
         }
-        binding.etOutTime.apply {
-            inputType = InputType.TYPE_NULL
-            setOnClickListener { openTimePicker(binding.etOutTime) }
+        binding.outTime.apply {
+            setOnClickListener { openTimePicker(binding.outTime) }
         }
-        binding.etInDate.apply {
-            inputType = InputType.TYPE_NULL
-            setOnClickListener { openDatePicker(binding.etInDate) }
+        binding.inDate.apply {
+            setOnClickListener { openDatePicker(binding.inDate) }
         }
-        binding.etInTime.apply {
-            inputType = InputType.TYPE_NULL
-            setOnClickListener { openTimePicker(binding.etInTime) }
+        binding.inTime.apply {
+            setOnClickListener { openTimePicker(binding.inTime) }
         }
     }
 
     private fun setCurrentInOutDate() {
-        binding.etOutDate.setText(LocalDateTime.now().format(dateFormatter))
-        binding.etOutTime.setText(LocalTime.now().format(timeFormatter))
-        binding.etInDate.setText(LocalDateTime.now().format(dateFormatter))
-        binding.etInTime.setText(LocalTime.now().format(timeFormatter))
+        binding.outDate.setValue(LocalDateTime.now().format(dateFormatter))
+        binding.outTime.setValue(LocalTime.now().format(timeFormatter))
+        binding.inDate.setValue(LocalDateTime.now().format(dateFormatter))
+        binding.inTime.setValue(LocalTime.now().format(timeFormatter))
     }
 
-    private fun openDatePicker(view: AppCompatEditText) {
-        val date = LocalDateTime.parse("${view.text} 00:00", dateFormatterHelper)
+    private fun openDatePicker(view: DateTimeFormFieldView) {
+        val date = LocalDateTime.parse("${view.getValue()} 00:00", dateFormatterHelper)
         val zdt: ZonedDateTime = ZonedDateTime.of(date, ZoneId.systemDefault())
         val datePicker = MaterialDatePicker
             .Builder.datePicker()
@@ -117,13 +113,13 @@ class StepFirstFragment : Fragment() {
             .build()
         datePicker.addOnPositiveButtonClickListener { selectedDateMilli ->
             val selectedDate = Instant.ofEpochMilli(selectedDateMilli).atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormatter)
-            view.setText(selectedDate.toString())
+            view.setValue(selectedDate.toString())
         }
         datePicker.show(childFragmentManager, "Wybierz datę")
     }
 
-    private fun openTimePicker(view: AppCompatEditText) {
-        val defaultValue = LocalTime.parse(view.text, timeFormatter)
+    private fun openTimePicker(view: DateTimeFormFieldView) {
+        val defaultValue = LocalTime.parse(view.getValue(), timeFormatter)
         val timePicker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .setHour(defaultValue.hour)
@@ -132,7 +128,7 @@ class StepFirstFragment : Fragment() {
         timePicker.addOnPositiveButtonClickListener {
             val newHour: Int = timePicker.hour
             val newMinute: Int = timePicker.minute
-            view.setText(String.format("%02d:%02d", newHour, newMinute));
+            view.setValue(String.format("%02d:%02d", newHour, newMinute));
         }
         timePicker.show(childFragmentManager, "Wybierz godzinę")
     }
