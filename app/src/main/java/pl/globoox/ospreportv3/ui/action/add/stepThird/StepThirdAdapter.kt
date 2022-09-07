@@ -51,6 +51,10 @@ class StepThirdAdapter(
         return itemList.size
     }
 
+    fun getFiremans(): List<Fireman> {
+        return allFiremansList
+    }
+
     inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {

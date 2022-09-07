@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -35,6 +36,7 @@ class StepFirstFragment : Fragment() {
         val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
     }
 
+    private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepFirstBinding? = null // TODO: PRzebudować bo za długo się ładuje
     private val binding get() = _binding!!
 
@@ -62,6 +64,16 @@ class StepFirstFragment : Fragment() {
         }
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
+                viewModel.action = viewModel.action.copy(
+                    id = 0,
+                    binding.outDate.getValue(),
+                    binding.outTime.getValue(),
+                    binding.inDate.getValue(),
+                    binding.inTime.getValue(),
+                    binding.etLocation.text.toString(),
+                    binding.etRaportNumber.text.toString(),
+                    binding.etDescription.text.toString()
+                )
                 EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.SECOND))
             }
         }

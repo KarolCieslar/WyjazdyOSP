@@ -25,6 +25,11 @@
     <string name="add_action_empty_view_main">TROCHĘ TU PUSTO</string>
     <string name="add_action_empty_view_additional_description">\n\nPrzejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
 
+    <!-- Forces ListAction -->
+    <string name="list_action_fragment_empty_view_main">BRAK AKCJI</string>
+    <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz \nżadnej akcji!</string>
+
+
     <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>
     <string name="car_fragment_empty_view_description">Niestety nie posiadasz \nwproawdzonych żadnych \nsamochodów, które mogą brać \nudział w akcji.</string>

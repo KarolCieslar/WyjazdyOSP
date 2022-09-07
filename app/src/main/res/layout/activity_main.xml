@@ -3,26 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
+    android:background="@color/backgroundapp"
     android:layout_height="match_parent"
     android:clipChildren="false">
-
-    <com.github.florent37.diagonallayout.DiagonalLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="100dp"
-        app:diagonal_angle="30"
-        app:diagonal_direction="left"
-        app:diagonal_position="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/main_gradient_drawable" />
-    </com.github.florent37.diagonallayout.DiagonalLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

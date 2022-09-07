@@ -75,13 +75,9 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         if (selectedItemList.contains(item)) {
             selectedItemList.remove(item)
             view.background = null
-            name.setTextColor(ContextCompat.getColor(context, R.color.black))
-            icon.setColorFilter(ContextCompat.getColor(context, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
         } else {
             selectedItemList.add(item)
             view.background = (ContextCompat.getDrawable(context, R.drawable.selected_car_background))
-            name.setTextColor(ContextCompat.getColor(context, R.color.white))
-            icon.setColorFilter(ContextCompat.getColor(context, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
         }
     }
 

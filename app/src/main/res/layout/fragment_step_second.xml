@@ -18,7 +18,7 @@
             android:textAlignment="center"
             android:paddingHorizontal="15dp"
             android:text="@string/add_action_step_second_description"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:fontFamily="@font/inter_regular"
             android:textSize="14sp"
             android:lineSpacingExtra="5sp"

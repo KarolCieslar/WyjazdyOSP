@@ -20,7 +20,7 @@
             android:paddingHorizontal="15dp"
             android:text="@string/add_action_step_third_description"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

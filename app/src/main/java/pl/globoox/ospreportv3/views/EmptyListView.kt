@@ -1,15 +1,13 @@
 package pl.globoox.ospreportv3.views
 
-import android.content.ClipDescription
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.core.view.isVisible
 import pl.globoox.ospreportv3.databinding.ViewEmptyListBinding
 
-class EmptyListView @JvmOverloads constructor(
+class EmptyListView @JvmOverloads constructor (
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 

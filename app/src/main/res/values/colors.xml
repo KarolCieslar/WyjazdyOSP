@@ -3,6 +3,7 @@
     <color name="colorPrimary">#EB3C53</color>
     <color name="colorPrimaryGradientStart">#D3313F</color>
     <color name="colorPrimaryGradientEnd">#EB3C53</color>
+    <color name="backgroundapp">#F6F6F6</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkRed">#A1222D</color>
     <color name="darkness">#C6000000</color>
@@ -17,5 +18,5 @@
     <color name="darkBlue">#0B4566</color>
     <color name="yellow">#FFF38B</color>
 
-    <color name="stepLineColor">@color/white</color>
+    <color name="stepLineColor">@color/gray</color>
 </resources>

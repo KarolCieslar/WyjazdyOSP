@@ -60,6 +60,7 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
+    implementation 'com.google.code.gson:gson:2.9.1'
 
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"
