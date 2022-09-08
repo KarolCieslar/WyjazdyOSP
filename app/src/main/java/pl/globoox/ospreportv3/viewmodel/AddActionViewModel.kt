@@ -40,7 +40,7 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
 
     var action = emptyActionObject()
     private fun emptyActionObject(): Action {
-        return Action(0, "", "", "", "", "", "", "", emptyList())
+        return Action(0, "", "", "", "", "", emptyList())
     }
 
     fun addAction(action: Action) {

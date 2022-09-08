@@ -7,6 +7,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="button_cancel">Anuluj</string>
+    <string name="button_close">Zamknij</string>
+    <string name="button_edit">Edytuj</string>
     <string name="button_add">Dodaj</string>
     <string name="button_save">Zapisz</string>
     <string name="button_remove_confirm">Tak, usuń!</string>
@@ -28,7 +30,12 @@
     <!-- Forces ListAction -->
     <string name="list_action_fragment_empty_view_main">BRAK AKCJI</string>
     <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz \nżadnej akcji!</string>
-
+    <string name="list_action_increment">Wyjazd #</string>
+    <string name="list_action_number">Meldunek:</string>
+    <string name="list_action_location">Lokalizacja:</string>
+    <string name="list_action_out_time">Data wyjazdu:</string>
+    <string name="list_action_in_time">Data powrotu:</string>
+    <string name="list_action_duration">Czas trwania:</string>
 
     <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>
@@ -59,4 +66,5 @@
     <string name="equipment_fragment_edit_dialog_title">Edytuj sprzęt</string>
     <string name="equipment_fragment_edit_dialog_description">Wpisz nową nazwę sprzętu w polu poniżej.</string>
     <string name="equipment_fragment_remove_dialog_description">Jesteś pewny, że chcesz usunąć sprzęt <b>%1$s</b> z listy sprzętów Twojej jednostki OSP?</string>
+
 </resources>

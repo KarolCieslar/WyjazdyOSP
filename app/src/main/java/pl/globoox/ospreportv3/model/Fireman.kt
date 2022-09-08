@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 import pl.globoox.ospreportv3.ui.action.add.stepThird.FiremanFunction
 
 @Parcelize
-@Entity(tableName = "fireman_table")
+@Entity(tableName = "fireman")
 data class Fireman(
     @PrimaryKey(autoGenerate = true)
     val id: Int,

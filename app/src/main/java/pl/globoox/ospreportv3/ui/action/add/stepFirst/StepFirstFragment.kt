@@ -66,13 +66,11 @@ class StepFirstFragment : Fragment() {
             if (isFormValid()) {
                 viewModel.action = viewModel.action.copy(
                     id = 0,
-                    binding.outDate.getValue(),
-                    binding.outTime.getValue(),
-                    binding.inDate.getValue(),
-                    binding.inTime.getValue(),
-                    binding.etLocation.text.toString(),
-                    binding.etRaportNumber.text.toString(),
-                    binding.etDescription.text.toString()
+                    outTime = "${binding.outDate.getValue()} ${binding.outTime.getValue()}",
+                    inTime = "${binding.inDate.getValue()} ${binding.inTime.getValue()}",
+                    location = binding.etLocation.text.toString(),
+                    number = binding.etRaportNumber.text.toString(),
+                    description = binding.etDescription.text.toString()
                 )
                 EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.SECOND))
             }
@@ -80,6 +78,7 @@ class StepFirstFragment : Fragment() {
     }
 
     private fun isFormValid(): Boolean {
+        // TODO(reason = "Sprawdzić czy lista carów lub firemansów nie jest pusta")
         val errorList: MutableList<Boolean> = mutableListOf()
         errorList.add(binding.etLocation.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
         errorList.add(binding.etRaportNumber.checkIsNullAndSetError(resources.getString(R.string.field_empty)))

@@ -77,6 +77,7 @@ class StepThirdFragment : Fragment() {
             if (isFormValid()) {
                 addNewAction()
                 findNavController().navigateUp()
+                // TODO(reason = "Upewnić się czy każdy samochód ma jakiegoś firemansa, jeśli nie to dać komuniat aby usunąć dane auto")
             } else {
                 showSnackBar(resources.getString(R.string.form_none_cars_selected))
             }

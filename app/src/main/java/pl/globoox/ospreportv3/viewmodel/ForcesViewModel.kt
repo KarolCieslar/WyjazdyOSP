@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.data.MainDatabase
+import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.repository.CarRepository
@@ -18,6 +19,7 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
     private val carRepository: CarRepository
 
     val firemanList: LiveData<List<Fireman>>
+    val firemanActions: LiveData<List<Action>>
     private val firemanRepository: FiremanRepository
 
     val equipmentList: LiveData<List<Equipment>>
@@ -31,6 +33,7 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
 
         firemanRepository = FiremanRepository(database.firemanDao())
         firemanList = firemanRepository.getAllFiremans
+        firemanActions = firemanRepository.getAllFiremanActions
 
         equipmentRepository = EquipmentRepository(database.equipmentDao())
         equipmentList = equipmentRepository.getAllEquipment

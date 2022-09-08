@@ -17,6 +17,6 @@ interface CarDao {
     @Delete
     suspend fun removeCar(car: Car)
 
-    @Query("SELECT * FROM cars_table ORDER BY id ASC")
+    @Query("SELECT * FROM cars ORDER BY id ASC")
     fun getAllCars(): LiveData<List<Car>>
 }

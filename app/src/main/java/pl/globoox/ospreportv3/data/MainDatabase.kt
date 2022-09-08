@@ -6,12 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import pl.globoox.ospreportv3.model.*
-import pl.globoox.ospreportv3.utils.CarConverter
-import pl.globoox.ospreportv3.utils.CarInActionListConverter
-import pl.globoox.ospreportv3.utils.FiremanListConverter
+import pl.globoox.ospreportv3.utils.DatabaseConverters
 
 @Database(entities=[Action::class, CarInAction::class, Car::class, Fireman::class, Equipment::class], version = 1, exportSchema = false)
-@TypeConverters(FiremanListConverter::class, CarInActionListConverter::class, CarConverter::class)
+@TypeConverters(DatabaseConverters::class)
 abstract class MainDatabase : RoomDatabase() {
     abstract fun carDao(): CarDao
     abstract fun firemanDao(): FiremanDao
@@ -31,7 +29,7 @@ abstract class MainDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MainDatabase::class.java,
-                    "main_database_dwa"
+                    "main_database_trzy"
                 ).build()
                 INSTANCE = instance
                 return instance

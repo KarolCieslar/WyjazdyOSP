@@ -18,6 +18,6 @@ interface EquipmentDao {
     @Delete
     suspend fun removeEquipment(equipment: Equipment)
 
-    @Query("SELECT * FROM equipments_table ORDER BY id ASC")
+    @Query("SELECT * FROM equipments ORDER BY id ASC")
     fun getAllEquipments(): LiveData<List<Equipment>>
 }

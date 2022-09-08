@@ -74,6 +74,7 @@ class StepThirdAdapter(
         }
 
         override fun onClick(view: View) {
+            // TODO(reason = "Czasami rozsunięte są dwie akcje!")
             val holder = recyclerView.findViewHolderForAdapterPosition(currentExpandedCar) as ViewHolder?
             if (holder != null) {
                 holder.binding.arrow.rotation = 0f
@@ -107,7 +108,7 @@ class StepThirdAdapter(
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UpdateFiremanFunction?) {
-        // TODO: Zrobić aby tylko jedna osoba mogła mieć COMMANDERA oraz KIEROWCĘ
+        // TODO(reason = "Zrobić aby tylko jedna osoba mogła mieć COMMANDERA oraz KIEROWCĘ")
         val copyList = getFilteredFiremans(currentExpandedCar)
         adapter.setData(copyList)
     }

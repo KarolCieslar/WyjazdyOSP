@@ -12,13 +12,11 @@ import java.lang.reflect.Type
 import java.util.*
 
 @Parcelize
-@Entity(tableName = "actions_table")
+@Entity(tableName = "actions")
 data class Action(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val outDate: String,
     val outTime: String,
-    val inDate: String,
     val inTime: String,
     val location: String,
     val number: String,
