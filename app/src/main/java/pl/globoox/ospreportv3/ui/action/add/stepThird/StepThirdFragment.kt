@@ -1,6 +1,8 @@
 package pl.globoox.ospreportv3.ui.action.add.stepThird
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +33,7 @@ class StepThirdFragment : Fragment() {
     private var _binding: FragmentStepThirdBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: StepThirdAdapter
-    private lateinit var selectedCarsList: List<Car>
+    private var selectedCarsList: List<Car> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,18 +51,31 @@ class StepThirdFragment : Fragment() {
         })
 
         viewModel.firemanList.observe(viewLifecycleOwner, Observer {
-            adapter.setFiremans(it)
+            adapter.setFiremans(it!!)
+            // TODO Trzeba ogarnąć to, że ciągle operacje są na tej liveData, trzeba to robić inaczej.
         })
 
         return binding.root
     }
 
     private fun isFormValid(): Boolean {
+        selectedCarsList.forEachIndexed { index, _ ->
+            val firemansInCar = mutableListOf<Fireman>()
+            adapter.getFiremans().forEach { fireman ->
+                if (fireman.selectStatus == index) {
+                    firemansInCar.add(fireman)
+                }
+            }
+            if (firemansInCar.isEmpty()) {
+                showSnackBar(resources.getString(R.string.form_none_firemans_in_car))
+                return false
+            }
+        }
         return true
     }
 
     private fun prepareAdapter() {
-        adapter = StepThirdAdapter({fireman ->  openFunctionDialog(fireman)}, binding.recyclerView)
+        adapter = StepThirdAdapter({ fireman -> openFunctionDialog(fireman) }, binding.recyclerView)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addItemDecoration(
@@ -77,9 +92,6 @@ class StepThirdFragment : Fragment() {
             if (isFormValid()) {
                 addNewAction()
                 findNavController().navigateUp()
-                // TODO(reason = "Upewnić się czy każdy samochód ma jakiegoś firemansa, jeśli nie to dać komuniat aby usunąć dane auto")
-            } else {
-                showSnackBar(resources.getString(R.string.form_none_cars_selected))
             }
         }
 

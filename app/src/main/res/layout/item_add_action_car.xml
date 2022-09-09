@@ -77,7 +77,7 @@
                 android:layout_marginHorizontal="25dp"
                 android:fontFamily="@font/inter_semibold"
                 android:paddingBottom="10dp"
-                android:text="BRAK WOLNYCH RATOWNIKÓW! \nWSZYSCY ZOSTALI ROZDYSPONOWANI \nW INNYCH SAMOCHODACH!"
+                android:text="BRAK WOLNYCH RATOWNIKÓW! \nKTÓRZY MOGĄ ZOSTAĆ ROZDYSPONOWANI"
                 android:textAlignment="center"
                 android:textColor="@color/red"
                 android:visibility="gone" />

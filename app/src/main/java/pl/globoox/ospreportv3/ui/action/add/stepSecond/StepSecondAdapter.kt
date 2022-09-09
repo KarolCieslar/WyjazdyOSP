@@ -97,8 +97,8 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         }
     }
 
-    fun addData(list: List<Any>) {
-        this.itemList = (itemList + list).sortedBy { it is Equipment }
+    fun setData(list: List<Any>) {
+        this.itemList = list.sortedBy { it is Equipment }
         notifyDataSetChanged()
     }
 

@@ -128,26 +128,15 @@
                 android:lines="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <pl.globoox.ospreportv3.views.CancelButtonView
-            android:id="@+id/cancelButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="10dp"
-            app:custom_buttonText="Zrezygnuj"
-            app:layout_constraintEnd_toEndOf="@id/guidelineCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutDescription" />
-
         <pl.globoox.ospreportv3.views.PrimaryButtonView
             android:id="@+id/primaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginHorizontal="90dp"
             android:layout_marginTop="25dp"
             app:custom_buttonText="Przejdź dalej"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutDescription" />
 
         <androidx.constraintlayout.widget.Guideline

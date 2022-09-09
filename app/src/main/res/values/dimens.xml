@@ -5,4 +5,5 @@
 
     <dimen name="margin10">10dp</dimen>
     <dimen name="margin16">16dp</dimen>
+    <dimen name="margin70">70dp</dimen>
 </resources>

@@ -34,13 +34,11 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
         selectedCarsList.postValue(list)
     }
 
-
-
     private val actionRepository: ActionRepository = ActionRepository(database.actionDao())
 
     var action = emptyActionObject()
     private fun emptyActionObject(): Action {
-        return Action(0, "", "", "", "", "", emptyList())
+        return Action(0, "", "", "", "", null, emptyList())
     }
 
     fun addAction(action: Action) {

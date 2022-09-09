@@ -34,13 +34,14 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.addAction -> navView.isVisible = false
-                else -> navView.isVisible = true
-            }
-        }
+//
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when (destination.id) {
+//                R.id.listAction, R.id.forcesFragment -> {
+//                    navController.popBackStack(R.id.addAction, true)
+//                }
+//            }
+//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

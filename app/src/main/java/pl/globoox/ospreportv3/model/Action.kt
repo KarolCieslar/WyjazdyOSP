@@ -20,6 +20,6 @@ data class Action(
     val inTime: String,
     val location: String,
     val number: String,
-    val description: String,
+    val description: String? = null,
     val carsInAction: List<CarInAction>
 ) : Parcelable

@@ -59,9 +59,6 @@ class StepFirstFragment : Fragment() {
 
 
     private fun setBottomButtonListener() {
-        binding.cancelButton.setClickListener {
-            findNavController().navigateUp()
-        }
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
                 viewModel.action = viewModel.action.copy(
@@ -78,7 +75,6 @@ class StepFirstFragment : Fragment() {
     }
 
     private fun isFormValid(): Boolean {
-        // TODO(reason = "Sprawdzić czy lista carów lub firemansów nie jest pusta")
         val errorList: MutableList<Boolean> = mutableListOf()
         errorList.add(binding.etLocation.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
         errorList.add(binding.etRaportNumber.checkIsNullAndSetError(resources.getString(R.string.field_empty)))

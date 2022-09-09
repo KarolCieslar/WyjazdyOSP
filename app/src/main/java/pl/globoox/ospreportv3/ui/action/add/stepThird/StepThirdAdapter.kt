@@ -5,21 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemAddActionCarBinding
 import pl.globoox.ospreportv3.eventbus.UpdateFiremanFunction
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
-import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 
 class StepThirdAdapter(
@@ -31,7 +26,7 @@ class StepThirdAdapter(
     private var itemList: List<Car> = emptyList()
     private var allFiremansList: List<Fireman> = emptyList()
     private lateinit var context: Context
-    private lateinit var adapter: FiremanRecyclerAdapter
+    private lateinit var firemansAdapter: FiremanRecyclerAdapter
 
     init {
         EventBus.getDefault().register(this@StepThirdAdapter)
@@ -54,6 +49,7 @@ class StepThirdAdapter(
     fun getFiremans(): List<Fireman> {
         return allFiremansList
     }
+
 
     inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -96,26 +92,26 @@ class StepThirdAdapter(
     }
 
     private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, position: Int) {
-        adapter = FiremanRecyclerAdapter(
+        firemansAdapter = FiremanRecyclerAdapter(
             onItemClick = { fireman -> onFiremanItemClick(fireman) },
             onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, position, isChecked) }
         )
-        binding.firemanRecyclerView.adapter = adapter
+        binding.firemanRecyclerView.adapter = firemansAdapter
         val filteredItems = getFilteredFiremans(position)
         binding.emptyView.isVisible = filteredItems.isEmpty()
-        adapter.setData(filteredItems)
+        firemansAdapter.setData(filteredItems)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UpdateFiremanFunction?) {
         // TODO(reason = "Zrobić aby tylko jedna osoba mogła mieć COMMANDERA oraz KIEROWCĘ")
         val copyList = getFilteredFiremans(currentExpandedCar)
-        adapter.setData(copyList)
+        firemansAdapter.setData(copyList)
     }
 
     private fun changeFiremanSelectStatus(fireman: Fireman, position: Int, isSelected: Boolean) {
         allFiremansList.first { it == fireman }.selectStatus = if (isSelected) position else null
-        adapter.setData(getFilteredFiremans(position))
+        firemansAdapter.setData(getFilteredFiremans(position))
     }
 
     fun setCars(list: List<Car>) {
@@ -125,6 +121,7 @@ class StepThirdAdapter(
 
     fun setFiremans(list: List<Fireman>) {
         this.allFiremansList = list.toMutableList()
+        notifyDataSetChanged()
     }
 
     private fun getFilteredFiremans(position: Int): List<Fireman> {
