@@ -9,20 +9,53 @@
         android:id="@+id/listAction"
         android:name="pl.globoox.ospreportv3.ui.action.list.ListActionFragment"
         android:label="@string/title_list_action"
-        tools:layout="@layout/fragment_list_action" />
+        tools:layout="@layout/fragment_list_action">
+
+        <action
+            android:id="@+id/action_listAction_to_addOrEditAction"
+            app:destination="@id/addOrEditAction"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
-        android:id="@+id/addAction"
-        android:name="pl.globoox.ospreportv3.ui.action.add.AddActionFragment"
+        android:id="@+id/addOrEditAction"
+        android:name="pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment"
         android:label="@string/title_add_action"
-        tools:layout="@layout/fragment_add_action" />
+        tools:layout="@layout/fragment_add_or_edit_action">
+
+        <argument
+            android:name="action"
+            android:defaultValue="@null"
+            app:argType="pl.globoox.ospreportv3.model.Action"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/salaryFragment"
+        android:name="pl.globoox.ospreportv3.ui.salary.SalaryFragment"
+        android:label="@string/title_salary"
+        tools:layout="@layout/fragment_salary">
+
+        <action
+            android:id="@+id/action_salaryFragment_to_forcesFragment"
+            app:destination="@id/forcesFragment"
+            app:popUpTo="@id/salaryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/forcesFragment"
         android:name="pl.globoox.ospreportv3.ui.forces.ForcesFragment"
         android:label="@string/title_forces"
-        tools:layout="@layout/fragment_forces">
-    </fragment>
+        tools:layout="@layout/fragment_forces" >
 
+        <argument
+            android:name="defaultTab"
+            android:defaultValue="0"
+            app:argType="integer" />
+
+    </fragment>
 
 </navigation>

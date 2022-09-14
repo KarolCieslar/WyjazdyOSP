@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ViewChooseFunctionDialogBinding
 import pl.globoox.ospreportv3.model.Fireman
-import pl.globoox.ospreportv3.ui.action.add.stepThird.FiremanFunction
+import pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird.FiremanFunction
 
 class ChooseFunctionDialogView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null

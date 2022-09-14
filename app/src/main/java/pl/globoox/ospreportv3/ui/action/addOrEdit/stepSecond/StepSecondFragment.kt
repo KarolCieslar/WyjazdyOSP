@@ -1,4 +1,4 @@
-package pl.globoox.ospreportv3.ui.action.add.stepSecond
+package pl.globoox.ospreportv3.ui.action.addOrEdit.stepSecond
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,22 +9,24 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import org.greenrobot.eventbus.EventBus
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepSecondBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
+import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.model.Car
-import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
+import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.mergeList
 import pl.globoox.ospreportv3.utils.setHorizontalMargin
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 import pl.globoox.ospreportv3.views.MarginItemDecoration
 
-class StepSecondFragment : Fragment() {
+class StepSecondFragment(
+    val action: Action? = null
+) : Fragment() {
 
     private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepSecondBinding? = null
@@ -79,14 +81,14 @@ class StepSecondFragment : Fragment() {
             if (isFormValid()) {
                 val selectedCars = adapter.getSelectedItems().filterIsInstance<Car>()
                 viewModel.setSelectedCars(selectedCars)
-                EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.THIRD))
+                EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.THIRD))
             } else {
                 showSnackBar(resources.getString(R.string.form_none_cars_selected))
             }
         }
 
         binding.cancelButton.setClickListener {
-            EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.FIRST))
+            EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.FIRST))
         }
 
         if (!isAnyCar) {

@@ -3,12 +3,9 @@ package pl.globoox.ospreportv3.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.parcelize.Parcelize
-import java.lang.reflect.Type
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Parcelize
@@ -22,4 +19,13 @@ data class Action(
     val number: String,
     val description: String? = null,
     val carsInAction: List<CarInAction>
-) : Parcelable
+) : Parcelable {
+    fun getFormattedOutTime() : String {
+        val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
+        return outTime.format(dateFormatterHelper)
+    }
+    fun getFormattedInTime() : String {
+        val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
+        return inTime.format(dateFormatterHelper)
+    }
+}

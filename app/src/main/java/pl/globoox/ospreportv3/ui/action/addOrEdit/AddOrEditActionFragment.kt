@@ -1,4 +1,4 @@
-package pl.globoox.ospreportv3.ui.action.add
+package pl.globoox.ospreportv3.ui.action.addOrEdit
 
 import android.os.Bundle
 import android.util.Log
@@ -8,22 +8,24 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import pl.globoox.ospreportv3.databinding.FragmentAddActionBinding
+import pl.globoox.ospreportv3.databinding.FragmentAddOrEditActionBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.eventbus.ShowChooseFunctionDialog
 import pl.globoox.ospreportv3.eventbus.UpdateFiremanFunction
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 
 
-class AddActionFragment : Fragment() {
+class AddOrEditActionFragment : Fragment() {
 
     val viewModel: AddActionViewModel by viewModels()
-    private var _binding: FragmentAddActionBinding? = null
+    val args: AddOrEditActionFragmentArgs by navArgs()
+    private var _binding: FragmentAddOrEditActionBinding? = null
     private val binding get() = _binding!!
     private var currentStep = StepNumber.FIRST
 
@@ -32,7 +34,7 @@ class AddActionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddActionBinding.inflate(inflater, container, false)
+        _binding = FragmentAddOrEditActionBinding.inflate(inflater, container, false)
 
         setupViewPager()
 
@@ -69,7 +71,7 @@ class AddActionFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = ActionViewPagerAdapter(requireActivity(), 3)
+        val adapter = ActionViewPagerAdapter(requireActivity(), 3, args.action)
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = adapter
         binding.viewPager.offscreenPageLimit = 1

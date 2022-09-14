@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -32,20 +33,32 @@ fun Fragment.showSnackBar(text: String) {
     (activity as MainActivity?)!!.showSnackBar(text)
 }
 
-fun convertToLocalDateTime(text: String) : LocalDateTime {
-    val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
-    return LocalDateTime.parse(text, dateFormatterHelper)
+fun convertStringToLocalDateTime(stringDate: String) : LocalDateTime {
+    return LocalDateTime.parse(stringDate, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT))
 }
 
-fun durationFormatter(outDate: LocalDateTime, inDate: LocalDateTime): String {
+fun durationFormatter(outDate: String, inDate: String): String {
+    val outDateLocal = convertStringToLocalDateTime(outDate)
+    val inDateLocal = convertStringToLocalDateTime(inDate)
+    var tempDateTime = LocalDateTime.from(outDateLocal)
 
-    var tempDateTime = LocalDateTime.from(outDate)
-
-    val hours = tempDateTime.until(inDate, ChronoUnit.HOURS)
+    val hours = tempDateTime.until(inDateLocal, ChronoUnit.HOURS)
     tempDateTime = tempDateTime.plusHours(hours)
-    val minutes = tempDateTime.until(inDate, ChronoUnit.MINUTES)
+    val minutes = tempDateTime.until(inDateLocal, ChronoUnit.MINUTES)
 
     return "${hours}g ${minutes}m"
+}
+
+fun calculateActionHours(outDate: String, inDate: String): Long {
+    val outDateLocal = convertStringToLocalDateTime(outDate)
+    val inDateLocal = convertStringToLocalDateTime(inDate)
+    var tempDateTime = LocalDateTime.from(outDateLocal)
+
+    var hours = tempDateTime.until(inDateLocal, ChronoUnit.HOURS)
+    tempDateTime = tempDateTime.plusHours(hours)
+    val minutes = tempDateTime.until(inDateLocal, ChronoUnit.MINUTES)
+    if (minutes > 0) hours++
+    return hours
 }
 
 fun buildSpannableText(context: Context, stringResource: Int, text: String): SpannableString {

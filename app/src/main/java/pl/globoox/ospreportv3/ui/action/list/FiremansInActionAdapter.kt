@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.databinding.ItemFiremanInActionBinding
 import pl.globoox.ospreportv3.model.Fireman
-import pl.globoox.ospreportv3.ui.action.add.stepThird.FiremanFunction
+import pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird.FiremanFunction
 
 class FiremansInActionAdapter : RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
 

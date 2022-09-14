@@ -8,6 +8,7 @@ import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.CarInAction
 import pl.globoox.ospreportv3.model.Fireman
 import java.lang.reflect.Type
+import java.time.LocalDateTime
 
 class DatabaseConverters {
 
@@ -23,14 +24,19 @@ class DatabaseConverters {
     }
 
     @TypeConverter
-    fun carInActionListToJson(value: List<CarInAction>?) = Gson().toJson(value)
+    fun carInActionToString(carInAction: CarInAction): String {
+        return Gson().toJson(carInAction)
+    }
 
     @TypeConverter
-    fun stringToCarInActionList(value: String) = Gson().fromJson(value, Array<CarInAction>::class.java).toList()
+    fun stringToCarInAction(carString: String): CarInAction {
+        val objectType = object : TypeToken<CarInAction>() {}.type
+        return Gson().fromJson(carString, objectType)
+    }
 
     @TypeConverter
-    fun firemanListToJson(value: List<Fireman>?) = Gson().toJson(value)
+    fun listOfCarInActionToString(value: List<CarInAction>?) = Gson().toJson(value)
 
     @TypeConverter
-    fun stringToFiremanList(value: String) = Gson().fromJson(value, Array<Fireman>::class.java).toList()
+    fun stringListOfToCarInAction(value: String) = Gson().fromJson(value, Array<CarInAction>::class.java).toList()
 }

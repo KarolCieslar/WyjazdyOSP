@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.action.add.AddActionFragment">
+    tools:context=".ui.action.addOrEdit.AddOrEditActionFragment">
 
     <pl.globoox.ospreportv3.views.StepView
         android:id="@+id/stepView"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/stepView">
     </androidx.viewpager2.widget.ViewPager2>
 
-    <pl.globoox.ospreportv3.views.EmptyListView
+    <pl.globoox.ospreportv3.views.ErrorView
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentListActionBinding
@@ -28,13 +29,15 @@ class ListActionFragment : Fragment() {
     ): View {
         _binding = FragmentListActionBinding.inflate(inflater, container, false)
 
-        val adapter = ListActionAdapter(onItemClick = {action -> openDetailsDialog(action) }, binding.recyclerView)
+        val adapter = ListActionAdapter(onEditButtonClick = { action -> openEditFragment(action) })
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(
             MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin16))
         )
+
+        // TODO: Trzeba dodać searchView aby można było filtrować
 
         viewModel.actionList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isEmpty()
@@ -45,15 +48,15 @@ class ListActionFragment : Fragment() {
             adapter.setList(it)
         })
 
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
+        }
+
         return binding.root
     }
 
-    private fun openDetailsDialog(action: Action) {
-//        val dialog = ActionDetailsDialogView(requireContext())
-//        dialog.apply {
-//            setData(action)
-//            setOnPrimaryButtonClickListener {  }
-//        }
+    private fun openEditFragment(action: Action) {
+        findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(action))
     }
 
     override fun onDestroyView() {

@@ -101,75 +101,60 @@
             app:layout_constraintTop_toTopOf="@id/outTime"
             tools:text="(3h 20m)" />
 
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
+        <TextView
+            android:id="@+id/titleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Informacje o załodze"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionTime"/>
+
+        <LinearLayout
+            android:id="@+id/crevList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:el_duration="500"
-            app:el_parallax ="1"
-            app:el_expanded="true"
-            app:layout_constraintTop_toBottomOf="@id/inTime">
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleLabel" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="OPIS Z AKCJI"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/crevList" />
 
-                <TextView
-                    android:id="@+id/titleLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Informacje o załodze"
-                    android:textAllCaps="true"
-                    android:textColor="@color/blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sadads asd asdasd jkdjasdjkdas jkjkads jkdas jkjkd wajkjk wdakjads jkasdkj kjda wjkjkda jkwd jkasjkasd jk"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descriptionLabel" />
 
-                <LinearLayout
-                    android:id="@+id/crevList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleLabel" />
+        <pl.globoox.ospreportv3.views.PrimaryButtonView
+            android:id="@+id/primaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:elevation="20dp"
+            app:custom_buttonText="@string/button_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
 
-                <TextView
-                    android:id="@+id/descriptionLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="OPIS Z AKCJI"
-                    android:textAllCaps="true"
-                    android:textColor="@color/blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/crevList" />
-
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="sadads asd asdasd jkdjasdjkdas jkjkads jkdas jkjkd wajkjk wdakjads jkasdkj kjda wjkjkda jkwd jkasjkasd jk"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/descriptionLabel" />
-
-                <pl.globoox.ospreportv3.views.PrimaryButtonView
-                    android:id="@+id/primaryButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    app:custom_buttonText="@string/button_edit"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/description" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </net.cachapa.expandablelayout.ExpandableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

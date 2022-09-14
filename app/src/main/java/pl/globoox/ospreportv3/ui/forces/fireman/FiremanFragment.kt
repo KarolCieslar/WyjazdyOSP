@@ -34,7 +34,6 @@ class FiremanFragment : Fragment() {
         _binding = FragmentForcesFiremanListBinding.inflate(inflater, container, false)
 
         val adapter = FiremanListAdapter(
-            onItemClick = { fireman -> goToFiremanDetails(fireman) },
             onRemoveClick = {fireman -> removeFireman(fireman) },
             onEditClick = {fireman -> openEditDialog(fireman) })
         val recyclerView = binding.recyclerView
@@ -57,12 +56,6 @@ class FiremanFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener { openAddDialog() }
         return binding.root
-    }
-
-    private fun goToFiremanDetails(fireman: Fireman) {
-        viewModel.firemanActions.observe(viewLifecycleOwner, Observer {
-            Log.d("dasdsa", "")
-        })
     }
 
     private fun removeFireman(fireman: Fireman) {

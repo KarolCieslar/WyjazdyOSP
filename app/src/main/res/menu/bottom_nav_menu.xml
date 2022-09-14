@@ -6,9 +6,9 @@
         android:title="@string/title_list_action" />
 
     <item
-        android:id="@+id/addAction"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_add_action" />
+        android:id="@+id/salaryFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_salary" />
 
     <item
         android:id="@+id/forcesFragment"

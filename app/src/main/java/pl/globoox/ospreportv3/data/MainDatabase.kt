@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import pl.globoox.ospreportv3.model.*
 import pl.globoox.ospreportv3.utils.DatabaseConverters
 
-@Database(entities=[Action::class, CarInAction::class, Car::class, Fireman::class, Equipment::class], version = 1, exportSchema = false)
+@Database(entities=[Action::class, Car::class, Fireman::class, Equipment::class], version = 1, exportSchema = false)
 @TypeConverters(DatabaseConverters::class)
 abstract class MainDatabase : RoomDatabase() {
     abstract fun carDao(): CarDao
@@ -29,7 +29,7 @@ abstract class MainDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MainDatabase::class.java,
-                    "main_database_cztery"
+                    "main_database_szesc"
                 ).build()
                 INSTANCE = instance
                 return instance

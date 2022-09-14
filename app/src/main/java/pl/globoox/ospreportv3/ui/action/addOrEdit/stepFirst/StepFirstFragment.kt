@@ -1,24 +1,21 @@
-package pl.globoox.ospreportv3.ui.action.add.stepFirst
+package pl.globoox.ospreportv3.ui.action.addOrEdit.stepFirst
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import org.greenrobot.eventbus.EventBus
-import pl.globoox.ospreportv3.MainActivity
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepFirstBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
-import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
+import pl.globoox.ospreportv3.model.Action
+import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.checkIsNullAndSetError
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
@@ -28,7 +25,9 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class StepFirstFragment : Fragment() {
+class StepFirstFragment(
+    val action: Action? = null
+): Fragment() {
 
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ROOT)
@@ -47,10 +46,19 @@ class StepFirstFragment : Fragment() {
     ): View {
         _binding = FragmentStepFirstBinding.inflate(inflater, container, false)
 
-        binding.etLocation.setText("TESTOWA LOKACJA")
-        binding.etRaportNumber.setText("12321321A/AF/WA")
-
-        setCurrentInOutDate()
+        if (action != null) {
+            binding.etLocation.setText(action.location)
+            binding.etRaportNumber.setText(action.number)
+            binding.etDescription.setText(action.description)
+            binding.outDate.setValue(action.outTime.split(" ")[0])
+            binding.outTime.setValue(action.outTime.split(" ")[1])
+            binding.inDate.setValue(action.inTime.split(" ")[0])
+            binding.inTime.setValue(action.inTime.split(" ")[1])
+        } else {
+            binding.etLocation.setText("TESTOWA LOKACJA")
+            binding.etRaportNumber.setText("12321321A/AF/WA")
+            setCurrentInOutDate()
+        }
         setInOutDateTimeClickListener()
         setBottomButtonListener()
 
@@ -69,8 +77,11 @@ class StepFirstFragment : Fragment() {
                     number = binding.etRaportNumber.text.toString(),
                     description = binding.etDescription.text.toString()
                 )
-                EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.SECOND))
+                EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.SECOND))
             }
+        }
+        binding.cancelButton.setClickListener {
+            findNavController().navigateUp()
         }
     }
 
@@ -81,7 +92,7 @@ class StepFirstFragment : Fragment() {
 
         val outDate = LocalDateTime.parse("${binding.outDate.getValue()} ${binding.outTime.getValue()}", dateFormatterHelper)
         val inDate = LocalDateTime.parse("${binding.inDate.getValue()} ${binding.inTime.getValue()}", dateFormatterHelper)
-        if (inDate.isBefore(outDate)){
+        if (inDate.isBefore(outDate) || inDate.isEqual(outDate)){
             showSnackBar(resources.getString(R.string.form_date_range_error))
             errorList.add(true)
         }

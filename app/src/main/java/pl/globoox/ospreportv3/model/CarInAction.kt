@@ -6,10 +6,7 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity
 data class CarInAction(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
     val car: Car,
     val firemans: List<Fireman>
 ) : Parcelable

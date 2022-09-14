@@ -1,4 +1,4 @@
-package pl.globoox.ospreportv3.ui.action.add.stepSecond
+package pl.globoox.ospreportv3.ui.action.addOrEdit.stepSecond
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemStepSecondCarBinding

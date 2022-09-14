@@ -1,12 +1,9 @@
-package pl.globoox.ospreportv3.ui.action.add.stepThird
+package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -17,11 +14,10 @@ import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepThirdBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.eventbus.ShowChooseFunctionDialog
-import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.CarInAction
 import pl.globoox.ospreportv3.model.Fireman
-import pl.globoox.ospreportv3.ui.action.add.AddActionFragment
+import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 import pl.globoox.ospreportv3.views.MarginItemDecoration
@@ -53,6 +49,7 @@ class StepThirdFragment : Fragment() {
         viewModel.firemanList.observe(viewLifecycleOwner, Observer {
             adapter.setFiremans(it!!)
             // TODO Trzeba ogarnąć to, że ciągle operacje są na tej liveData, trzeba to robić inaczej.
+            // TOdo: Podczas dodawanai nowej akcji trzeba dodać również sprzęt bo narazie są same samochody
         })
 
         return binding.root
@@ -96,7 +93,7 @@ class StepThirdFragment : Fragment() {
         }
 
         binding.cancelButton.setClickListener {
-            EventBus.getDefault().post(SetCurrentViewPagerItem(AddActionFragment.StepNumber.SECOND))
+            EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.SECOND))
         }
     }
 
@@ -109,7 +106,7 @@ class StepThirdFragment : Fragment() {
                     firemansInCar.add(fireman)
                 }
             }
-            carsInAction.add(CarInAction(0, car, firemansInCar))
+            carsInAction.add(CarInAction(car, firemansInCar))
         }
         viewModel.action = viewModel.action.copy(carsInAction = carsInAction)
         viewModel.addAction(viewModel.action)

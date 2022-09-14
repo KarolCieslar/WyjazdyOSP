@@ -13,7 +13,7 @@ import pl.globoox.ospreportv3.repository.ActionRepository
 import pl.globoox.ospreportv3.repository.CarRepository
 import pl.globoox.ospreportv3.repository.EquipmentRepository
 import pl.globoox.ospreportv3.repository.FiremanRepository
-import pl.globoox.ospreportv3.utils.CombinedLiveData
+import java.time.LocalDateTime
 
 class AddActionViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -38,7 +38,7 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
 
     var action = emptyActionObject()
     private fun emptyActionObject(): Action {
-        return Action(0, "", "", "", "", null, emptyList())
+        return Action(0, LocalDateTime.now().toString(), LocalDateTime.now().toString(), "", "", null, emptyList())
     }
 
     fun addAction(action: Action) {

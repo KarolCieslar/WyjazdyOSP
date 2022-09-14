@@ -13,7 +13,6 @@ import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.forces.fireman.FiremanListAdapter
 
 class FiremanListAdapter(
-    val onItemClick: ((fireman: Fireman) -> Unit),
     val onRemoveClick: ((fireman: Fireman) -> Unit),
     val onEditClick: ((fireman: Fireman) -> Unit)
 ) : RecyclerView.Adapter<FiremanListAdapter.MyViewHolder>() {
@@ -34,9 +33,6 @@ class FiremanListAdapter(
             with(firemanList[position]){
                 binding.position.text = "${position + 1}."
                 binding.name.text = this.name
-                binding.item.setOnClickListener {
-                    onItemClick(this)
-                }
 
                 binding.optionsIcon.setOnClickListener {
                     val popupMenu = PopupMenu(context, binding.optionsIcon)

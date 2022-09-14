@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">OspReportv3</string>
-    <string name="title_list_action">Lista Wyjazdów</string>
+    <string name="title_list_action">Wyjazdy</string>
     <string name="title_add_action">Dodaj Wyjazd</string>
     <string name="title_forces">Siły i Środki</string>
+    <string name="title_salary">Ekwiwalent</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -69,5 +70,9 @@
     <string name="equipment_fragment_edit_dialog_title">Edytuj sprzęt</string>
     <string name="equipment_fragment_edit_dialog_description">Wpisz nową nazwę sprzętu w polu poniżej.</string>
     <string name="equipment_fragment_remove_dialog_description">Jesteś pewny, że chcesz usunąć sprzęt <b>%1$s</b> z listy sprzętów Twojej jednostki OSP?</string>
+
+    <!-- SalaryFragment -->
+    <string name="salary_fragment_salary_not_set">BRAK DANYCH</string>
+    <string name="salary_fragment_salary_not_set_description">Nie ustawiono poprawnej wartości ekwiwalentu za godzinę akcji. Kliknij ikonę zębatki w prawym górnym rogu aby wprowadzić nową wartość.</string>
 
 </resources>

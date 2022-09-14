@@ -5,13 +5,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import pl.globoox.ospreportv3.databinding.ViewEmptyListBinding
+import pl.globoox.ospreportv3.databinding.ViewErrorViewBinding
 
-class EmptyListView @JvmOverloads constructor (
+class ErrorView @JvmOverloads constructor (
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val binding = ViewEmptyListBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = ViewErrorViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setMainText(text: String) {
         binding.mainText.text = text
