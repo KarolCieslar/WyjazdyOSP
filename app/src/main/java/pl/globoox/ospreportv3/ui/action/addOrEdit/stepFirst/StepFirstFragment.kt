@@ -119,7 +119,7 @@ class StepFirstFragment(
         binding.outDate.setValue(LocalDateTime.now().format(dateFormatter))
         binding.outTime.setValue(LocalTime.now().format(timeFormatter))
         binding.inDate.setValue(LocalDateTime.now().format(dateFormatter))
-        binding.inTime.setValue(LocalTime.now().format(timeFormatter))
+        binding.inTime.setValue(LocalTime.now().plusHours(1).format(timeFormatter))
     }
 
     private fun openDatePicker(view: DateTimeFormFieldView) {
@@ -146,7 +146,7 @@ class StepFirstFragment(
         timePicker.addOnPositiveButtonClickListener {
             val newHour: Int = timePicker.hour
             val newMinute: Int = timePicker.minute
-            view.setValue(String.format("%02d:%02d", newHour, newMinute));
+            view.setValue(String.format("%02d:%02d", newHour, newMinute))
         }
         timePicker.show(childFragmentManager, "Wybierz godzinę")
     }

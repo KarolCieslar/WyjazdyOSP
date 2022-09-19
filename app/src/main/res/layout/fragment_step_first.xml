@@ -1,171 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.action.addOrEdit.AddOrEditActionFragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <!-- OUT DATE -->
+    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+        android:id="@+id/outDate"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="15dp"
-        tools:context=".ui.action.addOrEdit.AddOrEditActionFragment">
+        android:layout_marginEnd="8dp"
+        app:custom_iconDrawable="@drawable/ic_calendar"
+        app:custom_labelText="Data wyjazdu"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- OUT DATE -->
-        <pl.globoox.ospreportv3.views.DateTimeFormFieldView
-            android:id="@+id/outDate"
-            android:layout_width="0dp"
+    <!-- OUT TIME -->
+    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+        android:id="@+id/outTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:custom_iconDrawable="@drawable/ic_timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineRight"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- IN DATE -->
+    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+        android:id="@+id/inDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:custom_iconDrawable="@drawable/ic_calendar"
+        app:custom_labelText="Data powrotu"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outDate" />
+
+    <!-- IN TIME -->
+    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+        android:id="@+id/inTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:custom_iconDrawable="@drawable/ic_timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/outDate" />
+
+    <!-- LOCATION -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutLocation"
+        style="@style/EditTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inTime">
+
+        <EditText
+            android:id="@+id/etLocation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            app:custom_iconDrawable="@drawable/ic_calendar"
-            app:custom_labelText="Data wyjazdu"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@android:color/transparent"
+            android:hint="Miejsce zdarzenia"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- OUT TIME -->
-        <pl.globoox.ospreportv3.views.DateTimeFormFieldView
-            android:id="@+id/outTime"
-            android:layout_width="0dp"
+    <!-- Numer raportu -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutRaportNumber"
+        style="@style/EditTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutLocation">
+
+        <EditText
+            android:id="@+id/etRaportNumber"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            app:custom_iconDrawable="@drawable/ic_timer"
-            app:custom_labelText="Godzina wyjazdu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guidelineRight"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@android:color/transparent"
+            android:hint="Meldunek"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- IN DATE -->
+    <!-- Description -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutDescription"
+        style="@style/EditTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@id/primaryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutRaportNumber">
 
-        <!-- IN DATE -->
-        <pl.globoox.ospreportv3.views.DateTimeFormFieldView
-            android:id="@+id/inDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            app:custom_iconDrawable="@drawable/ic_calendar"
-            app:custom_labelText="Data powrotu"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/outDate" />
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:minLines="2"
+            android:hint="Opis zdarzenia"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- IN TIME -->
-        <pl.globoox.ospreportv3.views.DateTimeFormFieldView
-            android:id="@+id/inTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            app:custom_iconDrawable="@drawable/ic_timer"
-            app:custom_labelText="Godzina powrotu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/outDate" />
+    <pl.globoox.ospreportv3.views.CancelButtonView
+        android:id="@+id/cancelButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        app:custom_buttonText="Zrezygnuj"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/primaryButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- LOCATION -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutLocation"
-            style="@style/EditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inTime">
+    <pl.globoox.ospreportv3.views.PrimaryButtonView
+        android:id="@+id/primaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:custom_buttonText="Dalej"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cancelButton" />
 
-            <EditText
-                android:id="@+id/etLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Miejsce zdarzenia"
-                android:inputType="text"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
 
-        <!-- Numer raportu -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutRaportNumber"
-            style="@style/EditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutLocation">
-
-            <EditText
-                android:id="@+id/etRaportNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Meldunek"
-                android:inputType="text"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Description -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutDescription"
-            style="@style/EditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutRaportNumber">
-
-            <EditText
-                android:id="@+id/etDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="top"
-                android:hint="Opis zdarzenia"
-                android:inputType="textMultiLine"
-                android:lines="5" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <pl.globoox.ospreportv3.views.CancelButtonView
-            android:id="@+id/cancelButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp"
-            android:layout_marginHorizontal="10dp"
-            app:custom_buttonText="Powrót"
-            app:layout_constraintEnd_toEndOf="@id/guidelineCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription" />
-
-        <pl.globoox.ospreportv3.views.PrimaryButtonView
-            android:id="@+id/primaryButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="15dp"
-            android:paddingBottom="20dp"
-            app:custom_buttonText="Dalej"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescription" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.4" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

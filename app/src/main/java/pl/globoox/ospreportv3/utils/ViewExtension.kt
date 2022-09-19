@@ -13,6 +13,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager2.widget.ViewPager2
 import pl.globoox.ospreportv3.MainActivity
 import pl.globoox.ospreportv3.R
 import java.time.LocalDateTime

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemStepSecondCarBinding
@@ -55,7 +55,7 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         fun bind(car: Car) {
             binding.name.text = car.name
             binding.item.setOnClickListener {
-                handleItemClick(binding.item, binding.name, binding.icon, car)
+                handleItemClick(binding.item, binding.selectedIcon, car)
             }
         }
     }
@@ -65,18 +65,20 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         fun bind(equipment: Equipment) {
             binding.name.text = equipment.name
             binding.item.setOnClickListener {
-                handleItemClick(binding.item, binding.name, binding.icon, equipment)
+                handleItemClick(binding.item, binding.selectedIcon, equipment)
             }
         }
     }
 
-    private fun handleItemClick(view: View, name: TextView, icon: ImageView, item: Any) {
+    private fun handleItemClick(view: View, selectedIcon: ImageView, item: Any) {
         if (selectedItemList.contains(item)) {
             selectedItemList.remove(item)
-            view.background = null
+            view.setBackgroundColor(0)
+            selectedIcon.isVisible = false
         } else {
             selectedItemList.add(item)
-            view.background = (ContextCompat.getDrawable(context, R.drawable.selected_car_background))
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
+            selectedIcon.isVisible = true
         }
     }
 

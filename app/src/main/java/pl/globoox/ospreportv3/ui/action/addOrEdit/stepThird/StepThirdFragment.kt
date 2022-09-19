@@ -13,15 +13,12 @@ import org.greenrobot.eventbus.EventBus
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepThirdBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
-import pl.globoox.ospreportv3.eventbus.ShowChooseFunctionDialog
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.CarInAction
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
-import pl.globoox.ospreportv3.views.MarginItemDecoration
-
 
 class StepThirdFragment : Fragment() {
 
@@ -72,16 +69,9 @@ class StepThirdFragment : Fragment() {
     }
 
     private fun prepareAdapter() {
-        adapter = StepThirdAdapter({ fireman -> openFunctionDialog(fireman) }, binding.recyclerView)
+        adapter = StepThirdAdapter(binding.recyclerView)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.addItemDecoration(
-            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin16))
-        )
-    }
-
-    private fun openFunctionDialog(fireman: Fireman) {
-        EventBus.getDefault().post(ShowChooseFunctionDialog(fireman))
     }
 
     private fun setBottomButtonsListener() {

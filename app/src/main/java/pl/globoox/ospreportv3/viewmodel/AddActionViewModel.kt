@@ -34,6 +34,9 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
         selectedCarsList.postValue(list)
     }
 
+    var primaryButtonAction = {}
+    var cancelButtonAction = {}
+
     private val actionRepository: ActionRepository = ActionRepository(database.actionDao())
 
     var action = emptyActionObject()

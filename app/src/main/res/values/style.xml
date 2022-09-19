@@ -35,11 +35,11 @@
 
     <style name="EditTextStyle">
         <item name="android:background">@drawable/edit_text_background</item>
-        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColorHint">@color/black400</item>
         <item name="boxBackgroundColor">@android:color/transparent</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
-        <item name="hintTextColor">@color/gray</item>
+        <item name="hintTextColor">@color/black400</item>
     </style>
 
     <style name="ChooseFunctionStyle" parent="@style/Widget.MaterialComponents.CardView">
@@ -52,6 +52,12 @@
         <item name="cornerSizeTopLeft">10dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">10dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">23dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/inter_bold</item>
     </style>
 
 </resources>

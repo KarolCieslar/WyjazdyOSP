@@ -8,7 +8,7 @@
     android:foreground="?attr/selectableItemBackground"
     android:paddingHorizontal="25dp"
     android:textAllCaps="false"
-    android:textColor="@color/gray"
+    android:textColor="@color/black"
     android:fontFamily="@font/inter_semibold"
     android:textSize="16sp"
     tools:text="Button texsaast" />

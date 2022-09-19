@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Wprowadź stawkę jaką otrzymuje strażak ochotnik za każdą rozpoczęto godzinę akcji."
-            android:textColor="@color/gray"
+            android:textColor="@color/black400"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />

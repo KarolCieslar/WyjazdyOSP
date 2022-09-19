@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="5dp"
     tools:context=".ui.action.addOrEdit.AddOrEditActionFragment">
 
     <pl.globoox.ospreportv3.views.StepView
         android:id="@+id/stepView"
         android:layout_width="0dp"
+        android:layout_marginHorizontal="6dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,13 +21,13 @@
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepView">
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintTop_toBottomOf="@+id/stepView" />
 
     <pl.globoox.ospreportv3.views.ErrorView
         android:id="@+id/emptyView"
@@ -36,23 +37,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/darknessView"
-        android:background="@color/darkness"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <pl.globoox.ospreportv3.views.ChooseFunctionDialogView
-        android:id="@+id/chooseFunctionView"
-        android:layout_width="180dp"
-        android:layout_height="270dp"
-        android:elevation="5dp"
-        android:translationZ="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

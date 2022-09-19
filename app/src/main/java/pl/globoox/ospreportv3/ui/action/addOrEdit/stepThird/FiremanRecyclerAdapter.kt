@@ -1,25 +1,30 @@
 package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemAddActionFiremanBinding
 import pl.globoox.ospreportv3.model.Fireman
 
-
 class FiremanRecyclerAdapter(
-    val onItemClick: ((fireman: Fireman) -> Unit),
     val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit)
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var itemList: List<Fireman> = emptyList()
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemAddActionFiremanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        this.context = parent.context
         return FiremanViewHolder(binding)
     }
 
@@ -36,14 +41,37 @@ class FiremanRecyclerAdapter(
             binding.checkbox.setOnClickListener {
                 onCheckBoxChange(fireman, binding.checkbox.isChecked)
             }
-            binding.item.setOnClickListener { onItemClick(fireman) }
-
-            binding.commanderIcon.isVisible = fireman.functions?.contains(FiremanFunction.COMMANDER) ?: false
-            binding.driverIcon.isVisible = fireman.functions?.contains(FiremanFunction.DRIVER) ?: false
-            binding.ownCarIcon.isVisible = fireman.functions?.contains(FiremanFunction.OWNCAR) ?: false
-
-            binding.divider.isVisible = position + 1 != itemCount
+            binding.name.setOnClickListener {
+                onCheckBoxChange(fireman, binding.checkbox.isChecked)
+            }
+            binding.commanderIcon.apply {
+                setOnClickListener { onFunctionIconClick(it, fireman, FiremanFunction.COMMANDER) }
+                backgroundTintList = getIconColorStateList(fireman, FiremanFunction.COMMANDER)
+            }
+            binding.driverIcon.apply {
+                setOnClickListener { onFunctionIconClick(it, fireman, FiremanFunction.DRIVER) }
+                backgroundTintList = getIconColorStateList(fireman, FiremanFunction.DRIVER)
+            }
+            binding.ownCarIcon.apply {
+                setOnClickListener { onFunctionIconClick(it, fireman, FiremanFunction.OWNCAR) }
+                backgroundTintList = getIconColorStateList(fireman, FiremanFunction.OWNCAR)
+            }
         }
+    }
+
+    private fun onFunctionIconClick(view: View, fireman: Fireman, firemanFunction: FiremanFunction) {
+        if (fireman.functions!!.contains(firemanFunction)) {
+            view.setBackgroundResource(R.drawable.function_not_selected_button_background)
+            fireman.functions!!.remove(firemanFunction)
+        } else {
+            view.setBackgroundResource(R.drawable.function_selected_button_background)
+            fireman.functions!!.add(firemanFunction)
+        }
+        notifyDataSetChanged()
+    }
+
+    private fun getIconColorStateList(fireman: Fireman, firemanFunction: FiremanFunction): ColorStateList {
+        return ColorStateList.valueOf(ContextCompat.getColor(context, if (fireman.functions?.contains(firemanFunction) == true) R.color.black100 else R.color.black))
     }
 
     override fun getItemCount(): Int {

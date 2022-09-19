@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.github.Zhuinden:livedata-combinetuple-kt:2.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
+    implementation 'io.github.florent37:shapeofview:1.4.7'
     implementation "com.google.android.material:material:1.6.1"
     implementation("org.greenrobot:eventbus:3.3.1")
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'

@@ -7,22 +7,32 @@
     android:background="@color/backgroundapp"
     android:clipChildren="false">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <io.github.florent37.shapeofview.shapes.ArcView
+        android:id="@+id/arcView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="16dp"
-        app:elevation="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="76dp"
+        android:background="@drawable/main_gradient_drawable"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shape_arc_height="10dp"
+        app:shape_arc_position="bottom">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/myToolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/main_gradient_drawable"
-            app:titleTextColor="@color/white" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginBottom="7dp"
+                android:paddingBottom="7dp"
+                app:titleTextAppearance="@style/Toolbar.TitleText"
+                app:titleTextColor="@color/white" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </io.github.florent37.shapeofview.shapes.ArcView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -31,8 +41,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
@@ -40,10 +50,10 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/snackbarContainer"
         android:layout_width="0dp"
-        android:elevation="20dp"
-        android:translationZ="20dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="65dp"
+        android:elevation="20dp"
+        android:translationZ="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -53,11 +63,12 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/arcView"
         app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

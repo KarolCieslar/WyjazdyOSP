@@ -1,87 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardView"
+    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/carItemSection"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingHorizontal="8dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_car"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Jakaś nazwa samochodu" />
+
+        <ImageView
+            android:id="@+id/selectedIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_selectbird"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandable_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:el_duration="500"
+        app:el_expanded="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingHorizontal="15dp">
-
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_car"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/inter_semibold"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Jakaś nazwa samochodu" />
-
-            <ImageView
-                android:id="@+id/arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
-            android:paddingHorizontal="5dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/firemanRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:el_duration="500"
-            app:el_expanded="true">
+            android:paddingBottom="10dp"
+            tools:listitem="@layout/item_add_action_fireman" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/firemanRecyclerView"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_add_action_fireman" />
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="25dp"
+            android:fontFamily="@font/inter_semibold"
+            android:paddingBottom="10dp"
+            android:text="BRAK WOLNYCH RATOWNIKÓW! \nKTÓRZY MOGĄ ZOSTAĆ ROZDYSPONOWANI"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/emptyView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="25dp"
-                android:fontFamily="@font/inter_semibold"
-                android:paddingBottom="10dp"
-                android:text="BRAK WOLNYCH RATOWNIKÓW! \nKTÓRZY MOGĄ ZOSTAĆ ROZDYSPONOWANI"
-                android:textAlignment="center"
-                android:textColor="@color/red"
-                android:visibility="gone" />
-
-        </net.cachapa.expandablelayout.ExpandableLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </net.cachapa.expandablelayout.ExpandableLayout>
+</LinearLayout>

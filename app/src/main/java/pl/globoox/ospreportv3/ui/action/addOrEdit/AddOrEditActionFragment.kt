@@ -5,10 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import org.greenrobot.eventbus.EventBus
@@ -16,15 +14,13 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import pl.globoox.ospreportv3.databinding.FragmentAddOrEditActionBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
-import pl.globoox.ospreportv3.eventbus.ShowChooseFunctionDialog
-import pl.globoox.ospreportv3.eventbus.UpdateFiremanFunction
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 
 
 class AddOrEditActionFragment : Fragment() {
 
     val viewModel: AddActionViewModel by viewModels()
-    val args: AddOrEditActionFragmentArgs by navArgs()
+    private val args: AddOrEditActionFragmentArgs by navArgs()
     private var _binding: FragmentAddOrEditActionBinding? = null
     private val binding get() = _binding!!
     private var currentStep = StepNumber.FIRST
@@ -55,19 +51,6 @@ class AddOrEditActionFragment : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: SetCurrentViewPagerItem?) {
         setCurrentStep(event!!.stepNumber)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: ShowChooseFunctionDialog?) {
-        binding.chooseFunctionView.isVisible = true
-        binding.darknessView.isVisible = true
-        binding.chooseFunctionView.setFireman(event!!.fireman)
-        binding.darknessView.setOnClickListener {
-            Log.d("asasddsa", "onMessageEvent RUN")
-            EventBus.getDefault().post(UpdateFiremanFunction(event.fireman))
-            binding.chooseFunctionView.isVisible = false
-            binding.darknessView.isVisible = false
-        }
     }
 
     private fun setupViewPager() {

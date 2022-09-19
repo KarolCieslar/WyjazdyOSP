@@ -26,8 +26,8 @@
     <string name="removed_successfully">Usunięto obiekt z listy</string>
 
     <string name="add_action_step_first_description">Uzupełnij wszystkie informacje o zdarzeniu.</string>
-    <string name="add_action_step_second_description">Wybierz pojazdy oraz sprzęt jaki brał udział w akcji.</string>
-    <string name="add_action_step_third_description">Kliknij na pojazd aby dodać obsadę. Aby wybrać kierowcę lub dowódcę kliknij na konkretnego ratownika. Ikona samochodu oznacza, że ratownik dojechał własnym transportem na miejsce akcji.</string>
+    <string name="add_action_step_second_description">Wybierz sprzęt oraz pojazdy biorące udział w akcji.</string>
+    <string name="add_action_step_third_description">Zaznacz druhów, którzy brali udział w akcji. Nie zapomnij wybrać dowódcy oraz kierowcy. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.</string>
     <string name="add_action_empty_view_main">Brak samochodów!</string>
     <string name="add_action_empty_view_additional_description">Przejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
 

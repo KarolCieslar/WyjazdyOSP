@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ViewDateTimeFormFieldBinding
 
@@ -22,6 +23,7 @@ class DateTimeFormFieldView : FrameLayout {
         val icon: Drawable? = a.getDrawable(R.styleable.DateTimeFormFieldView_custom_iconDrawable)
 
         binding.label.text = textLabel
+        binding.label.isVisible = textLabel != null
         binding.icon.setImageDrawable(icon)
     }
 
@@ -33,5 +35,9 @@ class DateTimeFormFieldView : FrameLayout {
 
     fun getValue() : String {
        return binding.value.text.toString()
+    }
+
+    fun showLabel() {
+       binding.label.isVisible = true
     }
 }

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import org.greenrobot.eventbus.EventBus
@@ -22,7 +24,7 @@ import pl.globoox.ospreportv3.utils.mergeList
 import pl.globoox.ospreportv3.utils.setHorizontalMargin
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
-import pl.globoox.ospreportv3.views.MarginItemDecoration
+
 
 class StepSecondFragment(
     val action: Action? = null
@@ -32,6 +34,7 @@ class StepSecondFragment(
     private var _binding: FragmentStepSecondBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: StepSecondAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,9 +70,13 @@ class StepSecondFragment(
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.addItemDecoration(
-            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin16))
+        val horizontalDecoration = DividerItemDecoration(
+            recyclerView.context,
+            DividerItemDecoration.VERTICAL
         )
+        val horizontalDivider = ContextCompat.getDrawable(requireContext(), R.drawable.horizontal_divider_line)
+        horizontalDecoration.setDrawable(horizontalDivider!!)
+        recyclerView.addItemDecoration(horizontalDecoration)
     }
 
     private fun isFormValid(): Boolean {
@@ -95,15 +102,14 @@ class StepSecondFragment(
             binding.cancelButton.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 startToStart = binding.constraintLayout.id
                 endToEnd = binding.constraintLayout.id
-                topToBottom = binding.emptyView.id
+                bottomToBottom = binding.constraintLayout.id
             }
             binding.cancelButton.setHorizontalMargin(R.dimen.margin70)
         } else {
             binding.cancelButton.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 startToStart = binding.constraintLayout.id
                 endToEnd = binding.guidelineCenter.id
-                topToTop = ConstraintLayout.LayoutParams.UNSET
-                topToBottom = binding.recyclerView.id
+                bottomToBottom = binding.constraintLayout.id
             }
             binding.cancelButton.setHorizontalMargin(R.dimen.margin10)
         }

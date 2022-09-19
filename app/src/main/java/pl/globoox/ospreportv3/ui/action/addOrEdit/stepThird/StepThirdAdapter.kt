@@ -1,24 +1,23 @@
 package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import net.cachapa.expandablelayout.ExpandableLayout
+import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemAddActionCarBinding
-import pl.globoox.ospreportv3.eventbus.UpdateFiremanFunction
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
 
 
 class StepThirdAdapter(
-    val onFiremanItemClick: ((fireman: Fireman) -> Unit),
     val recyclerView: RecyclerView
 ) : RecyclerView.Adapter<StepThirdAdapter.ViewHolder>() {
 
@@ -27,10 +26,6 @@ class StepThirdAdapter(
     private var allFiremansList: List<Fireman> = emptyList()
     private lateinit var context: Context
     private lateinit var firemansAdapter: FiremanRecyclerAdapter
-
-    init {
-        EventBus.getDefault().register(this@StepThirdAdapter)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         this.context = parent.context
@@ -51,11 +46,12 @@ class StepThirdAdapter(
     }
 
 
-    inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+    inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener {
 
         init {
             binding.expandableLayout.setInterpolator(OvershootInterpolator())
-            binding.cardView.setOnClickListener(this)
+            binding.expandableLayout.setOnExpansionUpdateListener(this)
+            binding.item.setOnClickListener(this)
             prepareAdapterAndSetData(binding, adapterPosition)
             binding.firemanRecyclerView.layoutManager = LinearLayoutManager(context)
         }
@@ -64,49 +60,51 @@ class StepThirdAdapter(
             val position = adapterPosition
             val isSelected = position == currentExpandedCar
             binding.name.text = itemList[position].name
-            binding.cardView.isSelected = isSelected
+            binding.item.isSelected = isSelected
             binding.expandableLayout.setExpanded(isSelected, false)
             prepareAdapterAndSetData(binding, position)
+            if (isSelected) binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
         }
 
-        override fun onClick(view: View) {
-            // TODO(reason = "Czasami rozsunięte są dwie akcje!")
-            val holder = recyclerView.findViewHolderForAdapterPosition(currentExpandedCar) as ViewHolder?
-            if (holder != null) {
-                holder.binding.arrow.rotation = 0f
-                holder.binding.cardView.isSelected = false
-                holder.binding.expandableLayout.collapse()
+        override fun onClick(view: View?) {
+            repeat(itemList.size) {
+                val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
+                if (holder != null) {
+                    holder.binding.item.isSelected = false
+                    holder.binding.expandableLayout.collapse()
+                    holder.binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                }
             }
             val position = adapterPosition
             if (position == currentExpandedCar) {
                 currentExpandedCar = UNSELECTED
-                binding.arrow.rotation = 0f
+                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
             } else {
-                binding.cardView.isSelected = true
+                binding.item.isSelected = true
                 binding.expandableLayout.expand()
-                binding.arrow.rotation = 180f
                 currentExpandedCar = position
+                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
             }
             prepareAdapterAndSetData(binding, adapterPosition)
+        }
+
+
+        override fun onExpansionUpdate(expansionFraction: Float, state: Int) {
+            Log.d("ExpandableLayout", "State: $state")
+            if (state == ExpandableLayout.State.EXPANDING) {
+                recyclerView.smoothScrollToPosition(adapterPosition)
+            }
         }
     }
 
     private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, position: Int) {
         firemansAdapter = FiremanRecyclerAdapter(
-            onItemClick = { fireman -> onFiremanItemClick(fireman) },
             onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, position, isChecked) }
         )
         binding.firemanRecyclerView.adapter = firemansAdapter
         val filteredItems = getFilteredFiremans(position)
         binding.emptyView.isVisible = filteredItems.isEmpty()
         firemansAdapter.setData(filteredItems)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: UpdateFiremanFunction?) {
-        // TODO(reason = "Zrobić aby tylko jedna osoba mogła mieć COMMANDERA oraz KIEROWCĘ")
-        val copyList = getFilteredFiremans(currentExpandedCar)
-        firemansAdapter.setData(copyList)
     }
 
     private fun changeFiremanSelectStatus(fireman: Fireman, position: Int, isSelected: Boolean) {
@@ -129,11 +127,10 @@ class StepThirdAdapter(
     }
 
     companion object {
-        private const val UNSELECTED = -1
+        private const val UNSELECTED = 0
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        EventBus.getDefault().unregister(this@StepThirdAdapter)
     }
 }
