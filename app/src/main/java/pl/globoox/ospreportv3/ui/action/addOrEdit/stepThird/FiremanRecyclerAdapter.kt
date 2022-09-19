@@ -2,12 +2,12 @@ package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
@@ -42,29 +42,30 @@ class FiremanRecyclerAdapter(
                 onCheckBoxChange(fireman, binding.checkbox.isChecked)
             }
             binding.name.setOnClickListener {
+                binding.checkbox.isChecked = !binding.checkbox.isChecked
                 onCheckBoxChange(fireman, binding.checkbox.isChecked)
             }
             binding.commanderIcon.apply {
-                setOnClickListener { onFunctionIconClick(it, fireman, FiremanFunction.COMMANDER) }
+                setOnClickListener { onFunctionIconClick(it as ImageView, fireman, FiremanFunction.COMMANDER) }
                 backgroundTintList = getIconColorStateList(fireman, FiremanFunction.COMMANDER)
             }
             binding.driverIcon.apply {
-                setOnClickListener { onFunctionIconClick(it, fireman, FiremanFunction.DRIVER) }
+                setOnClickListener { onFunctionIconClick(it as ImageView, fireman, FiremanFunction.DRIVER) }
                 backgroundTintList = getIconColorStateList(fireman, FiremanFunction.DRIVER)
             }
             binding.ownCarIcon.apply {
-                setOnClickListener { onFunctionIconClick(it, fireman, FiremanFunction.OWNCAR) }
+                setOnClickListener { onFunctionIconClick(it as ImageView, fireman, FiremanFunction.OWNCAR) }
                 backgroundTintList = getIconColorStateList(fireman, FiremanFunction.OWNCAR)
             }
         }
     }
 
-    private fun onFunctionIconClick(view: View, fireman: Fireman, firemanFunction: FiremanFunction) {
+    private fun onFunctionIconClick(view: ImageView, fireman: Fireman, firemanFunction: FiremanFunction) {
         if (fireman.functions!!.contains(firemanFunction)) {
-            view.setBackgroundResource(R.drawable.function_not_selected_button_background)
+            view.setColorFilter(ContextCompat.getColor(context, R.color.black100), PorterDuff.Mode.SRC_IN)
             fireman.functions!!.remove(firemanFunction)
         } else {
-            view.setBackgroundResource(R.drawable.function_selected_button_background)
+            view.setColorFilter(ContextCompat.getColor(context, R.color.black), PorterDuff.Mode.SRC_IN)
             fireman.functions!!.add(firemanFunction)
         }
         notifyDataSetChanged()

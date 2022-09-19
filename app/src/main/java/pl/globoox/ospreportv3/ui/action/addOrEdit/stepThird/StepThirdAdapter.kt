@@ -67,19 +67,19 @@ class StepThirdAdapter(
         }
 
         override fun onClick(view: View?) {
+            val position = adapterPosition
             repeat(itemList.size) {
-                val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
-                if (holder != null) {
-                    holder.binding.item.isSelected = false
-                    holder.binding.expandableLayout.collapse()
-                    holder.binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                if (it != position) {
+                    val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
+                    if (holder != null) {
+                        holder.binding.item.isSelected = false
+                        holder.binding.expandableLayout.collapse()
+                        holder.binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                    }
                 }
             }
-            val position = adapterPosition
-            if (position == currentExpandedCar) {
-                currentExpandedCar = UNSELECTED
-                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
-            } else {
+            if (position != currentExpandedCar) {
+                Log.d("adsadsasd", "2222")
                 binding.item.isSelected = true
                 binding.expandableLayout.expand()
                 currentExpandedCar = position
@@ -128,9 +128,5 @@ class StepThirdAdapter(
 
     companion object {
         private const val UNSELECTED = 0
-    }
-
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
     }
 }

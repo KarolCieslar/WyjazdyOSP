@@ -1,4 +1,4 @@
-package pl.globoox.ospreportv3.ui.forces.cars
+package pl.globoox.ospreportv3.ui.forces.view
 
 import android.content.Context
 import android.view.Gravity
@@ -10,13 +10,12 @@ import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemForcesCarListBinding
 import pl.globoox.ospreportv3.model.Car
 
-class CarListAdapter(
-    val onItemClick: ((car: Car) -> Unit),
-    val onRemoveClick: ((car: Car) -> Unit),
-    val onEditClick: ((car: Car) -> Unit)
-) : RecyclerView.Adapter<CarListAdapter.MyViewHolder>() {
+class ViewPagerListAdapter(
+    val onItemClick: ((item: Any) -> Unit),
+    val onEditClick: ((item: Any) -> Unit)
+) : RecyclerView.Adapter<ViewPagerListAdapter.MyViewHolder>() {
 
-    private var carList: List<Car> = emptyList()
+    private var itemList: List<Any> = emptyList()
     private lateinit var context: Context
 
     inner class MyViewHolder(val binding: ItemForcesCarListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -29,26 +28,14 @@ class CarListAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder){
-            with(carList[position]){
-                binding.name.text = this.name
+            with(itemList[position]){
+//                binding.name.text = this.name
                 binding.item.setOnClickListener {
                     onItemClick(this)
                 }
 
                 binding.optionsIcon.setOnClickListener {
-                    val popupMenu = PopupMenu(context, binding.optionsIcon)
-                    popupMenu.gravity = Gravity.END;
-                    popupMenu.menuInflater.inflate(R.menu.popup_forces_menu, popupMenu.menu)
-                    popupMenu.setOnMenuItemClickListener { item ->
-                        when (item.itemId) {
-                            R.id.remove ->
-                                onRemoveClick(this)
-                            R.id.edit ->
-                                onEditClick(this)
-                        }
-                        true
-                    }
-                    popupMenu.show()
+                    onEditClick(this)
                 }
 
             }
@@ -56,11 +43,11 @@ class CarListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return carList.size
+        return itemList.size
     }
 
-    fun setData(carList: List<Car>) {
-        this.carList = carList
+    fun setData(itemList: List<Any>) {
+        this.itemList = itemList
         notifyDataSetChanged()
     }
 }

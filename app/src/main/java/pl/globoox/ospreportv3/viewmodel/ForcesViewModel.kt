@@ -37,57 +37,33 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
         equipmentList = equipmentRepository.getAllEquipment
     }
 
-    fun addCar(car: Car) {
+    fun addItem(item: Any) {
         viewModelScope.launch(Dispatchers.IO) {
-            carRepository.addCar(car)
+            when (item) {
+                is Car -> carRepository.addCar(item)
+                is Fireman -> firemanRepository.addFireman(item)
+                is Equipment -> equipmentRepository.addEquipment(item)
+            }
         }
     }
 
-    fun editCar(car: Car) {
+    fun editItem(item: Any) {
         viewModelScope.launch(Dispatchers.IO) {
-            carRepository.editCar(car)
+            when (item) {
+                is Car -> carRepository.editCar(item)
+                is Fireman -> firemanRepository.editFireman(item)
+                is Equipment -> equipmentRepository.editEquipment(item)
+            }
         }
     }
 
-    fun removeCar(car: Car) {
+    fun removeItem(item: Any) {
         viewModelScope.launch(Dispatchers.IO) {
-            carRepository.removeCar(car)
-        }
-    }
-
-    fun addFireman(fireman: Fireman) {
-        viewModelScope.launch(Dispatchers.IO) {
-            firemanRepository.addFireman(fireman)
-        }
-    }
-
-    fun editFireman(fireman: Fireman) {
-        viewModelScope.launch(Dispatchers.IO) {
-            firemanRepository.editFireman(fireman)
-        }
-    }
-
-    fun removeFireman(fireman: Fireman) {
-        viewModelScope.launch(Dispatchers.IO) {
-            firemanRepository.removeFireman(fireman)
-        }
-    }
-
-    fun addEquipment(equipment: Equipment) {
-        viewModelScope.launch(Dispatchers.IO) {
-            equipmentRepository.addEquipment(equipment)
-        }
-    }
-
-    fun editEquipment(equipment: Equipment) {
-        viewModelScope.launch(Dispatchers.IO) {
-            equipmentRepository.editEquipment(equipment)
-        }
-    }
-
-    fun removeEquipment(equipment: Equipment) {
-        viewModelScope.launch(Dispatchers.IO) {
-            equipmentRepository.removeEquipment(equipment)
+            when (item) {
+                is Car -> carRepository.removeCar(item)
+                is Fireman -> firemanRepository.removeFireman(item)
+                is Equipment -> equipmentRepository.removeEquipment(item)
+            }
         }
     }
 }
