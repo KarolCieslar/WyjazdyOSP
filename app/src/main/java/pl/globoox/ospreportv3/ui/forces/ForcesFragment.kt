@@ -47,6 +47,4 @@ class ForcesFragment : Fragment() {
         val adapter = ForcesViewPagerAdapter(requireActivity(), 3)
         binding.viewPager.adapter = adapter
     }
-    // TOdo: Można dodawać puste stringi
-    // Todo: Można dodawać takie same nazwy
 }

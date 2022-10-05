@@ -32,4 +32,11 @@ class PrimaryButtonView : FrameLayout {
     fun setClickListener(action: (() -> Unit)) {
         binding.button.setOnClickListener { action() }
     }
+
+    fun setPrimaryButtonEnable(enable: Boolean) {
+        binding.button.apply {
+            isClickable = enable
+            isEnabled = enable
+        }
+    }
 }

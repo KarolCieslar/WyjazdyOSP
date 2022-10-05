@@ -25,7 +25,6 @@ class StepThirdAdapter(
     private var itemList: List<Car> = emptyList()
     private var allFiremansList: List<Fireman> = emptyList()
     private lateinit var context: Context
-    private lateinit var firemansAdapter: FiremanRecyclerAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         this.context = parent.context
@@ -48,6 +47,8 @@ class StepThirdAdapter(
 
     inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener {
 
+        private lateinit var firemansAdapter: FiremanRecyclerAdapter
+
         init {
             binding.expandableLayout.setInterpolator(OvershootInterpolator())
             binding.expandableLayout.setOnExpansionUpdateListener(this)
@@ -66,6 +67,42 @@ class StepThirdAdapter(
             if (isSelected) binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
         }
 
+        private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, position: Int) {
+            firemansAdapter = FiremanRecyclerAdapter(
+                onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, position, isChecked) },
+                onFunctionIconClick = { fireman, function -> changeFiremanFunction(allFiremansList.first { it == fireman }, function, position) },
+                adapterPosition = position
+            )
+            binding.firemanRecyclerView.adapter = firemansAdapter
+            val filteredItems = getFilteredFiremans(position)
+            binding.emptyView.isVisible = filteredItems.isEmpty()
+            firemansAdapter.setData(filteredItems)
+        }
+
+        private fun changeFiremanSelectStatus(fireman: Fireman, position: Int, isSelected: Boolean) {
+            allFiremansList.first { it == fireman }.selectStatus = if (isSelected) position else null
+            firemansAdapter.setData(getFilteredFiremans(position))
+        }
+
+        private fun changeFiremanFunction(fireman: Fireman, function: FiremanFunction, position: Int) {
+            val filteredFiremans = getFilteredFiremans(position).toMutableList()
+            val firemanFunctions = fireman.functions[position] ?: mutableListOf()
+            if (firemanFunctions.contains(function)) {
+                firemanFunctions.remove(function)
+            } else {
+                if (function != FiremanFunction.OWNCAR) {
+                    filteredFiremans.forEach {
+                        val thisFiremanFunctions = it.functions[position] ?: mutableListOf()
+                        thisFiremanFunctions.remove(function)
+                        it.functions[position] = thisFiremanFunctions
+                    }
+                }
+                firemanFunctions.add(function)
+                fireman.functions[position] = firemanFunctions
+            }
+            firemansAdapter.setData(filteredFiremans)
+        }
+
         override fun onClick(view: View?) {
             val position = adapterPosition
             repeat(itemList.size) {
@@ -79,7 +116,6 @@ class StepThirdAdapter(
                 }
             }
             if (position != currentExpandedCar) {
-                Log.d("adsadsasd", "2222")
                 binding.item.isSelected = true
                 binding.expandableLayout.expand()
                 currentExpandedCar = position
@@ -88,28 +124,12 @@ class StepThirdAdapter(
             prepareAdapterAndSetData(binding, adapterPosition)
         }
 
-
         override fun onExpansionUpdate(expansionFraction: Float, state: Int) {
             Log.d("ExpandableLayout", "State: $state")
             if (state == ExpandableLayout.State.EXPANDING) {
                 recyclerView.smoothScrollToPosition(adapterPosition)
             }
         }
-    }
-
-    private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, position: Int) {
-        firemansAdapter = FiremanRecyclerAdapter(
-            onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, position, isChecked) }
-        )
-        binding.firemanRecyclerView.adapter = firemansAdapter
-        val filteredItems = getFilteredFiremans(position)
-        binding.emptyView.isVisible = filteredItems.isEmpty()
-        firemansAdapter.setData(filteredItems)
-    }
-
-    private fun changeFiremanSelectStatus(fireman: Fireman, position: Int, isSelected: Boolean) {
-        allFiremansList.first { it == fireman }.selectStatus = if (isSelected) position else null
-        firemansAdapter.setData(getFilteredFiremans(position))
     }
 
     fun setCars(list: List<Car>) {

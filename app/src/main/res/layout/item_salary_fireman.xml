@@ -1,79 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    android:padding="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:alpha="0.6"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="1" />
 
-        <TextView
-            android:id="@+id/position"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/black400"
-            android:alpha="0.7"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="#1" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/salary"
+        app:layout_constraintStart_toEndOf="@+id/position"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Jakaś nazwa strażaka" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black400"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/position"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Jakaś nazwa strażaka" />
+    <TextView
+        android:id="@+id/actionCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/position"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:text="Liczba akcji: 20" />
 
-        <TextView
-            android:id="@+id/actionCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black400"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/position"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="Liczba akcji: 20" />
+    <TextView
+        android:id="@+id/hoursCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/position"
+        app:layout_constraintTop_toBottomOf="@+id/actionCount"
+        tools:text="Liczba godzin: 15" />
 
-        <TextView
-            android:id="@+id/hoursCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black400"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/position"
-            app:layout_constraintTop_toBottomOf="@+id/actionCount"
-            tools:text="Liczba godzin: 15" />
+    <TextView
+        android:id="@+id/salary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="425 zł " />
 
-        <TextView
-            android:id="@+id/salary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/black400"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="425 zł" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

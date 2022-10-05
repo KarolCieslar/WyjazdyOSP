@@ -45,8 +45,8 @@ class ListActionAdapter(
                 binding.actionTime.text = "(${diffText})"
 
                 binding.crevList.removeAllViews()
-                action.carsInAction.forEach { carInAction ->
-                    binding.crevList.addView(CarInActionItemView(context, carInAction.car.name!!, carInAction.firemans))
+                action.carsInAction.forEachIndexed { index, carInAction ->
+                    binding.crevList.addView(CarInActionItemView(context, carInAction.car.name!!, carInAction.firemans, index))
                 }
 
                 binding.descriptionLabel.isVisible = !action.description.isNullOrBlank()

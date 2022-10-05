@@ -9,6 +9,6 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "cars")
 data class Car(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val name: String?,
-) : Parcelable
+    override val id: Int,
+    override val name: String,
+) : Parcelable, Forces

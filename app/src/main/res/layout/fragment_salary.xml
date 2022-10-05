@@ -7,45 +7,90 @@
     android:layout_marginTop="15dp"
     tools:context=".MainActivity">
 
-    <!-- OUT DATE -->
+    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+        android:id="@+id/quarterSelect"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/boxForQuarter"
+        app:layout_constraintEnd_toEndOf="@+id/boxForQuarter"
+        app:layout_constraintStart_toStartOf="@+id/boxForQuarter"
+        app:layout_constraintTop_toTopOf="@+id/boxForQuarter"
+        app:smsp_floatingLabelColor="#1976D2"
+        app:smsp_floatingLabelText="Floating Label Text"
+        app:smsp_hint="Kwartał"
+        app:smsp_isOutlined="true"
+        app:smsp_itemColor="#512DA8"
+        app:smsp_itemListColor="#7C4DFF"
+        app:smsp_itemListHintBackgroundColor="#808080"
+        app:smsp_itemListHintColor="#FFFFFF"
+        app:smsp_outlinedBoxColor="@color/black100"
+        app:smsp_selectedItemListColor="#FF5252" />
+
+    <View
+        android:id="@+id/boxForQuarter"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/openDateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <pl.globoox.ospreportv3.views.DateTimeFormFieldView
         android:id="@+id/fromDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginEnd="5dp"
         app:custom_iconDrawable="@drawable/ic_calendar"
         app:custom_labelText="Data od"
         app:layout_constraintEnd_toStartOf="@+id/toDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
 
     <pl.globoox.ospreportv3.views.DateTimeFormFieldView
         android:id="@+id/toDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin16"
         app:custom_iconDrawable="@drawable/ic_calendar"
         app:custom_labelText="Data do"
-        app:layout_constraintEnd_toStartOf="@+id/salaryValueEdit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fromDate"
+        app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
+
+    <ImageView
+        android:id="@+id/openDateButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/open_date_select_button_drawable"
+        android:padding="12dp"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintEnd_toStartOf="@+id/salaryValueEdit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/salaryValueEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:padding="10dp"
-        android:src="@drawable/ic_options"
-        app:layout_constraintBottom_toBottomOf="@id/fromDate"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_salary_options"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fromDate" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin16"
         android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,5 +112,5 @@
         android:id="@+id/viewGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="recyclerView, toDate, fromDate, salaryValueEdit" />
+        app:constraint_referenced_ids="recyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

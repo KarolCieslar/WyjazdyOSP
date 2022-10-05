@@ -14,13 +14,14 @@ class CarInActionItemView (
     context: Context,
     carName: String,
     firemanList: List<Fireman>,
+    carAdapterPosition: Int,
 ) : FrameLayout(context) {
 
     private val binding = ViewCarInActionBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         binding.carName.text = carName
-        val adapter = FiremansInActionAdapter()
+        val adapter = FiremansInActionAdapter(carAdapterPosition)
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)

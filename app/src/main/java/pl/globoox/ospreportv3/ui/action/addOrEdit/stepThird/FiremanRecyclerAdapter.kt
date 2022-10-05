@@ -1,12 +1,9 @@
 package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.PorterDuff
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +12,9 @@ import pl.globoox.ospreportv3.databinding.ItemAddActionFiremanBinding
 import pl.globoox.ospreportv3.model.Fireman
 
 class FiremanRecyclerAdapter(
-    val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit)
+    val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit),
+    val onFunctionIconClick: ((fireman: Fireman, firemanFunction: FiremanFunction) -> Unit),
+    private val adapterPosition: Int
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -46,33 +45,23 @@ class FiremanRecyclerAdapter(
                 onCheckBoxChange(fireman, binding.checkbox.isChecked)
             }
             binding.commanderIcon.apply {
-                setOnClickListener { onFunctionIconClick(it as ImageView, fireman, FiremanFunction.COMMANDER) }
-                backgroundTintList = getIconColorStateList(fireman, FiremanFunction.COMMANDER)
+                setOnClickListener { onFunctionIconClick(fireman, FiremanFunction.COMMANDER) }
+                setColorFilter(getIconSelectStatus(fireman, FiremanFunction.COMMANDER))
             }
             binding.driverIcon.apply {
-                setOnClickListener { onFunctionIconClick(it as ImageView, fireman, FiremanFunction.DRIVER) }
-                backgroundTintList = getIconColorStateList(fireman, FiremanFunction.DRIVER)
+                setOnClickListener { onFunctionIconClick(fireman, FiremanFunction.DRIVER) }
+                setColorFilter(getIconSelectStatus(fireman, FiremanFunction.DRIVER))
             }
             binding.ownCarIcon.apply {
-                setOnClickListener { onFunctionIconClick(it as ImageView, fireman, FiremanFunction.OWNCAR) }
-                backgroundTintList = getIconColorStateList(fireman, FiremanFunction.OWNCAR)
+                setOnClickListener { onFunctionIconClick(fireman, FiremanFunction.OWNCAR) }
+                setColorFilter(getIconSelectStatus(fireman, FiremanFunction.OWNCAR))
             }
         }
     }
 
-    private fun onFunctionIconClick(view: ImageView, fireman: Fireman, firemanFunction: FiremanFunction) {
-        if (fireman.functions!!.contains(firemanFunction)) {
-            view.setColorFilter(ContextCompat.getColor(context, R.color.black100), PorterDuff.Mode.SRC_IN)
-            fireman.functions!!.remove(firemanFunction)
-        } else {
-            view.setColorFilter(ContextCompat.getColor(context, R.color.black), PorterDuff.Mode.SRC_IN)
-            fireman.functions!!.add(firemanFunction)
-        }
-        notifyDataSetChanged()
-    }
-
-    private fun getIconColorStateList(fireman: Fireman, firemanFunction: FiremanFunction): ColorStateList {
-        return ColorStateList.valueOf(ContextCompat.getColor(context, if (fireman.functions?.contains(firemanFunction) == true) R.color.black100 else R.color.black))
+    private fun getIconSelectStatus(fireman: Fireman, firemanFunction: FiremanFunction): Int {
+        val firemanFunctions = fireman.functions[adapterPosition]
+        return ContextCompat.getColor(context, if (firemanFunctions?.contains(firemanFunction) == true) R.color.black else R.color.black100)
     }
 
     override fun getItemCount(): Int {

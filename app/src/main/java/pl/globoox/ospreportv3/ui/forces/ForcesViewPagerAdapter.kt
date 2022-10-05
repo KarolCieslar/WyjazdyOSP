@@ -3,7 +3,7 @@ package pl.globoox.ospreportv3.ui.forces
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import pl.globoox.ospreportv3.ui.forces.view.ViewPagerFragment
+import pl.globoox.ospreportv3.ui.forces.view.ForcesViewPagerFragment
 
 class ForcesViewPagerAdapter(fragmentActivity: FragmentActivity, private var totalCount: Int) :
     FragmentStateAdapter(fragmentActivity) {
@@ -14,13 +14,13 @@ class ForcesViewPagerAdapter(fragmentActivity: FragmentActivity, private var tot
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ViewPagerFragment(ForcesDataType.CAR)
-            1 -> ViewPagerFragment(ForcesDataType.FIREMAN)
-            else -> ViewPagerFragment(ForcesDataType.EQUIPMENT)
+            0 -> ForcesViewPagerFragment(ForcesDataType.CAR)
+            1 -> ForcesViewPagerFragment(ForcesDataType.FIREMAN)
+            else -> ForcesViewPagerFragment(ForcesDataType.EQUIPMENT)
         }
     }
+}
 
-    enum class ForcesDataType {
-        CAR, FIREMAN, EQUIPMENT;
-    }
+enum class ForcesDataType {
+    CAR, FIREMAN, EQUIPMENT;
 }

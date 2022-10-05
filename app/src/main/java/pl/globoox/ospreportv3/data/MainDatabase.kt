@@ -29,7 +29,7 @@ abstract class MainDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MainDatabase::class.java,
-                    "main_database_szesc"
+                    "main_database_osiem"
                 ).build()
                 INSTANCE = instance
                 return instance

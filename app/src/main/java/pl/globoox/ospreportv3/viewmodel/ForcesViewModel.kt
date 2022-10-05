@@ -4,14 +4,12 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.data.MainDatabase
-import pl.globoox.ospreportv3.model.Action
-import pl.globoox.ospreportv3.model.Car
-import pl.globoox.ospreportv3.model.Equipment
+import pl.globoox.ospreportv3.model.*
 import pl.globoox.ospreportv3.repository.CarRepository
 import pl.globoox.ospreportv3.repository.EquipmentRepository
 import pl.globoox.ospreportv3.repository.FiremanRepository
+import pl.globoox.ospreportv3.ui.forces.ForcesDataType
 
 class ForcesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -37,27 +35,27 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
         equipmentList = equipmentRepository.getAllEquipment
     }
 
-    fun addItem(item: Any) {
+    fun addItem(forcesType: ForcesDataType, name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (item) {
-                is Car -> carRepository.addCar(item)
-                is Fireman -> firemanRepository.addFireman(item)
-                is Equipment -> equipmentRepository.addEquipment(item)
+            when (forcesType) {
+                ForcesDataType.CAR -> carRepository.addCar(Car(0, name))
+                ForcesDataType.FIREMAN -> firemanRepository.addFireman(Fireman(0, name))
+                ForcesDataType.EQUIPMENT -> equipmentRepository.addEquipment(Equipment(0, name))
             }
         }
     }
 
-    fun editItem(item: Any) {
+    fun editItem(forcesType: ForcesDataType, itemId: Int, name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (item) {
-                is Car -> carRepository.editCar(item)
-                is Fireman -> firemanRepository.editFireman(item)
-                is Equipment -> equipmentRepository.editEquipment(item)
+            when (forcesType) {
+                ForcesDataType.CAR -> carRepository.editCar(Car(itemId, name))
+                ForcesDataType.FIREMAN -> firemanRepository.editFireman(Fireman(itemId, name))
+                ForcesDataType.EQUIPMENT -> equipmentRepository.editEquipment(Equipment(itemId, name))
             }
         }
     }
 
-    fun removeItem(item: Any) {
+    fun removeItem(item: Forces) {
         viewModelScope.launch(Dispatchers.IO) {
             when (item) {
                 is Car -> carRepository.removeCar(item)

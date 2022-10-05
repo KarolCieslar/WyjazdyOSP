@@ -5,12 +5,11 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
+import android.text.Html
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import pl.globoox.ospreportv3.R
-import pl.globoox.ospreportv3.databinding.ViewAddForcesDialogBinding
 import pl.globoox.ospreportv3.databinding.ViewConfirmDialogBinding
 
 
@@ -26,7 +25,7 @@ class ConfirmDialogView @JvmOverloads constructor(
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val back = ColorDrawable(Color.TRANSPARENT)
-        val inset = InsetDrawable(back, 60)
+        val inset = InsetDrawable(back, 50)
         dialog.window!!.setBackgroundDrawable(inset)
 
         binding.cancelButton.setClickListener { dialog.dismiss() }
@@ -38,7 +37,7 @@ class ConfirmDialogView @JvmOverloads constructor(
     }
 
     fun setDescription(text: String) {
-        binding.description.text = text
+        binding.description.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
     }
 
     fun setOnPrimaryButtonClickListener(action: (() -> Unit)) {

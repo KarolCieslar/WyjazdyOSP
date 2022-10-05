@@ -25,7 +25,7 @@ class SalaryValueDialogView(
         dialog.setContentView(binding.root)
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val back = ColorDrawable(Color.TRANSPARENT)
-        val inset = InsetDrawable(back, 60)
+        val inset = InsetDrawable(back, 50)
         dialog.window!!.setBackgroundDrawable(inset)
 
         binding.numberPicker.maxValue = 50

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird.FiremanFunction
 
@@ -11,9 +12,11 @@ import pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird.FiremanFunction
 @Entity(tableName = "fireman")
 data class Fireman(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val name: String
-) : Parcelable {
+    override val id: Int,
+    override val name: String
+) : Parcelable, Forces {
+    @IgnoredOnParcel
     @Ignore var selectStatus: Int? = null
-    @Ignore var functions: MutableList<FiremanFunction>? = mutableListOf()
+    @IgnoredOnParcel
+    @Ignore var functions: MutableMap<Int, MutableList<FiremanFunction>> = mutableMapOf()
 }

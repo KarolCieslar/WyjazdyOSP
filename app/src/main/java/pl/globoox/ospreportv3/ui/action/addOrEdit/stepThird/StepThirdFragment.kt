@@ -44,8 +44,8 @@ class StepThirdFragment : Fragment() {
         })
 
         viewModel.firemanList.observe(viewLifecycleOwner, Observer {
-            adapter.setFiremans(it!!)
-            // TODO Trzeba ogarnąć to, że ciągle operacje są na tej liveData, trzeba to robić inaczej.
+            val firemans = it.map { fireman -> fireman.copy() }
+            adapter.setFiremans(firemans)
             // TOdo: Podczas dodawanai nowej akcji trzeba dodać również sprzęt bo narazie są same samochody
         })
 
@@ -107,3 +107,5 @@ class StepThirdFragment : Fragment() {
         _binding = null
     }
 }
+
+// TOdo: Wszystkie fonty przystosować do figmy

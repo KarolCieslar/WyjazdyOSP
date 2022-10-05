@@ -9,7 +9,9 @@ import pl.globoox.ospreportv3.databinding.ItemFiremanInActionBinding
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird.FiremanFunction
 
-class FiremansInActionAdapter : RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
+class FiremansInActionAdapter(
+    private val carAdapterPosition: Int
+): RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
 
     private var firemanList: List<Fireman> = emptyList()
     private lateinit var context: Context
@@ -25,10 +27,11 @@ class FiremansInActionAdapter : RecyclerView.Adapter<FiremansInActionAdapter.MyV
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder) {
             with(firemanList[position]) {
+                val firemanFunctions = this.functions[carAdapterPosition]
                 binding.name.text = this.name
-                binding.commanderIcon.isVisible = this.functions?.contains(FiremanFunction.COMMANDER) ?: false
-                binding.driverIcon.isVisible = this.functions?.contains(FiremanFunction.DRIVER) ?: false
-                binding.ownCarIcon.isVisible = this.functions?.contains(FiremanFunction.OWNCAR) ?: false
+                binding.commanderIcon.isVisible = firemanFunctions?.contains(FiremanFunction.COMMANDER) ?: false
+                binding.driverIcon.isVisible = firemanFunctions?.contains(FiremanFunction.DRIVER) ?: false
+                binding.ownCarIcon.isVisible = firemanFunctions?.contains(FiremanFunction.OWNCAR) ?: false
             }
         }
     }

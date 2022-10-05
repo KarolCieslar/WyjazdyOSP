@@ -11,6 +11,9 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import org.greenrobot.eventbus.EventBus
+import pl.globoox.ospreportv3.MainActivity.Companion.dateFormatter
+import pl.globoox.ospreportv3.MainActivity.Companion.dateFormatterHelper
+import pl.globoox.ospreportv3.MainActivity.Companion.timeFormatter
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepFirstBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
@@ -28,12 +31,6 @@ import java.util.*
 class StepFirstFragment(
     val action: Action? = null
 ): Fragment() {
-
-    companion object {
-        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ROOT)
-        val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT)
-        val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
-    }
 
     private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepFirstBinding? = null // TODO: PRzebudować bo za długo się ładuje

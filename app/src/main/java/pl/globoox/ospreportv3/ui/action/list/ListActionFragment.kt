@@ -37,8 +37,6 @@ class ListActionFragment : Fragment() {
             MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin16))
         )
 
-        // TODO: Trzeba dodać searchView aby można było filtrować
-
         viewModel.actionList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isEmpty()
             if (it.isEmpty()) binding.emptyView.apply {
