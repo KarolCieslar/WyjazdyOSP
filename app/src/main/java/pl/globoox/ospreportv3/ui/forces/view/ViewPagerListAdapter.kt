@@ -5,9 +5,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemForcesListBinding
+import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Forces
 
@@ -16,7 +18,7 @@ class ViewPagerListAdapter(
     val onEditClick: ((item: Forces) -> Unit)
 ) : RecyclerView.Adapter<ViewPagerListAdapter.MyViewHolder>() {
 
-    private var itemList: List<Forces> = emptyList()
+    private var itemList: MutableList<Forces> = mutableListOf()
     private lateinit var context: Context
 
     inner class MyViewHolder(val binding: ItemForcesListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -48,12 +50,26 @@ class ViewPagerListAdapter(
         return itemList.size
     }
 
-    fun setItems(itemList: List<Forces>) {
-        this.itemList = itemList
-        notifyDataSetChanged()
+    fun setItems(newItemList: List<Forces>) {
+        val diffCallback = DiffUtils(itemList, newItemList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        itemList.clear()
+        itemList.addAll(newItemList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun getItems() : List<Forces> {
         return itemList
+    }
+
+    class DiffUtils(private val oldList: List<Forces>, private val newList: List<Forces>) : DiffUtil.Callback() {
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition] && oldItemPosition == newItemPosition
+        }
+        override fun getOldListSize() = oldList.size
+        override fun getNewListSize() = newList.size
     }
 }

@@ -122,7 +122,7 @@ class SalaryFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             while (recyclerView.itemDecorationCount > 0) {
-                recyclerView.removeItemDecorationAt(0);
+                recyclerView.removeItemDecorationAt(0)
             }
 
             val horizontalDecoration = DividerItemDecoration(
@@ -139,11 +139,12 @@ class SalaryFragment : Fragment() {
                 if (firemans != null && actions != null) {
                     binding.emptyView.isVisible = firemans.isEmpty()
                     binding.viewGroup.isVisible = firemans.isNotEmpty()
+                    changeSelectDateState(viewModel.dateButtonSelected)
                     if (firemans.isEmpty()) binding.emptyView.apply {
                         setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
                         setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
                         setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) {
-                            findNavController().navigate(SalaryFragmentDirections.actionSalaryFragmentToForcesFragment(1))
+                            findNavController().navigate(SalaryFragmentDirections.actionSalaryFragmentToForcesFragment(1, true))
                         }
                     }
 

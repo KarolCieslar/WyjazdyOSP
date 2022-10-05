@@ -25,6 +25,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="@drawable/ripple_drawable"
         android:src="@drawable/ic_fab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

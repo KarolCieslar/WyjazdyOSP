@@ -19,7 +19,7 @@ class StepSecondAdapter(
     val action: Action
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var itemList: List<Forces> = emptyList()
+    private var itemList: MutableList<Forces> = mutableListOf()
     private var selectedItemList: MutableList<Forces> = mutableListOf()
     private lateinit var context: Context
 
@@ -114,8 +114,11 @@ class StepSecondAdapter(
         }
     }
 
-    fun setData(list: List<Forces>) {
-        this.itemList = list.sortedBy { it is Equipment }
+    fun setData(list: MutableList<Forces>) {
+        this.itemList = list.sortedBy { it is Equipment }.toMutableList()
+        action.equipment.forEach { if(!itemList.contains(it)) itemList.add(it) }
+        action.carsInAction.map { it.car }.forEach { if(!itemList.contains(it)) itemList.add(it) }
+        itemList.sortBy { it is Equipment }
         notifyDataSetChanged()
     }
 

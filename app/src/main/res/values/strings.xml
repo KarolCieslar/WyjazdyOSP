@@ -55,8 +55,8 @@
     <!-- Forces FiremanFragment -->
     <string name="fireman_fragment_empty_view_main">BRAK RATOWNIKÓW</string>
     <string name="fireman_fragment_empty_view_description">Niestety nie posiadasz \nwproawdzonych żadnych \nratowników!</string>
-    <string name="fireman_fragment_empty_view_button">Dodaj nowego ratownika</string>
-    <string name="fireman_fragment_add_dialog_title">Dodaj nowego ratownika</string>
+    <string name="fireman_fragment_empty_view_button">Dodaj ratownika</string>
+    <string name="fireman_fragment_add_dialog_title">Dodaj ratownika</string>
     <string name="fireman_fragment_add_dialog_description">Dodaj ratownika do listy aby mieć możliwość dopisania go do wyjazdu.</string>
     <string name="fireman_fragment_edit_dialog_title">Edytuj ratownika</string>
     <string name="fireman_fragment_edit_dialog_description">Wpisz nową nazwę ratownika w polu poniżej.</string>

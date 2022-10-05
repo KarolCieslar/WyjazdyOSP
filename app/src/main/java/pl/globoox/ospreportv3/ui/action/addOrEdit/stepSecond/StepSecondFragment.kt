@@ -57,7 +57,7 @@ class StepSecondFragment: Fragment() {
                         setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
                     }
                 }
-                adapter.setData(carsAndEquipments)
+                adapter.setData(carsAndEquipments.toMutableList())
             }
         }
 

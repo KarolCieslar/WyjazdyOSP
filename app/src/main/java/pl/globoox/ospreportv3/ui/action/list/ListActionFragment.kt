@@ -40,9 +40,6 @@ class ListActionFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.addItemDecoration(
-            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin16))
-        )
 
         viewModel.actionList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isEmpty()

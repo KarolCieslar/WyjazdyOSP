@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.databinding.ItemActionListBinding
 import pl.globoox.ospreportv3.databinding.ItemSalaryFiremanBinding
 import pl.globoox.ospreportv3.model.Action
+import pl.globoox.ospreportv3.model.Fireman
+import pl.globoox.ospreportv3.ui.forces.view.ViewPagerListAdapter
 import pl.globoox.ospreportv3.utils.durationFormatter
 import pl.globoox.ospreportv3.views.CarInActionItemView
 import pl.globoox.ospreportv3.views.EquipmentActionView
@@ -21,7 +24,7 @@ class ListActionAdapter(
     val onRemoveButtonClick: ((action: Action) -> Unit)
 ) : RecyclerView.Adapter<ListActionAdapter.MyViewHolder>() {
 
-    private var itemList: List<Action> = emptyList()
+    private var itemList: MutableList<Action> = mutableListOf()
     private lateinit var context: Context
 
     inner class MyViewHolder(val binding: ItemActionListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -78,8 +81,22 @@ class ListActionAdapter(
         return itemList.size
     }
 
-    fun setList(list: List<Action>) {
-        this.itemList = list
-        notifyDataSetChanged()
+    fun setList(newItemList: List<Action>) {
+        val diffCallback = DiffUtils(itemList, newItemList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        itemList.clear()
+        itemList.addAll(newItemList)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    class DiffUtils(private val oldList: List<Action>, private val newList: List<Action>) : DiffUtil.Callback() {
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition] && oldItemPosition == newItemPosition
+        }
+        override fun getOldListSize() = oldList.size
+        override fun getNewListSize() = newList.size
     }
 }

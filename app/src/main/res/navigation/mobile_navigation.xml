@@ -56,6 +56,11 @@
             android:defaultValue="0"
             app:argType="integer" />
 
+        <argument
+            android:name="openAddDialogAtInit"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
     </fragment>
 
 </navigation>

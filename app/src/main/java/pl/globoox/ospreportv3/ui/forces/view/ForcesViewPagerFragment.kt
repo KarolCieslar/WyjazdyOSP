@@ -24,7 +24,8 @@ import pl.globoox.ospreportv3.views.AddOrEditForcesDialogView
 import pl.globoox.ospreportv3.views.ConfirmDialogView
 
 class ForcesViewPagerFragment(
-    private val forcesDataType: ForcesDataType
+    private val forcesDataType: ForcesDataType,
+    private val openAddDialogAtInit: Boolean? = null
 ) : Fragment() {
 
     private val viewModel: ForcesViewModel by viewModels()
@@ -70,6 +71,10 @@ class ForcesViewPagerFragment(
         })
 
         binding.floatingActionButton.setOnClickListener { openAddDialog() }
+
+        if (openAddDialogAtInit == true) {
+            openAddDialog()
+        }
 
         return binding.root
     }
