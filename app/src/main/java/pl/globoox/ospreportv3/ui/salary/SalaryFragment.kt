@@ -67,16 +67,16 @@ class SalaryFragment : Fragment() {
 
     private fun initSpinner() {
         val provinceList: MutableList<Quarter> = mutableListOf()
-        provinceList.add(Quarter("Pazdziernik - Grudzień 2023", 2023, 4))
-        provinceList.add(Quarter("Lipiec - Wrzesień 2023", 2023, 3))
-        provinceList.add(Quarter("Kwiecień - Czerwiec 2023", 2023, 2))
-        provinceList.add(Quarter("Styczeń - Marzec 2023", 2023, 1))
-        provinceList.add(Quarter("Pazdziernik - Grudzień 2022", 2022, 4))
+        provinceList.add(Quarter("PAZ - GRU - 2023", 2023, 4))
+        provinceList.add(Quarter("LIP - WRZ - 2023", 2023, 3))
+        provinceList.add(Quarter("KWI - CZE - 2023", 2023, 2))
+        provinceList.add(Quarter("STY - MAR - 2023", 2023, 1))
+        provinceList.add(Quarter("PAZ - GRU - 2022", 2022, 4))
 
         binding.quarterSelect.item = provinceList.map { it.name }
 
         binding.quarterSelect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
                 buildFragmentUI(provinceList[position])
             }
 
@@ -91,8 +91,9 @@ class SalaryFragment : Fragment() {
         binding.openDateButton.setBackgroundResource(if (!dateButtonSelected) R.drawable.open_date_select_button_drawable else R.drawable.open_date_select_button_drawable_selected)
         binding.fromDate.isVisible = dateButtonSelected
         binding.toDate.isVisible = dateButtonSelected
+        binding.boxForQuarter.alpha = if (dateButtonSelected) 0.3f else 1f
         binding.quarterSelect.apply {
-            alpha = if (dateButtonSelected) 0.5f else 1f
+            alpha = if (dateButtonSelected) 0.3f else 1f
             isClickable = !dateButtonSelected
         }
     }

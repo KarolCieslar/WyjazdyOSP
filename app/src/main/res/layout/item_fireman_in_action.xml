@@ -30,6 +30,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/name"
@@ -39,17 +40,17 @@
             android:id="@+id/commanderIcon"
             android:layout_width="15dp"
             android:layout_height="15dp"
+            android:layout_marginEnd="3dp"
             android:layout_gravity="center"
-            android:layout_marginStart="3dp"
             android:src="@drawable/ic_commander"
             app:tint="@color/black400" />
 
         <ImageView
             android:id="@+id/driverIcon"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="14dp"
+            android:layout_marginEnd="5dp"
+            android:layout_height="14dp"
             android:layout_gravity="center"
-            android:layout_marginStart="3dp"
             android:src="@drawable/ic_driver"
             app:tint="@color/black400" />
 
@@ -58,7 +59,6 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
-            android:layout_marginStart="3dp"
             android:src="@drawable/ic_own_car"
             app:tint="@color/black400" />
     </LinearLayout>

@@ -51,7 +51,9 @@ class StepFirstFragment(
             binding.outTime.setValue(action.outTime.split(" ")[1])
             binding.inDate.setValue(action.inTime.split(" ")[0])
             binding.inTime.setValue(action.inTime.split(" ")[1])
+            viewModel.action = action
         } else {
+            viewModel.action = Action(0, LocalDateTime.now().toString(), LocalDateTime.now().toString(), "", "", null, emptyList(), emptyList())
             binding.etLocation.setText("TESTOWA LOKACJA")
             binding.etRaportNumber.setText("12321321A/AF/WA")
             setCurrentInOutDate()

@@ -1,18 +1,9 @@
 package pl.globoox.ospreportv3.utils
 
 import android.content.Context
-import androidx.room.TypeConverter
-import com.google.gson.Gson
 
-import com.google.gson.reflect.TypeToken
 import pl.globoox.ospreportv3.R
-import pl.globoox.ospreportv3.model.Car
-import pl.globoox.ospreportv3.model.CarInAction
-import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.forces.ForcesDataType
-import pl.globoox.ospreportv3.ui.forces.ForcesViewPagerAdapter
-import java.lang.reflect.Type
-import java.time.LocalDateTime
 
 fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataType: ForcesDataType, textVariable: String? = null) : String {
     val stringRes = when (stringType) {
@@ -44,7 +35,7 @@ fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataTy
                 ForcesDataType.EQUIPMENT -> R.string.equipment_fragment_add_dialog_title
             }
         }
-        ForcesStringType.REMOVE_DIALOG_DESCRIPTION -> {
+        ForcesStringType.REMOVE_FIRCES_DIALOG_DESCRIPTION -> {
             when (forcesDataType) {
                 ForcesDataType.CAR -> R.string.car_fragment_remove_dialog_description
                 ForcesDataType.FIREMAN -> R.string.fireman_fragment_remove_dialog_description
@@ -73,5 +64,5 @@ fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataTy
 }
 
 enum class ForcesStringType {
-    EMPTY_VIEW_MAIN, EMPTY_VIEW_DESCRIPTION, EMPTY_VIEW_BUTTON, ADD_DIALOG_TITLE, REMOVE_DIALOG_DESCRIPTION, EDIT_DIALOG_TITLE, OBJECT_ALREADY_EXIST;
+    EMPTY_VIEW_MAIN, EMPTY_VIEW_DESCRIPTION, EMPTY_VIEW_BUTTON, ADD_DIALOG_TITLE, REMOVE_FIRCES_DIALOG_DESCRIPTION, EDIT_DIALOG_TITLE, OBJECT_ALREADY_EXIST;
 }

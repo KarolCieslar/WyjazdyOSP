@@ -78,7 +78,7 @@ class ForcesViewPagerFragment(
         val dialog = ConfirmDialogView(requireContext())
         dialog.apply {
             setTitle(resources.getString(R.string.confirm_dialog_title))
-            setDescription(getForcesString(context, ForcesStringType.REMOVE_DIALOG_DESCRIPTION, forcesDataType, item.name))
+            setDescription(getForcesString(context, ForcesStringType.REMOVE_FIRCES_DIALOG_DESCRIPTION, forcesDataType, item.name))
             setOnPrimaryButtonClickListener {
                 showSnackBar(resources.getString(R.string.removed_successfully))
                 viewModel.removeItem(item)

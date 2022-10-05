@@ -13,10 +13,12 @@ import pl.globoox.ospreportv3.databinding.ItemSalaryFiremanBinding
 import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.utils.durationFormatter
 import pl.globoox.ospreportv3.views.CarInActionItemView
+import pl.globoox.ospreportv3.views.EquipmentActionView
 
 
 class ListActionAdapter(
-    val onEditButtonClick: ((action: Action) -> Unit)
+    val onEditButtonClick: ((action: Action) -> Unit),
+    val onRemoveButtonClick: ((action: Action) -> Unit)
 ) : RecyclerView.Adapter<ListActionAdapter.MyViewHolder>() {
 
     private var itemList: List<Action> = emptyList()
@@ -35,26 +37,38 @@ class ListActionAdapter(
             with(itemList[position]) {
                 val action = this
 
+                binding.item.setOnClickListener {
+                    binding.moreInfoView.isVisible = !binding.moreInfoView.isVisible
+                }
+
                 binding.number.text = action.number
                 binding.autoincrement.text = "#${action.id}"
                 binding.location.text = action.location
 
                 val diffText = durationFormatter(action.outTime, action.inTime)
-                binding.outTime.text = action.getFormattedOutTime()
-                binding.inTime.text = action.getFormattedInTime()
-                binding.actionTime.text = "(${diffText})"
+                binding.time.text = "${action.getFormattedOutTime()} - ${action.getFormattedInTime()}"
+                binding.actionTime.text = "Czas trwania: ${diffText}"
 
                 binding.crevList.removeAllViews()
                 action.carsInAction.forEachIndexed { index, carInAction ->
                     binding.crevList.addView(CarInActionItemView(context, carInAction.car.name!!, carInAction.firemans, index))
                 }
 
+                binding.equpmentList.removeAllViews()
+                binding.equipmentLabel.isVisible = action.equipment.isNotEmpty()
+                action.equipment.forEach { equipment ->
+                    binding.equpmentList.addView(EquipmentActionView(context, equipment.name))
+                }
+
                 binding.descriptionLabel.isVisible = !action.description.isNullOrBlank()
                 binding.description.isVisible = !action.description.isNullOrBlank()
                 binding.description.text = action.description
 
-                binding.primaryButton.setClickListener {
+                binding.editButton.setOnClickListener {
                     onEditButtonClick(action)
+                }
+                binding.removeButton.setOnClickListener {
+                    onRemoveButtonClick(action)
                 }
             }
         }

@@ -11,18 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemStepSecondCarBinding
 import pl.globoox.ospreportv3.databinding.ItemStepSecondEquipmentBinding
-import pl.globoox.ospreportv3.model.Car
-import pl.globoox.ospreportv3.model.Equipment
-import pl.globoox.ospreportv3.model.Fireman
+import pl.globoox.ospreportv3.model.*
 import java.lang.IllegalArgumentException
 
 
-class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class StepSecondAdapter(
+    val action: Action
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var itemList: List<Any> = emptyList()
-    private var selectedItemList: MutableList<Any> = mutableListOf()
+    private var itemList: List<Forces> = emptyList()
+    private var selectedItemList: MutableList<Forces> = mutableListOf()
     private lateinit var context: Context
+
+    init {
+        selectedItemList.addAll(action.equipment)
+        selectedItemList.addAll(action.carsInAction.map { it.car })
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         this.context = parent.context
@@ -57,6 +61,7 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
             binding.item.setOnClickListener {
                 handleItemClick(binding.item, binding.selectedIcon, car)
             }
+            setSelectedStatus(binding.item, binding.selectedIcon, car)
         }
     }
 
@@ -67,10 +72,11 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
             binding.item.setOnClickListener {
                 handleItemClick(binding.item, binding.selectedIcon, equipment)
             }
+            setSelectedStatus(binding.item, binding.selectedIcon, equipment)
         }
     }
 
-    private fun handleItemClick(view: View, selectedIcon: ImageView, item: Any) {
+    private fun handleItemClick(view: View, selectedIcon: ImageView, item: Forces) {
         if (selectedItemList.contains(item)) {
             selectedItemList.remove(item)
             view.setBackgroundColor(0)
@@ -82,11 +88,21 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         }
     }
 
+    private fun setSelectedStatus(view: View, selectedIcon: ImageView, item: Forces) {
+        if (selectedItemList.contains(item)) {
+            view.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
+            selectedIcon.isVisible = true
+        } else {
+            view.setBackgroundColor(0)
+            selectedIcon.isVisible = false
+        }
+    }
+
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    fun getSelectedItems(): List<Any> {
+    fun getSelectedItems(): List<Forces> {
         return selectedItemList
     }
 
@@ -98,7 +114,7 @@ class StepSecondAdapter(val onItemClick: ((fireman: Fireman) -> Unit)) :
         }
     }
 
-    fun setData(list: List<Any>) {
+    fun setData(list: List<Forces>) {
         this.itemList = list.sortedBy { it is Equipment }
         notifyDataSetChanged()
     }

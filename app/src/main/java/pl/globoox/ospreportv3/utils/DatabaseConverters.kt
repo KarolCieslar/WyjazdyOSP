@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.CarInAction
+import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.model.Fireman
 import java.lang.reflect.Type
 import java.time.LocalDateTime
@@ -39,4 +40,10 @@ class DatabaseConverters {
 
     @TypeConverter
     fun stringListOfToCarInAction(value: String) = Gson().fromJson(value, Array<CarInAction>::class.java).toList()
+
+    @TypeConverter
+    fun listOfEquipmentsToString(value: List<Equipment>?) = Gson().toJson(value)
+
+    @TypeConverter
+    fun stringListOfToEquipments(value: String) = Gson().fromJson(value, Array<Equipment>::class.java).toList()
 }

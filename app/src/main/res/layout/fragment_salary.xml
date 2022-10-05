@@ -7,34 +7,42 @@
     android:layout_marginTop="15dp"
     tools:context=".MainActivity">
 
-    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-        android:id="@+id/quarterSelect"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/boxForQuarter"
-        app:layout_constraintEnd_toEndOf="@+id/boxForQuarter"
-        app:layout_constraintStart_toStartOf="@+id/boxForQuarter"
-        app:layout_constraintTop_toTopOf="@+id/boxForQuarter"
-        app:smsp_floatingLabelColor="#1976D2"
-        app:smsp_floatingLabelText="Floating Label Text"
-        app:smsp_hint="Kwartał"
-        app:smsp_isOutlined="true"
-        app:smsp_itemColor="#512DA8"
-        app:smsp_itemListColor="#7C4DFF"
-        app:smsp_itemListHintBackgroundColor="#808080"
-        app:smsp_itemListHintColor="#FFFFFF"
-        app:smsp_outlinedBoxColor="@color/black100"
-        app:smsp_selectedItemListColor="#FF5252" />
-
-    <View
+    <TextView
         android:id="@+id/boxForQuarter"
         android:layout_width="0dp"
-        android:layout_height="58dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/edit_text_background"
+        android:fontFamily="@font/inter_regular"
+        android:paddingStart="14dp"
+        android:paddingTop="2dp"
+        android:text="Kwartał"
+        android:textColor="@color/black400"
+        android:textSize="13dp"
         app:layout_constraintEnd_toStartOf="@id/openDateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+        android:id="@+id/quarterSelect"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="@id/boxForQuarter"
+        app:layout_constraintEnd_toEndOf="@+id/boxForQuarter"
+        app:layout_constraintStart_toStartOf="@+id/boxForQuarter"
+        app:smsp_hint=""
+        app:smsp_arrowPaddingBottom="7dp"
+        app:smsp_arrowPaddingLeft="5dp"
+        app:smsp_hintColor="@color/black400"
+        app:smsp_hintSize="0dp"
+        app:smsp_itemColor="@color/black"
+        app:smsp_itemListColor="@color/black"
+        app:smsp_outlinedBoxColor="@color/black100"
+        app:smsp_selectedItemListColor="@color/red"
+        app:smsp_underlineSize="0dp" />
 
     <pl.globoox.ospreportv3.views.DateTimeFormFieldView
         android:id="@+id/fromDate"
@@ -67,7 +75,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/open_date_select_button_drawable"
         android:padding="12dp"
@@ -80,7 +87,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_salary_options"
         app:layout_constraintEnd_toEndOf="parent"

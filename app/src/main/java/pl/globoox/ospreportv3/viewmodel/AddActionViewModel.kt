@@ -34,15 +34,16 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
         selectedCarsList.postValue(list)
     }
 
+    fun setSelectedEquipments(list: List<Equipment>) {
+        action = action.copy(equipment = list)
+    }
+
     var primaryButtonAction = {}
     var cancelButtonAction = {}
 
     private val actionRepository: ActionRepository = ActionRepository(database.actionDao())
 
-    var action = emptyActionObject()
-    private fun emptyActionObject(): Action {
-        return Action(0, LocalDateTime.now().toString(), LocalDateTime.now().toString(), "", "", null, emptyList())
-    }
+    lateinit var action: Action
 
     fun addAction(action: Action) {
         viewModelScope.launch(Dispatchers.IO) {

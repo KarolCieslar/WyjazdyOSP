@@ -19,6 +19,7 @@ import pl.globoox.ospreportv3.databinding.FragmentStepSecondBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.model.Car
+import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.mergeList
 import pl.globoox.ospreportv3.utils.setHorizontalMargin
@@ -26,9 +27,7 @@ import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 
 
-class StepSecondFragment(
-    val action: Action? = null
-) : Fragment() {
+class StepSecondFragment: Fragment() {
 
     private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepSecondBinding? = null
@@ -66,7 +65,7 @@ class StepSecondFragment(
     }
 
     private fun prepareAdapter() {
-        adapter = StepSecondAdapter(onItemClick = { })
+        adapter = StepSecondAdapter(viewModel.action)
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -87,7 +86,9 @@ class StepSecondFragment(
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
                 val selectedCars = adapter.getSelectedItems().filterIsInstance<Car>()
+                val selectedEquipment = adapter.getSelectedItems().filterIsInstance<Equipment>()
                 viewModel.setSelectedCars(selectedCars)
+                viewModel.setSelectedEquipments(selectedEquipment)
                 EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.THIRD))
             } else {
                 showSnackBar(resources.getString(R.string.form_none_cars_selected))

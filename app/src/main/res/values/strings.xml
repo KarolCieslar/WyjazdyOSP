@@ -38,6 +38,8 @@
     <string name="list_action_out_time">Data wyjazdu:</string>
     <string name="list_action_in_time">Data powrotu:</string>
     <string name="list_action_duration">Czas trwania:</string>
+    <string name="list_action_fragment_remove_dialog_description"><![CDATA[Jesteś pewny, że chcesz usunąć akcję o meldunku <b>%1$s</b> z listy?]]></string>
+
 
     <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>

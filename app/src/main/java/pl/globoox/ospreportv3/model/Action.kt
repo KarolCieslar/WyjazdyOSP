@@ -18,7 +18,8 @@ data class Action(
     val location: String,
     val number: String,
     val description: String? = null,
-    val carsInAction: List<CarInAction>
+    val carsInAction: List<CarInAction>,
+    val equipment: List<Equipment>
 ) : Parcelable {
     fun getFormattedOutTime() : String {
         val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)

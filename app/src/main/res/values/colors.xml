@@ -11,6 +11,7 @@
     <color name="closeBlack">#B3000000</color>
     <color name="red">#d0494d</color>
     <color name="black100">#DFDFDF</color>
+    <color name="black200">#BFBFBF</color>
     <color name="black400">#808080</color>
     <color name="black">#000000</color>
     <color name="lightGray">#D3D8E1</color>

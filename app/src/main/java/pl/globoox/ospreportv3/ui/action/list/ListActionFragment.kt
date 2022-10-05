@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentListActionBinding
 import pl.globoox.ospreportv3.model.Action
+import pl.globoox.ospreportv3.utils.ForcesStringType
+import pl.globoox.ospreportv3.utils.getForcesString
+import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.ActionListViewModel
+import pl.globoox.ospreportv3.views.ConfirmDialogView
 import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 class ListActionFragment : Fragment() {
@@ -29,7 +33,10 @@ class ListActionFragment : Fragment() {
     ): View {
         _binding = FragmentListActionBinding.inflate(inflater, container, false)
 
-        val adapter = ListActionAdapter(onEditButtonClick = { action -> openEditFragment(action) })
+        val adapter = ListActionAdapter(
+            onEditButtonClick = { action -> openEditFragment(action) },
+            onRemoveButtonClick = { action -> removeItem(action) }
+        )
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -55,6 +62,18 @@ class ListActionFragment : Fragment() {
 
     private fun openEditFragment(action: Action) {
         findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(action))
+    }
+
+    private fun removeItem(action: Action) {
+        val dialog = ConfirmDialogView(requireContext())
+        dialog.apply {
+            setTitle(resources.getString(R.string.confirm_dialog_title))
+            setDescription(context.resources.getString(R.string.list_action_fragment_remove_dialog_description, action.number))
+            setOnPrimaryButtonClickListener {
+                showSnackBar(resources.getString(R.string.removed_successfully))
+                viewModel.removeAction(action)
+            }
+        }
     }
 
     override fun onDestroyView() {

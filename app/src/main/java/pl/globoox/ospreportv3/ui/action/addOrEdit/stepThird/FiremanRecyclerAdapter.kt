@@ -14,7 +14,7 @@ import pl.globoox.ospreportv3.model.Fireman
 class FiremanRecyclerAdapter(
     val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit),
     val onFunctionIconClick: ((fireman: Fireman, firemanFunction: FiremanFunction) -> Unit),
-    private val adapterPosition: Int
+    private val adapterPosition: Int,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
