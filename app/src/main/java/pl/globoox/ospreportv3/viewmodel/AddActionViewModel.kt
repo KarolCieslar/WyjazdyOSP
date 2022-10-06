@@ -42,12 +42,19 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
     var cancelButtonAction = {}
 
     private val actionRepository: ActionRepository = ActionRepository(database.actionDao())
+    var isEditMode: Boolean = false
 
     lateinit var action: Action
 
     fun addAction(action: Action) {
         viewModelScope.launch(Dispatchers.IO) {
             actionRepository.addAction(action)
+        }
+    }
+
+    fun editAction(action: Action) {
+        viewModelScope.launch(Dispatchers.IO) {
+            actionRepository.editAction(action)
         }
     }
 }

@@ -46,7 +46,6 @@ class StepThirdFragment : Fragment() {
         viewModel.firemanList.observe(viewLifecycleOwner, Observer {
             val firemans = it.map { fireman -> fireman.copy() }
             adapter.setFiremans(firemans)
-            // TOdo: Podczas dodawanai nowej akcji trzeba dodać również sprzęt bo narazie są same samochody
         })
 
         return binding.root
@@ -69,12 +68,13 @@ class StepThirdFragment : Fragment() {
     }
 
     private fun prepareAdapter() {
-        adapter = StepThirdAdapter(binding.recyclerView)
+        adapter = StepThirdAdapter(binding.recyclerView, viewModel.action)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setBottomButtonsListener() {
+        binding.primaryButton.setText(requireContext().resources.getString(if (viewModel.isEditMode) R.string.button_save_action else R.string.button_add_action))
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
                 addNewAction()
@@ -99,7 +99,11 @@ class StepThirdFragment : Fragment() {
             carsInAction.add(CarInAction(car, firemansInCar))
         }
         viewModel.action = viewModel.action.copy(carsInAction = carsInAction)
-        viewModel.addAction(viewModel.action)
+        if (viewModel.isEditMode) {
+            viewModel.editAction(viewModel.action)
+        } else {
+            viewModel.addAction(viewModel.action)
+        }
     }
 
     override fun onDestroyView() {
@@ -107,5 +111,3 @@ class StepThirdFragment : Fragment() {
         _binding = null
     }
 }
-
-// TOdo: Wszystkie fonty przystosować do figmy

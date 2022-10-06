@@ -42,7 +42,7 @@ class StepFirstFragment(
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStepFirstBinding.inflate(inflater, container, false)
-
+        viewModel.isEditMode = action != null
         if (action != null) {
             binding.etLocation.setText(action.location)
             binding.etRaportNumber.setText(action.number)
@@ -67,7 +67,6 @@ class StepFirstFragment(
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
                 viewModel.action = viewModel.action.copy(
-                    id = 0,
                     outTime = "${binding.outDate.getValue()} ${binding.outTime.getValue()}",
                     inTime = "${binding.inDate.getValue()} ${binding.inTime.getValue()}",
                     location = binding.etLocation.text.toString(),

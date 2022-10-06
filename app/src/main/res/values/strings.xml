@@ -9,7 +9,9 @@
     <string name="button_close">Zamknij</string>
     <string name="button_edit">Edytuj</string>
     <string name="button_add">Dodaj</string>
+    <string name="button_add_action">Dodaj Wyjazd</string>
     <string name="button_save">Zapisz</string>
+    <string name="button_save_action">Zapisz Wyjazd</string>
     <string name="button_remove_confirm">Tak, usuń!</string>
     <string name="button_remove_decline">Nie, nie chcę!</string>
 
@@ -25,7 +27,7 @@
 
     <string name="add_action_step_first_description">Uzupełnij wszystkie informacje o zdarzeniu.</string>
     <string name="add_action_step_second_description">Wybierz sprzęt oraz pojazdy biorące udział w akcji.</string>
-    <string name="add_action_step_third_description">Zaznacz druhów, którzy brali udział w akcji. Nie zapomnij wybrać dowódcy oraz kierowcy. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.</string>
+    <string name="add_action_step_third_description">Przypisz druhów do pojazdów. Wybierz dowódcę oraz kierowcę zaznaczając odpowiednią ikonę przy jego nazwisku. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.</string>
     <string name="add_action_empty_view_main">Brak samochodów!</string>
     <string name="add_action_empty_view_additional_description">Przejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
 

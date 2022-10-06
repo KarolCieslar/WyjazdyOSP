@@ -13,17 +13,19 @@ import androidx.recyclerview.widget.RecyclerView
 import net.cachapa.expandablelayout.ExpandableLayout
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemAddActionCarBinding
+import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
 
 
 class StepThirdAdapter(
-    val recyclerView: RecyclerView
+    val recyclerView: RecyclerView,
+    val action: Action
 ) : RecyclerView.Adapter<StepThirdAdapter.ViewHolder>() {
 
     private var currentExpandedCar = UNSELECTED
     private var itemList: List<Car> = emptyList()
-    private var allFiremansList: List<Fireman> = emptyList()
+    private var allFiremansList: MutableList<Fireman> = mutableListOf()
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -139,6 +141,10 @@ class StepThirdAdapter(
 
     fun setFiremans(list: List<Fireman>) {
         this.allFiremansList = list.toMutableList()
+        action.carsInAction.flatMap { it.firemans }.forEach { firemanEditor ->
+            if (allFiremansList.firstOrNull { firemanEditor.id == it.id } != null) allFiremansList.removeIf { it.id == firemanEditor.id}
+            allFiremansList.add(firemanEditor)
+        }
         notifyDataSetChanged()
     }
 

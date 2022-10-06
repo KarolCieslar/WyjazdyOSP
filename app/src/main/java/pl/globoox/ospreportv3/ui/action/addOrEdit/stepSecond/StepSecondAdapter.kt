@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemStepSecondCarBinding
 import pl.globoox.ospreportv3.databinding.ItemStepSecondEquipmentBinding
+import pl.globoox.ospreportv3.databinding.ItemStepSecondSeparatorBinding
 import pl.globoox.ospreportv3.model.*
 import java.lang.IllegalArgumentException
 
@@ -39,6 +40,10 @@ class StepSecondAdapter(
                 val binding = ItemStepSecondCarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 CarElementViewHolder(binding)
             }
+            ViewType.SEPARATOR -> {
+                val binding = ItemStepSecondSeparatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                SeparatorViewHolder(binding)
+            }
             else -> throw IllegalArgumentException("viewType not exists")
         }
     }
@@ -51,7 +56,15 @@ class StepSecondAdapter(
             ViewType.CAR -> {
                 (holder as CarElementViewHolder).bind(itemList[position] as Car)
             }
+            ViewType.SEPARATOR -> {
+                (holder as SeparatorViewHolder).bind()
+            }
         }
+    }
+
+    inner class SeparatorViewHolder(private val binding: ItemStepSecondSeparatorBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind() {}
     }
 
     inner class CarElementViewHolder(private val binding: ItemStepSecondCarBinding) :
@@ -110,19 +123,26 @@ class StepSecondAdapter(
         return when (itemList[position]) {
             is Car -> ViewType.CAR
             is Equipment -> ViewType.EQUIPMENT
-            else -> throw IllegalArgumentException("getItemViewType not exists")
+            else -> ViewType.SEPARATOR
         }
     }
 
     fun setData(list: MutableList<Forces>) {
         this.itemList = list.sortedBy { it is Equipment }.toMutableList()
-        action.equipment.forEach { if(!itemList.contains(it)) itemList.add(it) }
-        action.carsInAction.map { it.car }.forEach { if(!itemList.contains(it)) itemList.add(it) }
-        itemList.sortBy { it is Equipment }
+
+        val removedItems = mutableListOf<Forces>()
+        action.equipment.forEach { if(!itemList.contains(it)) removedItems.add(it) }
+        action.carsInAction.map { it.car }.forEach { if(!itemList.contains(it)) removedItems.add(it) }
+        if (removedItems.isNotEmpty()) {
+            itemList.add(Fireman(-1, "SEPARATOR"))
+            itemList.addAll(removedItems)
+        }
+
         notifyDataSetChanged()
     }
 
     private object ViewType {
+        const val SEPARATOR = -1
         const val CAR = 0
         const val EQUIPMENT = 1
     }

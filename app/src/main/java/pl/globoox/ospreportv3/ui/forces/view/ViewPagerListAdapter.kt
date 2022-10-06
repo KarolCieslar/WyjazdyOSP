@@ -5,13 +5,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemForcesListBinding
-import pl.globoox.ospreportv3.model.Action
-import pl.globoox.ospreportv3.model.Car
-import pl.globoox.ospreportv3.model.Forces
+import pl.globoox.ospreportv3.model.*
 
 class ViewPagerListAdapter(
     val onItemClick: ((item: Forces) -> Unit),
@@ -32,7 +31,12 @@ class ViewPagerListAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder){
             with(itemList[position]){
-                binding.position.text = (position + 1).toString()
+                val icon = when (this) {
+                    is Fireman -> R.drawable.ic_fireman
+                    is Car -> R.drawable.ic_car
+                    else -> R.drawable.ic_equipment
+                }
+                binding.icon.setImageDrawable(ContextCompat.getDrawable(context, icon))
                 binding.name.text = this.name
                 binding.item.setOnClickListener {
                     onItemClick(this)

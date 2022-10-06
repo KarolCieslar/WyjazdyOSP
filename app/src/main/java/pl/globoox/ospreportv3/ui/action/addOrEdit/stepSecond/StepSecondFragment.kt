@@ -43,6 +43,7 @@ class StepSecondFragment: Fragment() {
         _binding = FragmentStepSecondBinding.inflate(inflater, container, false)
 
         prepareAdapter()
+        viewModel.action
 
         combineTuple(viewModel.equipmentList, viewModel.carList).observe(viewLifecycleOwner) { (equipmentList, carList) ->
             if (equipmentList != null && carList != null) {
@@ -69,13 +70,6 @@ class StepSecondFragment: Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val horizontalDecoration = DividerItemDecoration(
-            recyclerView.context,
-            DividerItemDecoration.VERTICAL
-        )
-        val horizontalDivider = ContextCompat.getDrawable(requireContext(), R.drawable.horizontal_divider_line)
-        horizontalDecoration.setDrawable(horizontalDivider!!)
-        recyclerView.addItemDecoration(horizontalDecoration)
     }
 
     private fun isFormValid(): Boolean {
