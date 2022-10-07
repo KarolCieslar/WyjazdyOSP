@@ -14,7 +14,7 @@ import pl.globoox.ospreportv3.model.Fireman
 class FiremanRecyclerAdapter(
     val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit),
     val onFunctionIconClick: ((fireman: Fireman, firemanFunction: FiremanFunction) -> Unit),
-    private val adapterPosition: Int,
+    private val carId: Int,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -60,7 +60,7 @@ class FiremanRecyclerAdapter(
     }
 
     private fun getIconSelectStatus(fireman: Fireman, firemanFunction: FiremanFunction): Int {
-        val firemanFunctions = fireman.functions[adapterPosition]
+        val firemanFunctions = fireman.functions[carId]
         return ContextCompat.getColor(context, if (firemanFunctions?.contains(firemanFunction) == true) R.color.black else R.color.black100)
     }
 

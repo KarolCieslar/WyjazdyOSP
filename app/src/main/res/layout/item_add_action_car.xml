@@ -47,12 +47,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/expandable_layout"
+    <LinearLayout
+        android:id="@+id/carExpandLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:el_duration="500"
-        app:el_expanded="true">
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/firemanRecyclerView"
@@ -75,5 +74,5 @@
             android:textColor="@color/red"
             android:visibility="gone" />
 
-    </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>
 </LinearLayout>

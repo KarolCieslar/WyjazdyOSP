@@ -52,10 +52,10 @@ class StepThirdFragment : Fragment() {
     }
 
     private fun isFormValid(): Boolean {
-        selectedCarsList.forEachIndexed { index, _ ->
+        selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
             adapter.getFiremans().forEach { fireman ->
-                if (fireman.selectStatus == index) {
+                if (fireman.selectStatus == car.id) {
                     firemansInCar.add(fireman)
                 }
             }

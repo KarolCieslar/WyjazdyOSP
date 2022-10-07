@@ -80,4 +80,9 @@
     <string name="salary_fragment_salary_not_set">BRAK DANYCH</string>
     <string name="salary_fragment_salary_not_set_description">Nie ustawiono poprawnej wartości ekwiwalentu za godzinę akcji. Kliknij ikonę zębatki w prawym górnym rogu aby wprowadzić nową wartość.</string>
 
+    <string name="help_view_action_list">Action List Fragment Info</string>
+    <string name="help_view_add_or_edit_action">Add Or Edit</string>
+    <string name="help_view_salary">Salary Fragment Info</string>
+    <string name="help_view_forces">Forces Fragment Info</string>
+
 </resources>

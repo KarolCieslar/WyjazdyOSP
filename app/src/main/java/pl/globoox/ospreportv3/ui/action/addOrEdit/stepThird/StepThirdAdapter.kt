@@ -1,16 +1,13 @@
 package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.OvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import net.cachapa.expandablelayout.ExpandableLayout
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemAddActionCarBinding
 import pl.globoox.ospreportv3.model.Action
@@ -47,90 +44,82 @@ class StepThirdAdapter(
     }
 
 
-    inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener {
+    inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         private lateinit var firemansAdapter: FiremanRecyclerAdapter
 
         init {
-            binding.expandableLayout.setInterpolator(OvershootInterpolator())
-            binding.expandableLayout.setOnExpansionUpdateListener(this)
             binding.item.setOnClickListener(this)
-            prepareAdapterAndSetData(binding, adapterPosition)
             binding.firemanRecyclerView.layoutManager = LinearLayoutManager(context)
+            currentExpandedCar = itemList[0].id
         }
 
         fun bind() {
-            val position = adapterPosition
-            val isSelected = position == currentExpandedCar
-            binding.name.text = itemList[position].name
-            binding.item.isSelected = isSelected
-            binding.expandableLayout.setExpanded(isSelected, false)
-            prepareAdapterAndSetData(binding, position)
+            val car = itemList[adapterPosition]
+            val isSelected = car.id == currentExpandedCar
+            binding.name.text = car.name
+            prepareAdapterAndSetData(binding, car.id)
             if (isSelected) binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
         }
 
-        private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, position: Int) {
+        private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, carId: Int) {
             firemansAdapter = FiremanRecyclerAdapter(
-                onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, position, isChecked) },
-                onFunctionIconClick = { fireman, function -> changeFiremanFunction(allFiremansList.first { it == fireman }, function, position) },
-                adapterPosition = position
+                onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, carId, isChecked) },
+                onFunctionIconClick = { fireman, function -> changeFiremanFunction(allFiremansList.first { it == fireman }, function, carId) },
+                carId = carId
             )
             binding.firemanRecyclerView.adapter = firemansAdapter
-            val filteredItems = getFilteredFiremans(position)
+            val filteredItems = getFilteredFiremans(carId)
             binding.emptyView.isVisible = filteredItems.isEmpty()
             firemansAdapter.setData(filteredItems)
         }
 
-        private fun changeFiremanSelectStatus(fireman: Fireman, position: Int, isSelected: Boolean) {
-            allFiremansList.first { it == fireman }.selectStatus = if (isSelected) position else null
-            firemansAdapter.setData(getFilteredFiremans(position))
+        private fun changeFiremanSelectStatus(fireman: Fireman, carId: Int, isSelected: Boolean) {
+            allFiremansList.first { it == fireman }.selectStatus = if (isSelected) carId else null
+            firemansAdapter.setData(getFilteredFiremans(carId))
         }
 
-        private fun changeFiremanFunction(fireman: Fireman, function: FiremanFunction, position: Int) {
-            val filteredFiremans = getFilteredFiremans(position).toMutableList()
-            val firemanFunctions = fireman.functions[position] ?: mutableListOf()
+        private fun changeFiremanFunction(fireman: Fireman, function: FiremanFunction, carId: Int) {
+            val filteredFiremans = getFilteredFiremans(carId).toMutableList()
+            val firemanFunctions = fireman.functions[carId] ?: mutableListOf()
             if (firemanFunctions.contains(function)) {
                 firemanFunctions.remove(function)
             } else {
                 if (function != FiremanFunction.OWNCAR) {
                     filteredFiremans.forEach {
-                        val thisFiremanFunctions = it.functions[position] ?: mutableListOf()
+                        val thisFiremanFunctions = it.functions[carId] ?: mutableListOf()
                         thisFiremanFunctions.remove(function)
-                        it.functions[position] = thisFiremanFunctions
+                        it.functions[carId] = thisFiremanFunctions
                     }
                 }
                 firemanFunctions.add(function)
-                fireman.functions[position] = firemanFunctions
+                fireman.functions[carId] = firemanFunctions
             }
             firemansAdapter.setData(filteredFiremans)
         }
 
         override fun onClick(view: View?) {
             val position = adapterPosition
+            val carId = itemList[position].id
             repeat(itemList.size) {
-                if (it != position) {
+                if (carId != it) {
                     val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
                     if (holder != null) {
-                        holder.binding.item.isSelected = false
-                        holder.binding.expandableLayout.collapse()
+                        holder.binding.carExpandLayout.isVisible = false
                         holder.binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
                     }
                 }
             }
-            if (position != currentExpandedCar) {
-                binding.item.isSelected = true
-                binding.expandableLayout.expand()
-                currentExpandedCar = position
+            if (currentExpandedCar == carId) {
+                binding.carExpandLayout.isVisible = false
+                currentExpandedCar = -1
+                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+            } else {
+                binding.carExpandLayout.isVisible = true
+                currentExpandedCar = carId
                 binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
             }
-            prepareAdapterAndSetData(binding, adapterPosition)
-        }
-
-        override fun onExpansionUpdate(expansionFraction: Float, state: Int) {
-            Log.d("ExpandableLayout", "State: $state")
-            if (state == ExpandableLayout.State.EXPANDING) {
-                recyclerView.smoothScrollToPosition(adapterPosition)
-            }
+            prepareAdapterAndSetData(binding, carId)
         }
     }
 
@@ -148,8 +137,8 @@ class StepThirdAdapter(
         notifyDataSetChanged()
     }
 
-    private fun getFilteredFiremans(position: Int): List<Fireman> {
-        return allFiremansList.filter { it.selectStatus == null || it.selectStatus == position }
+    private fun getFilteredFiremans(carId: Int): List<Fireman> {
+        return allFiremansList.filter { it.selectStatus == null || it.selectStatus == carId }
     }
 
     companion object {

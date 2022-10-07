@@ -53,7 +53,7 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/tab_indicator.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/drawable/toolbar_shadow.xml" value="0.2345" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/font/fonts.xml" value="0.4266666666666667" />
-        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/date_time_form_field_view.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/empty_list_view.xml" value="0.264" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/fragment_add_action.xml" value="0.4041666666666667" />
@@ -110,6 +110,7 @@
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_primary_button.xml" value="0.4" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_salary_value_dialog.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/layout/view_select_profesion_menu.xml" value="0.264" />
+        <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/menu/appbar_menu.xml" value="0.403125" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4041666666666667" />
         <entry key="..\:/Android Projekty/OspReportv3/app/src/main/res/menu/popup_forces_menu.xml" value="0.4041666666666667" />
       </map>

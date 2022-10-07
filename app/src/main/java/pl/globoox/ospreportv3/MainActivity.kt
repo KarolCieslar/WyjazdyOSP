@@ -1,10 +1,14 @@
 package pl.globoox.ospreportv3
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -12,8 +16,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.globoox.ospreportv3.databinding.ActivityMainBinding
+import pl.globoox.ospreportv3.ui.action.list.ListActionFragment
+import pl.globoox.ospreportv3.ui.salary.SalaryFragment
 import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
+    private var currentFragmentId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +55,35 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            currentFragmentId = destination.id
             when (destination.id) {
                 R.id.addOrEditAction -> navView.isVisible = false
                 else -> navView.isVisible = true
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.helpIcon -> {
+                val string = when (currentFragmentId) {
+                    R.id.listAction -> R.string.help_view_action_list
+                    R.id.addOrEditAction -> R.string.help_view_add_or_edit_action
+                    R.id.salaryFragment -> R.string.help_view_salary
+                    R.id.forcesFragment -> R.string.help_view_forces
+                    else -> R.string.button_add_action
+                }
+                Toast.makeText(this, this.resources.getString(string), Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.appbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onSupportNavigateUp(): Boolean {
