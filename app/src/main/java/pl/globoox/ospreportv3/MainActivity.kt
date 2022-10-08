@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             R.id.helpIcon -> {
                 val string = when (currentFragmentId) {
                     R.id.listAction -> R.string.help_view_action_list
-                    R.id.addOrEditAction -> R.string.help_view_add_or_edit_action
+                    R.id.addOrEditAction -> R.string.help_view_add_or_edit_action_step_one
                     R.id.salaryFragment -> R.string.help_view_salary
                     R.id.forcesFragment -> R.string.help_view_forces
                     else -> R.string.button_add_action

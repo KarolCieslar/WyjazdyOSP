@@ -26,8 +26,6 @@
     <string name="removed_successfully">Usunięto obiekt z listy</string>
 
     <string name="add_action_step_first_description">Uzupełnij wszystkie informacje o zdarzeniu.</string>
-    <string name="add_action_step_second_description">Wybierz sprzęt oraz pojazdy biorące udział w akcji.</string>
-    <string name="add_action_step_third_description">Przypisz druhów do pojazdów. Wybierz dowódcę oraz kierowcę zaznaczając odpowiednią ikonę przy jego nazwisku. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.</string>
     <string name="add_action_empty_view_main">Brak samochodów!</string>
     <string name="add_action_empty_view_additional_description">Przejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
 
@@ -81,7 +79,8 @@
     <string name="salary_fragment_salary_not_set_description">Nie ustawiono poprawnej wartości ekwiwalentu za godzinę akcji. Kliknij ikonę zębatki w prawym górnym rogu aby wprowadzić nową wartość.</string>
 
     <string name="help_view_action_list">Action List Fragment Info</string>
-    <string name="help_view_add_or_edit_action">Add Or Edit</string>
+    <string name="help_view_add_or_edit_action_step_one">Wybierz sprzęt oraz pojazdy biorące udział w akcji.</string>
+    <string name="help_view_add_or_edit_action_step_third">Przypisz druhów do pojazdów. Wybierz dowódcę oraz kierowcę zaznaczając odpowiednią ikonę przy jego nazwisku. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.</string>
     <string name="help_view_salary">Salary Fragment Info</string>
     <string name="help_view_forces">Forces Fragment Info</string>
 

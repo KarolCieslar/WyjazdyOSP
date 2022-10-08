@@ -43,7 +43,6 @@ class StepSecondFragment: Fragment() {
         _binding = FragmentStepSecondBinding.inflate(inflater, container, false)
 
         prepareAdapter()
-        viewModel.action
 
         combineTuple(viewModel.equipmentList, viewModel.carList).observe(viewLifecycleOwner) { (equipmentList, carList) ->
             if (equipmentList != null && carList != null) {

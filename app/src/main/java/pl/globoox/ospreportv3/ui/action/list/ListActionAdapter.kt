@@ -54,7 +54,7 @@ class ListActionAdapter(
 
                 binding.crevList.removeAllViews()
                 action.carsInAction.forEachIndexed { index, carInAction ->
-                    binding.crevList.addView(CarInActionItemView(context, carInAction.car.name, carInAction.firemans, index, index == action.carsInAction.size - 1))
+                    binding.crevList.addView(CarInActionItemView(context, carInAction.car, carInAction.firemans, index == action.carsInAction.size - 1))
                 }
 
                 binding.equpmentList.removeAllViews()

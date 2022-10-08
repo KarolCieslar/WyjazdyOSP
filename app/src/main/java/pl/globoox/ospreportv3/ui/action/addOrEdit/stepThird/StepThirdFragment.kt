@@ -89,10 +89,10 @@ class StepThirdFragment : Fragment() {
 
     private fun addNewAction() {
         val carsInAction = mutableListOf<CarInAction>()
-        selectedCarsList.forEachIndexed { index, car ->
+        selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
             adapter.getFiremans().forEach { fireman ->
-                if (fireman.selectStatus == index) {
+                if (fireman.selectStatus == car.id) {
                     firemansInCar.add(fireman)
                 }
             }

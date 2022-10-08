@@ -59,7 +59,10 @@ class StepThirdAdapter(
             val isSelected = car.id == currentExpandedCar
             binding.name.text = car.name
             prepareAdapterAndSetData(binding, car.id)
-            if (isSelected) binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
+            if (isSelected) {
+                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
+                binding.carExpandLayout.isVisible = true
+            }
         }
 
         private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, carId: Int) {
@@ -138,6 +141,11 @@ class StepThirdAdapter(
     }
 
     private fun getFilteredFiremans(carId: Int): List<Fireman> {
+        allFiremansList.forEach { fireman ->
+            if (!itemList.map { it.id }.contains(fireman.selectStatus)) {
+                fireman.selectStatus = null
+            }
+        }
         return allFiremansList.filter { it.selectStatus == null || it.selectStatus == carId }
     }
 

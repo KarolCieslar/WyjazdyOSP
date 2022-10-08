@@ -10,7 +10,7 @@ import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird.FiremanFunction
 
 class FiremansInActionAdapter(
-    private val carAdapterPosition: Int
+    private val carId: Int
 ): RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
 
     private var firemanList: List<Fireman> = emptyList()
@@ -27,7 +27,7 @@ class FiremansInActionAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder) {
             with(firemanList[position]) {
-                val firemanFunctions = this.functions[carAdapterPosition]
+                val firemanFunctions = this.functions[carId]
                 binding.name.text = this.name
                 binding.commanderIcon.isVisible = firemanFunctions?.contains(FiremanFunction.COMMANDER) ?: false
                 binding.driverIcon.isVisible = firemanFunctions?.contains(FiremanFunction.DRIVER) ?: false
