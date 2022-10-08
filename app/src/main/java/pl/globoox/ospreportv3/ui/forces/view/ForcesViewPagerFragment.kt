@@ -18,10 +18,12 @@ import pl.globoox.ospreportv3.model.Forces
 import pl.globoox.ospreportv3.ui.forces.ForcesDataType
 import pl.globoox.ospreportv3.utils.ForcesStringType
 import pl.globoox.ospreportv3.utils.getForcesString
+import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
 import pl.globoox.ospreportv3.views.AddOrEditForcesDialogView
 import pl.globoox.ospreportv3.views.ConfirmDialogView
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 
 class ForcesViewPagerFragment(
     private val forcesDataType: ForcesDataType,

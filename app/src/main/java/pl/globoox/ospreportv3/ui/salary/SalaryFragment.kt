@@ -3,6 +3,7 @@ package pl.globoox.ospreportv3.ui.salary
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,19 +17,21 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.zhuinden.livedatacombinetuplekt.combineTuple
-import pl.globoox.ospreportv3.MainActivity
 import pl.globoox.ospreportv3.MainActivity.Companion.dateFormatter
 import pl.globoox.ospreportv3.MainActivity.Companion.dateFormatterHelper
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentSalaryBinding
 import pl.globoox.ospreportv3.model.Quarter
 import pl.globoox.ospreportv3.utils.convertStringToLocalDateTime
+import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.viewmodel.SalaryViewModel
 import pl.globoox.ospreportv3.views.DateTimeFormFieldView
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 import pl.globoox.ospreportv3.views.SalaryValueDialogView
 import java.time.*
 import java.time.temporal.IsoFields
 import java.util.*
+
 
 class SalaryFragment : Fragment() {
 
@@ -62,6 +65,7 @@ class SalaryFragment : Fragment() {
             buildFragmentUI(if (!viewModel.dateButtonSelected) selectedQuarter else null)
         }
 
+        setHelpDialogString(HelpDialogStringRes.SALARY)
         return binding.root
     }
 
@@ -158,7 +162,6 @@ class SalaryFragment : Fragment() {
                             date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
                         }
                     }
-
                     adapter.setData(firemans, filteredActions)
                 }
             }

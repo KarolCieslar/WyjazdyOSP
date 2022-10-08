@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import pl.globoox.ospreportv3.MainActivity
 import pl.globoox.ospreportv3.R
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -33,6 +34,10 @@ fun EditText.checkIsNullAndSetError(errorText: String) : Boolean {
 
 fun Fragment.showSnackBar(text: String) {
     (activity as MainActivity?)!!.showSnackBar(text)
+}
+
+fun Fragment.setHelpDialogString(helpDialogStringRes: HelpDialogStringRes) {
+    (activity as MainActivity?)!!.setHelpDialogString(helpDialogStringRes)
 }
 
 fun convertStringToLocalDateTime(stringDate: String) : LocalDateTime {

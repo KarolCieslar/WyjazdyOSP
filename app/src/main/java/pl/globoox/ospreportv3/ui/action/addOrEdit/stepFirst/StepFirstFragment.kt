@@ -18,11 +18,16 @@ import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentStepFirstBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
 import pl.globoox.ospreportv3.model.Action
+import pl.globoox.ospreportv3.model.Car
+import pl.globoox.ospreportv3.model.CarInAction
+import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.checkIsNullAndSetError
+import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 import pl.globoox.ospreportv3.views.DateTimeFormFieldView
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -30,7 +35,7 @@ import java.util.*
 
 class StepFirstFragment(
     val action: Action? = null
-): Fragment() {
+) : Fragment() {
 
     private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepFirstBinding? = null // TODO: PRzebudować bo za długo się ładuje
@@ -76,8 +81,40 @@ class StepFirstFragment(
                 EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.SECOND))
             }
         }
+
         binding.cancelButton.setClickListener {
-            findNavController().navigateUp()
+            viewModel.addAction(
+                Action(
+                    (9000..10000).random(),
+                    "01.01.2022 ${(10..19).random()}:${(10..56).random()}",
+                    "02.01.2022 ${(10..19).random()}:${(10..56).random()}",
+                    "Lokacja jakas ${(9000..10000).random()}",
+                    "${(9000..10000).random()}",
+                    "${(9000..10000).random()}",
+                    listOf(
+                        CarInAction(
+                            Car((9000..10000).random(), "${(9000..10000).random()}"),
+                            listOf(
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}")
+                            )
+                        ),
+                        CarInAction(
+                            Car((9000..10000).random(), "${(9000..10000).random()}"),
+                            listOf(
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                Fireman((9000..10000).random(), "${(9000..10000).random()}")
+                            )
+                        )
+                    ),
+                    emptyList()
+                )
+            )
+//            findNavController().navigateUp()
         }
     }
 
@@ -88,12 +125,12 @@ class StepFirstFragment(
 
         val outDate = LocalDateTime.parse("${binding.outDate.getValue()} ${binding.outTime.getValue()}", dateFormatterHelper)
         val inDate = LocalDateTime.parse("${binding.inDate.getValue()} ${binding.inTime.getValue()}", dateFormatterHelper)
-        if (inDate.isBefore(outDate) || inDate.isEqual(outDate)){
+        if (inDate.isBefore(outDate) || inDate.isEqual(outDate)) {
             showSnackBar(resources.getString(R.string.form_date_range_error))
             errorList.add(true)
         }
 
-        return errorList.filter { it == true}.isEmpty()
+        return errorList.filter { it == true }.isEmpty()
     }
 
     private fun setInOutDateTimeClickListener() {

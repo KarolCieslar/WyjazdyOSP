@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -16,8 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.globoox.ospreportv3.databinding.ActivityMainBinding
-import pl.globoox.ospreportv3.ui.action.list.ListActionFragment
-import pl.globoox.ospreportv3.ui.salary.SalaryFragment
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
+import pl.globoox.ospreportv3.views.HelpDialogView
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var currentFragmentId: Int = -1
-
+    private var helpDialogStringRes = HelpDialogStringRes.ACTION_LIST
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,18 +65,30 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.helpIcon -> {
-                val string = when (currentFragmentId) {
-                    R.id.listAction -> R.string.help_view_action_list
-                    R.id.addOrEditAction -> R.string.help_view_add_or_edit_action_step_one
-                    R.id.salaryFragment -> R.string.help_view_salary
-                    R.id.forcesFragment -> R.string.help_view_forces
-                    else -> R.string.button_add_action
-                }
-                Toast.makeText(this, this.resources.getString(string), Toast.LENGTH_SHORT).show()
+                showHelpDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun setHelpDialogString(helpDialogStringRes: HelpDialogStringRes) {
+        this.helpDialogStringRes = helpDialogStringRes
+    }
+
+    private fun showHelpDialog() {
+        val stringRes = when (helpDialogStringRes) {
+            HelpDialogStringRes.ACTION_LIST -> R.string.help_view_action_list
+            HelpDialogStringRes.SALARY -> R.string.help_view_salary
+            HelpDialogStringRes.FORCES_CAR -> R.string.help_view_forces_car
+            HelpDialogStringRes.FORCES_FIREMAN -> R.string.help_view_forces_fireman
+            HelpDialogStringRes.FORCES_EQUIPMENT -> R.string.help_view_forces_equipment
+            HelpDialogStringRes.ADD_ACTION_STEP_ONE -> R.string.help_view_add_or_edit_action_step_one
+            HelpDialogStringRes.ADD_ACTION_STEP_SECOND -> R.string.help_view_add_or_edit_action_step_second
+            HelpDialogStringRes.ADD_ACTION_STEP_THIRD -> R.string.help_view_add_or_edit_action_step_third
+        }
+        val dialog = HelpDialogView(this)
+        dialog.setDescription(this.resources.getString(stringRes))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

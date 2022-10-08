@@ -14,7 +14,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import pl.globoox.ospreportv3.databinding.FragmentAddOrEditActionBinding
 import pl.globoox.ospreportv3.eventbus.SetCurrentViewPagerItem
+import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 
 
 class AddOrEditActionFragment : Fragment() {
@@ -46,6 +48,11 @@ class AddOrEditActionFragment : Fragment() {
         currentStep = step
         binding.stepView.setCurrentStep(step)
         binding.viewPager.currentItem = step.getIndex()
+        when (currentStep) {
+            StepNumber.FIRST -> setHelpDialogString(HelpDialogStringRes.ADD_ACTION_STEP_ONE)
+            StepNumber.SECOND -> setHelpDialogString(HelpDialogStringRes.ADD_ACTION_STEP_SECOND)
+            StepNumber.THIRD -> setHelpDialogString(HelpDialogStringRes.ADD_ACTION_STEP_THIRD)
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

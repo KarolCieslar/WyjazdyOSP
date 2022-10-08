@@ -1,6 +1,7 @@
 package pl.globoox.ospreportv3.ui.salary
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class SalaryAdapter: RecyclerView.Adapter<SalaryAdapter.MyViewHolder>() {
                 binding.actionCount.text = "Liczba akcji: $actionCount"
                 binding.hoursCount.text = "Liczba godzin: $hoursCount"
                 binding.salary.text = "$salary zł "
+                Log.d("adadsasd", "setData")
             }
         }
     }

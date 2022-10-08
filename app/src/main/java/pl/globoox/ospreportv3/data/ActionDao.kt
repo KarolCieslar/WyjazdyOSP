@@ -18,6 +18,6 @@ interface ActionDao {
     @Delete
     suspend fun removeAction(action: Action)
 
-    @Query("SELECT * FROM actions ORDER BY id DESC")
-    fun getAllActions(): LiveData<List<Action>>
+    @Query("SELECT * FROM actions ORDER BY id ASC LIMIT :limit OFFSET :offset")
+    fun getAllActions(limit: Int, offset: Int): LiveData<List<Action>>
 }

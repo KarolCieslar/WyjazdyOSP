@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import pl.globoox.ospreportv3.databinding.FragmentForcesBinding
+import pl.globoox.ospreportv3.utils.setHelpDialogString
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 
 class ForcesFragment : Fragment() {
 
@@ -28,6 +31,25 @@ class ForcesFragment : Fragment() {
     }
 
     private fun setupTabLayout() {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> setHelpDialogString(HelpDialogStringRes.FORCES_CAR)
+                    1 -> setHelpDialogString(HelpDialogStringRes.FORCES_FIREMAN)
+                    2 -> setHelpDialogString(HelpDialogStringRes.FORCES_EQUIPMENT)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val tabText = when (position) {
                 0 -> "Pojazdy"

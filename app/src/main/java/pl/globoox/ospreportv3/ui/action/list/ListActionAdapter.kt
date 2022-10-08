@@ -45,7 +45,7 @@ class ListActionAdapter(
                 }
 
                 binding.number.text = action.number
-                binding.autoincrement.text = "#${action.id}"
+                binding.autoincrement.text = "#${itemList.size - position}"
                 binding.location.text = action.location
 
                 val diffText = durationFormatter(action.outTime, action.inTime)

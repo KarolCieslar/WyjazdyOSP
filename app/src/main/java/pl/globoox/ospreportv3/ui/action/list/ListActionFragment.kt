@@ -15,9 +15,11 @@ import pl.globoox.ospreportv3.databinding.FragmentListActionBinding
 import pl.globoox.ospreportv3.model.Action
 import pl.globoox.ospreportv3.utils.ForcesStringType
 import pl.globoox.ospreportv3.utils.getForcesString
+import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.ActionListViewModel
 import pl.globoox.ospreportv3.views.ConfirmDialogView
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 import pl.globoox.ospreportv3.views.MarginItemDecoration
 
 class ListActionFragment : Fragment() {
@@ -54,6 +56,7 @@ class ListActionFragment : Fragment() {
             findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
         }
 
+        setHelpDialogString(HelpDialogStringRes.ACTION_LIST)
         return binding.root
     }
 

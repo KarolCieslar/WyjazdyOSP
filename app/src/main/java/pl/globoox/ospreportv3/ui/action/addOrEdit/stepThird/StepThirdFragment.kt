@@ -17,8 +17,10 @@ import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.CarInAction
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
+import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
+import pl.globoox.ospreportv3.views.HelpDialogStringRes
 
 class StepThirdFragment : Fragment() {
 
