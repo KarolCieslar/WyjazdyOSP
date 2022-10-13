@@ -13,7 +13,6 @@ import pl.globoox.ospreportv3.databinding.ItemStepSecondCarBinding
 import pl.globoox.ospreportv3.databinding.ItemStepSecondEquipmentBinding
 import pl.globoox.ospreportv3.databinding.ItemStepSecondSeparatorBinding
 import pl.globoox.ospreportv3.model.*
-import java.lang.IllegalArgumentException
 
 
 class StepSecondAdapter(

@@ -2,14 +2,10 @@ package pl.globoox.ospreportv3.utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-
 import com.google.gson.reflect.TypeToken
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.CarInAction
 import pl.globoox.ospreportv3.model.Equipment
-import pl.globoox.ospreportv3.model.Fireman
-import java.lang.reflect.Type
-import java.time.LocalDateTime
 
 class DatabaseConverters {
 

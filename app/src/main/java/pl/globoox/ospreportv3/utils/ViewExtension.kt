@@ -4,17 +4,11 @@ import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager2.widget.ViewPager2
 import pl.globoox.ospreportv3.MainActivity
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.views.HelpDialogStringRes
@@ -95,3 +89,13 @@ fun <T> mergeList(first: List<T>, second: List<T>): List<T> {
     list.addAll(second)
     return list
 }
+
+//fun View.setBottomMargin(marginBottom: Int) {
+//    val params: LinearLayout.LayoutParams =
+//        LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//    params.setMargins(marginLeft, marginTop, marginRight, marginBottom.dp)
+//    this.layoutParams = params
+//}
+//
+//val Int.dp: Int
+//    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

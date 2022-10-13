@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -23,14 +22,10 @@ import pl.globoox.ospreportv3.model.CarInAction
 import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.globoox.ospreportv3.utils.checkIsNullAndSetError
-import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.AddActionViewModel
 import pl.globoox.ospreportv3.views.DateTimeFormFieldView
-import pl.globoox.ospreportv3.views.HelpDialogStringRes
 import java.time.*
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class StepFirstFragment(
@@ -83,37 +78,39 @@ class StepFirstFragment(
         }
 
         binding.cancelButton.setClickListener {
-            viewModel.addAction(
-                Action(
-                    (9000..10000).random(),
-                    "01.01.2022 ${(10..19).random()}:${(10..56).random()}",
-                    "02.01.2022 ${(10..19).random()}:${(10..56).random()}",
-                    "Lokacja jakas ${(9000..10000).random()}",
-                    "${(9000..10000).random()}",
-                    "${(9000..10000).random()}",
-                    listOf(
-                        CarInAction(
-                            Car((9000..10000).random(), "${(9000..10000).random()}"),
-                            listOf(
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}")
+            repeat(200) {
+                viewModel.addAction(
+                    Action(
+                        (1000..100000).random(),
+                        "01.01.2022 ${(10..19).random()}:${(10..56).random()}",
+                        "02.01.2022 ${(10..19).random()}:${(10..56).random()}",
+                        "Lokacja jakas ${(9000..10000).random()}",
+                        "${(9000..10000).random()}",
+                        "${(9000..10000).random()}",
+                        listOf(
+                            CarInAction(
+                                Car((9000..10000).random(), "${(9000..10000).random()}"),
+                                listOf(
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}")
+                                )
+                            ),
+                            CarInAction(
+                                Car((9000..10000).random(), "${(9000..10000).random()}"),
+                                listOf(
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}"),
+                                    Fireman((9000..10000).random(), "${(9000..10000).random()}")
+                                )
                             )
                         ),
-                        CarInAction(
-                            Car((9000..10000).random(), "${(9000..10000).random()}"),
-                            listOf(
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}"),
-                                Fireman((9000..10000).random(), "${(9000..10000).random()}")
-                            )
-                        )
-                    ),
-                    emptyList()
+                        emptyList()
+                    )
                 )
-            )
+            }
 //            findNavController().navigateUp()
         }
     }

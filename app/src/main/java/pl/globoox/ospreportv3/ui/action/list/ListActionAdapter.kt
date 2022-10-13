@@ -1,19 +1,13 @@
 package pl.globoox.ospreportv3.ui.action.list
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.OvershootInterpolator
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.databinding.ItemActionListBinding
-import pl.globoox.ospreportv3.databinding.ItemSalaryFiremanBinding
 import pl.globoox.ospreportv3.model.Action
-import pl.globoox.ospreportv3.model.Fireman
-import pl.globoox.ospreportv3.ui.forces.view.ViewPagerListAdapter
 import pl.globoox.ospreportv3.utils.durationFormatter
 import pl.globoox.ospreportv3.views.CarInActionItemView
 import pl.globoox.ospreportv3.views.EquipmentActionView
@@ -25,6 +19,7 @@ class ListActionAdapter(
 ) : RecyclerView.Adapter<ListActionAdapter.MyViewHolder>() {
 
     private var itemList: MutableList<Action> = mutableListOf()
+    private var expandedItems: MutableList<Action> = mutableListOf()
     private lateinit var context: Context
 
     inner class MyViewHolder(val binding: ItemActionListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -40,7 +35,13 @@ class ListActionAdapter(
             with(itemList[position]) {
                 val action = this
 
+                binding.moreInfoView.isVisible = expandedItems.contains(action)
                 binding.item.setOnClickListener {
+                    if (expandedItems.contains(action)) {
+                        expandedItems.remove(action)
+                    } else {
+                        expandedItems.add(action)
+                    }
                     binding.moreInfoView.isVisible = !binding.moreInfoView.isVisible
                 }
 
@@ -57,10 +58,10 @@ class ListActionAdapter(
                     binding.crevList.addView(CarInActionItemView(context, carInAction.car, carInAction.firemans, index == action.carsInAction.size - 1))
                 }
 
-                binding.equpmentList.removeAllViews()
+                binding.equipmentList.removeAllViews()
                 binding.equipmentLabel.isVisible = action.equipment.isNotEmpty()
                 action.equipment.forEach { equipment ->
-                    binding.equpmentList.addView(EquipmentActionView(context, equipment.name))
+                    binding.equipmentList.addView(EquipmentActionView(context, equipment.name))
                 }
 
                 binding.descriptionLabel.isVisible = !action.description.isNullOrBlank()
@@ -75,6 +76,10 @@ class ListActionAdapter(
                 }
             }
         }
+    }
+
+    fun removeFromExpanded(action: Action) {
+        expandedItems.remove(action)
     }
 
     override fun getItemCount(): Int {
@@ -94,7 +99,7 @@ class ListActionAdapter(
             return oldList[oldItemPosition].id == newList[newItemPosition].id
         }
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition] && oldItemPosition == newItemPosition
+            return false
         }
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size

@@ -3,7 +3,6 @@ package pl.globoox.ospreportv3.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import pl.globoox.ospreportv3.model.Action
-import pl.globoox.ospreportv3.model.Equipment
 import pl.globoox.ospreportv3.model.Fireman
 
 

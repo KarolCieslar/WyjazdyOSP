@@ -1,16 +1,16 @@
 package pl.globoox.ospreportv3.ui.forces.view
 
 import android.content.Context
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ItemForcesListBinding
-import pl.globoox.ospreportv3.model.*
+import pl.globoox.ospreportv3.model.Car
+import pl.globoox.ospreportv3.model.Fireman
+import pl.globoox.ospreportv3.model.Forces
 
 class ViewPagerListAdapter(
     val onItemClick: ((item: Forces) -> Unit),

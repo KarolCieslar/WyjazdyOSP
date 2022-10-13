@@ -1,16 +1,14 @@
 package pl.globoox.ospreportv3.ui.forces.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.FragmentForcesViewPagerBinding
@@ -18,12 +16,10 @@ import pl.globoox.ospreportv3.model.Forces
 import pl.globoox.ospreportv3.ui.forces.ForcesDataType
 import pl.globoox.ospreportv3.utils.ForcesStringType
 import pl.globoox.ospreportv3.utils.getForcesString
-import pl.globoox.ospreportv3.utils.setHelpDialogString
 import pl.globoox.ospreportv3.utils.showSnackBar
 import pl.globoox.ospreportv3.viewmodel.ForcesViewModel
 import pl.globoox.ospreportv3.views.AddOrEditForcesDialogView
 import pl.globoox.ospreportv3.views.ConfirmDialogView
-import pl.globoox.ospreportv3.views.HelpDialogStringRes
 
 class ForcesViewPagerFragment(
     private val forcesDataType: ForcesDataType,
@@ -53,13 +49,6 @@ class ForcesViewPagerFragment(
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val horizontalDecoration = DividerItemDecoration(
-            recyclerView.context,
-            DividerItemDecoration.VERTICAL
-        )
-        val horizontalDivider = ContextCompat.getDrawable(requireContext(), R.drawable.horizontal_divider_line)
-        horizontalDecoration.setDrawable(horizontalDivider!!)
-        recyclerView.addItemDecoration(horizontalDecoration)
 
         dataList.observe(viewLifecycleOwner, Observer {
             binding.emptyView.isVisible = it.isEmpty()

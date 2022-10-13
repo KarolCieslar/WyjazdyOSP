@@ -1,9 +1,9 @@
 package pl.globoox.ospreportv3.repository
 
 import androidx.lifecycle.LiveData
-import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.data.FiremanDao
 import pl.globoox.ospreportv3.model.Action
+import pl.globoox.ospreportv3.model.Fireman
 
 class FiremanRepository(private val firemanDao: FiremanDao) {
 

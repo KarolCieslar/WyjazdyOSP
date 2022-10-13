@@ -80,9 +80,7 @@ class MainActivity : AppCompatActivity() {
         val stringRes = when (helpDialogStringRes) {
             HelpDialogStringRes.ACTION_LIST -> R.string.help_view_action_list
             HelpDialogStringRes.SALARY -> R.string.help_view_salary
-            HelpDialogStringRes.FORCES_CAR -> R.string.help_view_forces_car
-            HelpDialogStringRes.FORCES_FIREMAN -> R.string.help_view_forces_fireman
-            HelpDialogStringRes.FORCES_EQUIPMENT -> R.string.help_view_forces_equipment
+            HelpDialogStringRes.FORCES -> R.string.help_view_forces
             HelpDialogStringRes.ADD_ACTION_STEP_ONE -> R.string.help_view_add_or_edit_action_step_one
             HelpDialogStringRes.ADD_ACTION_STEP_SECOND -> R.string.help_view_add_or_edit_action_step_second
             HelpDialogStringRes.ADD_ACTION_STEP_THIRD -> R.string.help_view_add_or_edit_action_step_third

@@ -55,14 +55,11 @@ class StepThirdAdapter(
         }
 
         fun bind() {
-            val car = itemList[adapterPosition]
+            val car = itemList[layoutPosition]
             val isSelected = car.id == currentExpandedCar
             binding.name.text = car.name
             prepareAdapterAndSetData(binding, car.id)
-            if (isSelected) {
-                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
-                binding.carExpandLayout.isVisible = true
-            }
+            handleExpandLayoutVisible(binding, isSelected)
         }
 
         private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, carId: Int) {
@@ -102,28 +99,28 @@ class StepThirdAdapter(
         }
 
         override fun onClick(view: View?) {
-            val position = adapterPosition
-            val carId = itemList[position].id
+            val carId = itemList[layoutPosition].id
             repeat(itemList.size) {
-                if (carId != it) {
-                    val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
-                    if (holder != null) {
-                        holder.binding.carExpandLayout.isVisible = false
-                        holder.binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
-                    }
+                val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
+                if (holder != null) {
+                    handleExpandLayoutVisible(holder.binding, false)
                 }
             }
             if (currentExpandedCar == carId) {
-                binding.carExpandLayout.isVisible = false
                 currentExpandedCar = -1
-                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                handleExpandLayoutVisible(binding, false)
             } else {
-                binding.carExpandLayout.isVisible = true
                 currentExpandedCar = carId
-                binding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, R.color.black100))
+                handleExpandLayoutVisible(binding, true)
             }
             prepareAdapterAndSetData(binding, carId)
         }
+    }
+
+    private fun handleExpandLayoutVisible(viewBinding: ItemAddActionCarBinding, isVisible: Boolean) {
+        viewBinding.carExpandLayout.isVisible = isVisible
+        viewBinding.arrow.rotation = if (isVisible) 180f else 0f
+        viewBinding.carItemSection.setBackgroundColor(ContextCompat.getColor(context, if (isVisible) R.color.black100 else R.color.white))
     }
 
     fun setCars(list: List<Car>) {

@@ -1,10 +1,10 @@
 package pl.globoox.ospreportv3.ui.action.addOrEdit.stepThird
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.globoox.ospreportv3.R
@@ -34,7 +34,7 @@ class FiremanRecyclerAdapter(
     inner class FiremanViewHolder(private val binding: ItemAddActionFiremanBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(fireman: Fireman) {
-            Log.d("asasddsa", "FiremanViewHolder")
+            binding.divider.isVisible = itemList.size != adapterPosition + 1
             binding.name.text = fireman.name
             binding.checkbox.isChecked = fireman.selectStatus != null
             binding.checkbox.setOnClickListener {

@@ -10,8 +10,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.customview.widget.ViewDragHelper
-import pl.globoox.ospreportv3.databinding.ViewConfirmDialogBinding
 import pl.globoox.ospreportv3.databinding.ViewHelpDialogBinding
 
 
@@ -45,5 +43,5 @@ class HelpDialogView @JvmOverloads constructor(
 }
 
 enum class HelpDialogStringRes {
-    ACTION_LIST, SALARY, FORCES_CAR, FORCES_FIREMAN, FORCES_EQUIPMENT, ADD_ACTION_STEP_ONE, ADD_ACTION_STEP_SECOND, ADD_ACTION_STEP_THIRD
+    ACTION_LIST, SALARY, FORCES, ADD_ACTION_STEP_ONE, ADD_ACTION_STEP_SECOND, ADD_ACTION_STEP_THIRD
 }

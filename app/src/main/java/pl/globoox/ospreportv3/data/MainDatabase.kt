@@ -5,7 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import pl.globoox.ospreportv3.model.*
+import pl.globoox.ospreportv3.model.Action
+import pl.globoox.ospreportv3.model.Car
+import pl.globoox.ospreportv3.model.Equipment
+import pl.globoox.ospreportv3.model.Fireman
 import pl.globoox.ospreportv3.utils.DatabaseConverters
 
 @Database(entities=[Action::class, Car::class, Fireman::class, Equipment::class], version = 1, exportSchema = false)

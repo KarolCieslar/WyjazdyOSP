@@ -1,11 +1,10 @@
 package pl.globoox.ospreportv3.views
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import pl.globoox.ospreportv3.R
 import pl.globoox.ospreportv3.databinding.ViewCarInActionBinding
 import pl.globoox.ospreportv3.model.Car
 import pl.globoox.ospreportv3.model.Fireman
@@ -23,10 +22,9 @@ class CarInActionItemView(
     init {
         binding.carName.text = car.name
         val adapter = FiremansInActionAdapter(car.id)
-        val recyclerView = binding.recyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.setList(firemanList)
-        if (isLastItem) recyclerView.setPadding(0, 0, 0, 0)
+        if (isLastItem) binding.recyclerView.setPadding(0, 0, 0, 0)
     }
 }
