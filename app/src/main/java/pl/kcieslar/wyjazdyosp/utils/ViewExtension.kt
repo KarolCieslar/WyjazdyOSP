@@ -10,7 +10,7 @@ import android.widget.EditText
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import pl.kcieslar.wyjazdyosp.MainActivity
-import kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

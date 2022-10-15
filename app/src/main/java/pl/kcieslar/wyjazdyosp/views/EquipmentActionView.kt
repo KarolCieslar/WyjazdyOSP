@@ -3,7 +3,7 @@ package pl.kcieslar.wyjazdyosp.views
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import kcieslar.wyjazdyosp.databinding.ViewEquipmentActionBinding
+import pl.kcieslar.wyjazdyosp.databinding.ViewEquipmentActionBinding
 
 class EquipmentActionView (
     context: Context,

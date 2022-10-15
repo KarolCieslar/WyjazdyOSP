@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import kcieslar.wyjazdyosp.databinding.FragmentAddOrEditActionBinding
+import pl.kcieslar.wyjazdyosp.databinding.FragmentAddOrEditActionBinding
 import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.viewmodel.AddActionViewModel

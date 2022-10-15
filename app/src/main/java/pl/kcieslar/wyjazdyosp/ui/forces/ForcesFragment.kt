@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
-import kcieslar.wyjazdyosp.databinding.FragmentForcesBinding
+import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesBinding
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 

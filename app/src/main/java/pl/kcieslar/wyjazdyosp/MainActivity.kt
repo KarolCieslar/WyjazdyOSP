@@ -13,8 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.ActivityMainBinding
+import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 import java.time.format.DateTimeFormatter

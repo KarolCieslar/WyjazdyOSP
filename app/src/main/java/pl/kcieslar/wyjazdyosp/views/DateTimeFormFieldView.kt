@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.ViewDateTimeFormFieldBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.ViewDateTimeFormFieldBinding
 
 class DateTimeFormFieldView : FrameLayout {
 

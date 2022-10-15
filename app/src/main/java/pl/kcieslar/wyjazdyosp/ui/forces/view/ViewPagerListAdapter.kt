@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.ItemForcesListBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.ItemForcesListBinding
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.model.Forces

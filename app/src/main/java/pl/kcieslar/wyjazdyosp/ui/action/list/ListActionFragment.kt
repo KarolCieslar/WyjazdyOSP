@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar

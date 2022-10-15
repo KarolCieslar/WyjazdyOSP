@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import pl.kcieslar.wyjazdyosp.utils.ForcesStringType

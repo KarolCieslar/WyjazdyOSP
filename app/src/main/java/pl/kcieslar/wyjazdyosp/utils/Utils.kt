@@ -2,7 +2,7 @@ package pl.kcieslar.wyjazdyosp.utils
 
 import android.content.Context
 
-import kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
 fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataType: ForcesDataType, textVariable: String? = null) : String {

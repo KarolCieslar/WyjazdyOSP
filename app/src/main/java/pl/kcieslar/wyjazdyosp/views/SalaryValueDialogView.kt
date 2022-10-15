@@ -8,7 +8,7 @@ import android.graphics.drawable.InsetDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import kcieslar.wyjazdyosp.databinding.ViewSalaryValueDialogBinding
+import pl.kcieslar.wyjazdyosp.databinding.ViewSalaryValueDialogBinding
 
 
 class SalaryValueDialogView(

@@ -18,8 +18,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatterHelper
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.FragmentSalaryBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.FragmentSalaryBinding
 import pl.kcieslar.wyjazdyosp.model.Quarter
 import pl.kcieslar.wyjazdyosp.utils.convertStringToLocalDateTime
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString

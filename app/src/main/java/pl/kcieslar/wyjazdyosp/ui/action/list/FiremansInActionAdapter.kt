@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import kcieslar.wyjazdyosp.databinding.ItemFiremanInActionBinding
+import pl.kcieslar.wyjazdyosp.databinding.ItemFiremanInActionBinding
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird.FiremanFunction
 

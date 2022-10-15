@@ -10,7 +10,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import kcieslar.wyjazdyosp.databinding.ViewHelpDialogBinding
+import pl.kcieslar.wyjazdyosp.databinding.ViewHelpDialogBinding
 
 
 class HelpDialogView @JvmOverloads constructor(

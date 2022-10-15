@@ -12,8 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import org.greenrobot.eventbus.EventBus
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.FragmentStepSecondBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.FragmentStepSecondBinding
 import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment

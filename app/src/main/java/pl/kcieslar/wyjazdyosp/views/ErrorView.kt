@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import kcieslar.wyjazdyosp.databinding.ViewErrorViewBinding
+import pl.kcieslar.wyjazdyosp.databinding.ViewErrorViewBinding
 
 class ErrorView @JvmOverloads constructor (
     context: Context, attrs: AttributeSet? = null

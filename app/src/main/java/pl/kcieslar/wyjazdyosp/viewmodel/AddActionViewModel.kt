@@ -12,10 +12,10 @@ import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
-import kcieslar.wyjazdyosp.Repository.ActionRepository
-import kcieslar.wyjazdyosp.Repository.CarRepository
-import kcieslar.wyjazdyosp.Repository.EquipmentRepository
-import kcieslar.wyjazdyosp.Repository.FiremanRepository
+import pl.kcieslar.wyjazdyosp.Repository.ActionRepository
+import pl.kcieslar.wyjazdyosp.Repository.CarRepository
+import pl.kcieslar.wyjazdyosp.Repository.EquipmentRepository
+import pl.kcieslar.wyjazdyosp.Repository.FiremanRepository
 
 class AddActionViewModel(application: Application) : AndroidViewModel(application) {
 

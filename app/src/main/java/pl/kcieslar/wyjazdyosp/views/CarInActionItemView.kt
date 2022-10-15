@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import kcieslar.wyjazdyosp.databinding.ViewCarInActionBinding
+import pl.kcieslar.wyjazdyosp.databinding.ViewCarInActionBinding
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.list.FiremansInActionAdapter

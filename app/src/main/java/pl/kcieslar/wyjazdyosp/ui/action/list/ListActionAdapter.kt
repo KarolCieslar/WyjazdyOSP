@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kcieslar.wyjazdyosp.databinding.ItemActionListBinding
+import pl.kcieslar.wyjazdyosp.databinding.ItemActionListBinding
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.utils.durationFormatter
 import pl.kcieslar.wyjazdyosp.views.CarInActionItemView

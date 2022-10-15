@@ -7,28 +7,17 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/position"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:alpha="0.6"
-        android:textColor="@color/black"
-        android:textSize="50sp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="1" />
-
-    <TextView
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/salary"
-        app:layout_constraintStart_toEndOf="@+id/position"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Jakaś nazwa strażaka" />
 
@@ -36,10 +25,10 @@
         android:id="@+id/actionCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:fontFamily="@font/inter_semibold"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/position"
+        android:textColor="@color/black600"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="Liczba akcji: 20" />
 
@@ -47,10 +36,10 @@
         android:id="@+id/hoursCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:fontFamily="@font/inter_semibold"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/position"
+        android:textColor="@color/black600"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actionCount"
         tools:text="Liczba godzin: 15" />
 
@@ -59,9 +48,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:textSize="25sp"
         android:fontFamily="@font/inter_medium"
-        android:textColor="@color/black"
+        android:textColor="@color/closeBlack"
+        android:textSize="25sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Fireman
-import kcieslar.wyjazdyosp.Repository.FiremanRepository
+import pl.kcieslar.wyjazdyosp.Repository.FiremanRepository
 
 class SalaryViewModel(application: Application) : AndroidViewModel(application) {
 

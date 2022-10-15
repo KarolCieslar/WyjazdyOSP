@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.StepViewBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.StepViewBinding
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 
 class StepView @JvmOverloads constructor(

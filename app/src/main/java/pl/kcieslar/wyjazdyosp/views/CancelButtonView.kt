@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.ViewCancelButtonBinding
+import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.ViewCancelButtonBinding
 
 class CancelButtonView : FrameLayout {
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">wyjazdyosp</string>
+    <string name="app_name">Wyjazdy OSP</string>
     <string name="title_list_action">Wyjazdy</string>
     <string name="title_add_action">Dodaj Wyjazd</string>
     <string name="title_forces">Siły i Środki</string>
@@ -31,7 +31,7 @@
 
     <!-- Forces ListAction -->
     <string name="list_action_fragment_empty_view_main">BRAK AKCJI</string>
-    <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz \nżadnej akcji!</string>
+    <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz wprowadzonej \nżadnej akcji! Dodaj akcję klikając ikonę plusika.</string>
     <string name="list_action_increment">Wyjazd #</string>
     <string name="list_action_number">Meldunek:</string>
     <string name="list_action_location">Lokalizacja:</string>
@@ -39,7 +39,6 @@
     <string name="list_action_in_time">Data powrotu:</string>
     <string name="list_action_duration">Czas trwania:</string>
     <string name="list_action_fragment_remove_dialog_description"><![CDATA[Jesteś pewny, że chcesz usunąć akcję o meldunku <b>%1$s</b> z listy?]]></string>
-
 
     <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>
@@ -79,7 +78,7 @@
     <string name="salary_fragment_salary_not_set_description">Nie ustawiono poprawnej wartości ekwiwalentu za godzinę akcji. Kliknij ikonę zębatki w prawym górnym rogu aby wprowadzić nową wartość.</string>
 
     <string name="help_view_action_list"><![CDATA[Na tym ekranie znajduje się <b>lista wyjazdów.</b> Każdy z nich zawiera podstawowe informacje takie jak numer meldunku, miejsce akcji, godzina wyjazdu i powrotu oraz czas trwania akcji co do minuty. <br><br>Jeśli chcesz uzyskać więcej informacji na temat wyjazdu należy na niego <b>kliknąć</b>. Każdy wyjazd można edytować oraz usunąć. <br><br>Aby dodać nowy wyjazd do listy kliknij przycisk PLUSA znajdujący się w dolnym prawym rogu.]]></string>
-    <string name="help_view_salary"><![CDATA[Znajdziesz tutaj ekwiwalenty jakie przysługują poszczególnym druhom. Kwoty liczone <b>za każdą rozpoczętą godzinę akcji.</b> <br><br>Domyślnie wybrany jest aktualny kwartał ale można wybrać inny klikając w rubrykę "Kwartał". Na liście znajdują się tylko te kwartały w których był <b>minimum jeden wyjazd</b>. <br><br>Jeśli chcesz wybrać interesujacy Cię okres, możesz go wybrać klikając w <b>ikonę kalendarza.</b> Zarówno w przypadku kwartału jak i zakresu dat ekwiwalent jest liczony automatycznie.<br><br>Po kliknięicu w ikonę zębatki możesz <b>edytować kwotę ekwiwalentu</b> za każdą rozpoczętą godzinę akcji.]]></string>
+    <string name="help_view_salary"><![CDATA[Znajdziesz tutaj ekwiwalenty jakie przysługują poszczególnym druhom. Kwoty liczone <b>za każdą rozpoczętą godzinę akcji.</b><br><br>Domyślnie wybrany jest aktualny kwartał ale można wybrać inny klikając w rubrykę "Kwartał". <br><br>Jeśli chcesz wybrać interesujacy Cię zakres dat, możesz to zrobić klikając w <b>ikonę kalendarza.</b> Zarówno w przypadku kwartału jak i zakresu dat ekwiwalent jest liczony automatycznie.<br><br>Po kliknięicu w ikonę zębatki możesz <b>edytować kwotę ekwiwalentu</b> za każdą rozpoczętą godzinę akcji.]]></string>
     <string name="help_view_forces"><![CDATA[<br><b><i>POJAZDY</i></b><br>Lista pojazdów jakie dostępne są w Twojej jednostce. Podczas dodawania wyjazdu na to właśnie na podstawie <b>tej listy</b> wybierane są pojazdy, które brały udział w akcji. <br><br><b><i>RATOWNICY</i></b><br>Lista druhów, którzy biorą czynny udział w akcjach. Podczas dodawania wyjazdu to właśnie <b>z tej listy będzie</b> można przypisać druha do poszczególnych samochodów biorących udział w akcji.<br><br><b><i>SPRZĘT</i></b><br>Lista sprzętu jaki dysponuje jednostka. Każdy sprzęt można <b>zaznaczyć podczas dodawania wyjazdu</b> jako taki, który brał udział w akcji. Nazwa sprzętu wyświetlana będzie na liście wyjazdów.<br><br>Aby edytować listę należy <b>kliknąć na nazwę elementu.</b>]]></string>
     <string name="help_view_add_or_edit_action_step_one">Dodawanie wyjazdu składa się z trzech etapów. Pierwszy z nich wymaga od Ciebie uzupełnienia podstawowych informacji. Opis zdarzenia jest opcjonalny.</string>
     <string name="help_view_add_or_edit_action_step_second">Zaznacz sprzęt oraz pojazdy, które brały udział w akcji. Do wybranych przez Ciebie pojazdów będzie można przypisać druhów. Musisz zaznaczyć minimum jeden pojazd aby przejść dalej.</string>

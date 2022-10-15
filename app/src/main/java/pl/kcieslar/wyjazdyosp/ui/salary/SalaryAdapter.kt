@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kcieslar.wyjazdyosp.databinding.ItemSalaryFiremanBinding
+import pl.kcieslar.wyjazdyosp.databinding.ItemSalaryFiremanBinding
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.utils.calculateActionHours
@@ -33,7 +33,6 @@ class SalaryAdapter: RecyclerView.Adapter<SalaryAdapter.MyViewHolder>() {
                 val hoursCount = calculateHours(firemanActions)
                 val salary = calculateSalary(hoursCount)
 
-                binding.position.text = "${position + 1}."
                 binding.name.text = this.name
                 binding.actionCount.text = "Liczba akcji: $actionCount"
                 binding.hoursCount.text = "Liczba godzin: $hoursCount"

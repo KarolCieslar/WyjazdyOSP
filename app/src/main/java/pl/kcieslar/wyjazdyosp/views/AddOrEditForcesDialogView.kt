@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.widget.doAfterTextChanged
-import kcieslar.wyjazdyosp.databinding.ViewAddOrEditForcesDialogBinding
+import pl.kcieslar.wyjazdyosp.databinding.ViewAddOrEditForcesDialogBinding
 
 
 class AddOrEditForcesDialogView @JvmOverloads constructor(

@@ -10,12 +10,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import pl.kcieslar.wyjazdyosp.databinding.FragmentStepFirstBinding
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatterHelper
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.timeFormatter
-import kcieslar.wyjazdyosp.R
-import kcieslar.wyjazdyosp.databinding.FragmentStepFirstBinding
+import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
