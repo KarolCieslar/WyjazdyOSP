@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private var helpDialogStringRes = HelpDialogStringRes.ACTION_LIST
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        throw RuntimeException("Test Crash") // Force a crash
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

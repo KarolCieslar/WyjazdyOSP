@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listAction"
-        android:name="kcieslar.wyjazdyosp.ui.action.list.ListActionFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.action.list.ListActionFragment"
         android:label="@string/title_list_action"
         tools:layout="@layout/fragment_list_action">
 
@@ -20,21 +20,21 @@
 
     <fragment
         android:id="@+id/addOrEditAction"
-        android:name="kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment"
         android:label="@string/title_add_action"
         tools:layout="@layout/fragment_add_or_edit_action">
 
         <argument
             android:name="action"
             android:defaultValue="@null"
-            app:argType="kcieslar.wyjazdyosp.model.Action"
+            app:argType="pl.kcieslar.wyjazdyosp.model.Action"
             app:nullable="true" />
 
     </fragment>
 
     <fragment
         android:id="@+id/salaryFragment"
-        android:name="kcieslar.wyjazdyosp.ui.salary.SalaryFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.salary.SalaryFragment"
         android:label="@string/title_salary"
         tools:layout="@layout/fragment_salary">
 
@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/forcesFragment"
-        android:name="kcieslar.wyjazdyosp.ui.forces.ForcesFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.forces.ForcesFragment"
         android:label="@string/title_forces"
         tools:layout="@layout/fragment_forces" >
 
