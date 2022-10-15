@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OspReportv3</string>
+    <string name="app_name">wyjazdyosp</string>
     <string name="title_list_action">Wyjazdy</string>
     <string name="title_add_action">Dodaj Wyjazd</string>
     <string name="title_forces">Siły i Środki</string>

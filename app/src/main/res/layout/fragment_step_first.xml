@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <!-- OUT DATE -->
-    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
         android:id="@+id/outDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- OUT TIME -->
-    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
         android:id="@+id/outTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- IN DATE -->
-    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
         android:id="@+id/inDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/outDate" />
 
     <!-- IN TIME -->
-    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
         android:id="@+id/inTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <pl.globoox.ospreportv3.views.CancelButtonView
+    <pl.kcieslar.wyjazdyosp.views.CancelButtonView
         android:id="@+id/cancelButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
         app:layout_constraintEnd_toStartOf="@+id/primaryButton"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <pl.globoox.ospreportv3.views.PrimaryButtonView
+    <pl.kcieslar.wyjazdyosp.views.PrimaryButtonView
         android:id="@+id/primaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

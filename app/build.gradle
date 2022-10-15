@@ -10,7 +10,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "pl.globoox.ospreportv3"
+        applicationId "pl.kcieslar.wyjazdyosp"
         minSdk 26
         targetSdk 32
         versionCode 1
@@ -64,7 +64,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
     implementation 'com.google.code.gson:gson:2.9.1'
-//    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
+    implementation platform('com.google.firebase:firebase-bom:31.0.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"

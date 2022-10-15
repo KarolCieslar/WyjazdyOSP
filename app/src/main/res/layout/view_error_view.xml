@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mainText"
         tools:text="Niestety nie posasddasdas das asddas  dassa d dasads ads sda sad ał w akcji." />
 
-    <pl.globoox.ospreportv3.views.PrimaryButtonView
+    <pl.kcieslar.wyjazdyosp.views.PrimaryButtonView
         android:id="@+id/button"
         android:clickable="true"
         android:visibility="gone"

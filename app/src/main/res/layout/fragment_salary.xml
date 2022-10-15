@@ -45,7 +45,7 @@
         app:smsp_selectedItemListColor="@color/red"
         app:smsp_underlineSize="0dp" />
 
-    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
         android:id="@+id/fromDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
 
-    <pl.globoox.ospreportv3.views.DateTimeFormFieldView
+    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
         android:id="@+id/toDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromDate" />
 
-    <pl.globoox.ospreportv3.views.ErrorView
+    <pl.kcieslar.wyjazdyosp.views.ErrorView
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

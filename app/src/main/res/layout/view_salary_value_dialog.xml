@@ -51,7 +51,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <pl.globoox.ospreportv3.views.CancelButtonView
+        <pl.kcieslar.wyjazdyosp.views.CancelButtonView
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLayout" />
 
-        <pl.globoox.ospreportv3.views.PrimaryButtonView
+        <pl.kcieslar.wyjazdyosp.views.PrimaryButtonView
             android:id="@+id/primaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
