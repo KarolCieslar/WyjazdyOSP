@@ -11,9 +11,9 @@ import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.model.Forces
-import pl.kcieslar.wyjazdyosp.Repository.CarRepository
+import pl.kcieslar.wyjazdyosp.repository.CarRepository
 import pl.kcieslar.wyjazdyosp.Repository.EquipmentRepository
-import pl.kcieslar.wyjazdyosp.Repository.FiremanRepository
+import pl.kcieslar.wyjazdyosp.repository.FiremanRepository
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
 class ForcesViewModel(application: Application) : AndroidViewModel(application) {

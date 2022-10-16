@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.Repository
+package pl.kcieslar.wyjazdyosp.repository
 
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.ActionDao

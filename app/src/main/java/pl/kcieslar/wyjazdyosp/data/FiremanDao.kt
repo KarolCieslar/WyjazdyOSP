@@ -5,7 +5,6 @@ import androidx.room.*
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Fireman
 
-
 @Dao
 interface FiremanDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

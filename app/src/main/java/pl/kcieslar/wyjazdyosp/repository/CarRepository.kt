@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.Repository
+package pl.kcieslar.wyjazdyosp.repository
 
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.CarDao
@@ -7,6 +7,7 @@ import pl.kcieslar.wyjazdyosp.model.Car
 class CarRepository(private val carDao: CarDao) {
 
     val getAllCars: LiveData<List<Car>> = carDao.getAllCars()
+    val carsCount: LiveData<Int> = carDao.carsCount()
 
     suspend fun addCar(car: Car) {
         carDao.addCar(car)

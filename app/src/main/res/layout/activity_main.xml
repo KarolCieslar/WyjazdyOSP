@@ -11,7 +11,7 @@
         android:id="@+id/arcView"
         android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:background="@drawable/main_gradient_drawable"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:shape_arc_height="10dp"

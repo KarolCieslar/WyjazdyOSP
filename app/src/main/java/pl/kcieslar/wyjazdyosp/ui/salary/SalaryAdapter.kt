@@ -34,8 +34,8 @@ class SalaryAdapter: RecyclerView.Adapter<SalaryAdapter.MyViewHolder>() {
                 val salary = calculateSalary(hoursCount)
 
                 binding.name.text = this.name
-                binding.actionCount.text = "Liczba akcji: $actionCount"
-                binding.hoursCount.text = "Liczba godzin: $hoursCount"
+                binding.actionCount.text = "Akcje: $actionCount"
+                binding.hoursCount.text = "Łącznie godzin: $hoursCount"
                 binding.salary.text = "$salary zł "
                 Log.d("adadsasd", "setData")
             }

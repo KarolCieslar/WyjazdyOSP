@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#EB3C53</color>
-    <color name="colorPrimaryGradientStart">#D3313F</color>
-    <color name="colorPrimaryGradientEnd">#EB3C53</color>
+    <color name="colorPrimary">#D3313F</color>
     <color name="backgroundapp">#ffffff</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkRed300">#A1222D</color>
     <color name="darkness">#C6000000</color>
 
     <color name="closeBlack">#B3000000</color>
-    <color name="red">#d0494d</color>
+    <color name="red">#D3313F</color>
     <color name="black100">#DFDFDF</color>
     <color name="black200">#BFBFBF</color>
     <color name="black400">#808080</color>

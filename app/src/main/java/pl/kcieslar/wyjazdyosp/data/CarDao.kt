@@ -18,4 +18,7 @@ interface CarDao {
 
     @Query("SELECT * FROM cars ORDER BY id ASC")
     fun getAllCars(): LiveData<List<Car>>
+
+    @Query("SELECT COUNT(*) FROM cars")
+    fun carsCount(): LiveData<Int>
 }

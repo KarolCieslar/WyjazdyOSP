@@ -8,9 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Action
-import pl.kcieslar.wyjazdyosp.Repository.ActionRepository
+import pl.kcieslar.wyjazdyosp.repository.ActionRepository
 
 class ActionListViewModel(application: Application) : AndroidViewModel(application) {
+
 
     val actionList: LiveData<List<Action>>
     private val actionRepository: ActionRepository
