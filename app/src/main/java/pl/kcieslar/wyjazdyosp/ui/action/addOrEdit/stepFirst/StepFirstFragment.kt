@@ -122,7 +122,7 @@ class StepFirstFragment(
     }
 
     private fun openDatePicker(view: DateTimeFormFieldView) {
-        val date = LocalDateTime.parse("${view.getValue()} 00:00", dateFormatterHelper)
+        val date = LocalDateTime.parse("${view.getValue()} 15:00", dateFormatterHelper)
         val zdt: ZonedDateTime = ZonedDateTime.of(date, ZoneId.systemDefault())
         val datePicker = MaterialDatePicker
             .Builder.datePicker()

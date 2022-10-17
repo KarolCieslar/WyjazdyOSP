@@ -52,6 +52,10 @@ class ListActionFragment : Fragment() {
             adapter.setList(it)
         })
 
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
+        }
+
         setHelpDialogString(HelpDialogStringRes.ACTION_LIST)
         return binding.root
     }

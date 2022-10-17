@@ -14,6 +14,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
@@ -24,7 +27,6 @@ import pl.kcieslar.wyjazdyosp.model.Quarter
 import pl.kcieslar.wyjazdyosp.utils.convertStringToLocalDateTime
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.viewmodel.SalaryViewModel
-import pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.SalaryValueDialogView
 import java.time.*
@@ -152,11 +154,11 @@ class SalaryFragment : Fragment() {
                     }
 
                     val filteredActions = actions.filter {
-                        val date = convertStringToLocalDateTime(it.outTime)
+                        val date = convertStringToLocalDateTime(it.outTime).toLocalDate()
                         if (viewModel.dateButtonSelected) {
-                            val fromDate = LocalDateTime.parse("${binding.fromDate.getValue()} 00:00", dateFormatterHelper)
-                            val toDate = LocalDateTime.parse("${binding.toDate.getValue()} 00:00", dateFormatterHelper)
-                            date.isAfter(fromDate) && date.isBefore(toDate)
+                            val fromDate = LocalDate.parse(binding.fromDate.getValue(), dateFormatter)
+                            val toDate = LocalDate.parse(binding.toDate.getValue(), dateFormatter)
+                            date.isEqual(toDate) || date.isEqual(fromDate) || date.isAfter(fromDate) && date.isBefore(toDate)
                         } else {
                             date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
                         }
@@ -168,20 +170,41 @@ class SalaryFragment : Fragment() {
     }
 
     private fun setDateClickListener() {
-        binding.fromDate.setOnClickListener { openDatePicker(binding.fromDate) }
-        binding.toDate.setOnClickListener { openDatePicker(binding.toDate) }
+        binding.fromDate.setOnClickListener { openFromDatePicker() }
+        binding.toDate.setOnClickListener { openToDatePicker() }
     }
 
-    private fun openDatePicker(view: DateTimeFormFieldView) {
-        val date = LocalDateTime.parse("${view.getValue()} 00:00", dateFormatterHelper)
+    private fun openToDatePicker() {
+        val fromDate = LocalDateTime.parse("${binding.fromDate.getValue()} 15:00", dateFormatterHelper)
+        val fromDateZdt: ZonedDateTime = ZonedDateTime.of(fromDate, ZoneId.systemDefault())
+        val constraint = CalendarConstraints.Builder().setValidator(DateValidatorPointForward.from(fromDateZdt.toInstant().toEpochMilli()))
+        val date = LocalDateTime.parse("${binding.toDate.getValue()} 15:00", dateFormatterHelper)
         val zdt: ZonedDateTime = ZonedDateTime.of(date, ZoneId.systemDefault())
         val datePicker = MaterialDatePicker
             .Builder.datePicker()
             .setSelection(zdt.toInstant().toEpochMilli())
-            .build()
+            .setCalendarConstraints(constraint.build()).build()
         datePicker.addOnPositiveButtonClickListener { selectedDateMilli ->
             val selectedDate = Instant.ofEpochMilli(selectedDateMilli).atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormatter)
-            view.setValue(selectedDate.toString())
+            binding.toDate.setValue(selectedDate.toString())
+            buildFragmentUI()
+        }
+        datePicker.show(childFragmentManager, "Wybierz datę")
+    }
+
+    private fun openFromDatePicker() {
+        val toDate = LocalDateTime.parse("${binding.toDate.getValue()} 15:00", dateFormatterHelper)
+        val toDateZdt: ZonedDateTime = ZonedDateTime.of(toDate, ZoneId.systemDefault())
+        val constraint = CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.before(toDateZdt.toInstant().toEpochMilli()))
+        val date = LocalDateTime.parse("${binding.fromDate.getValue()} 15:00", dateFormatterHelper)
+        val zdt: ZonedDateTime = ZonedDateTime.of(date, ZoneId.systemDefault())
+        val datePicker = MaterialDatePicker
+            .Builder.datePicker()
+            .setSelection(zdt.toInstant().toEpochMilli())
+            .setCalendarConstraints(constraint.build()).build()
+        datePicker.addOnPositiveButtonClickListener { selectedDateMilli ->
+            val selectedDate = Instant.ofEpochMilli(selectedDateMilli).atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormatter)
+            binding.fromDate.setValue(selectedDate.toString())
             buildFragmentUI()
         }
         datePicker.show(childFragmentManager, "Wybierz datę")

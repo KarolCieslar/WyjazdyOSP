@@ -3,7 +3,6 @@ package pl.kcieslar.wyjazdyosp.repository
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.FiremanDao
 import pl.kcieslar.wyjazdyosp.model.Action
-import pl.kcieslar.wyjazdyosp.model.CarsAndFiremansCount
 import pl.kcieslar.wyjazdyosp.model.Fireman
 
 class FiremanRepository(private val firemanDao: FiremanDao) {
