@@ -32,10 +32,6 @@ class HelpDialogView @JvmOverloads constructor(
         dialog.show()
     }
 
-    fun setTitle(text: String) {
-        binding.title.text = text
-    }
-
     fun setDescription(text: String) {
         binding.description.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
     }

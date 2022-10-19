@@ -1,14 +1,17 @@
 package pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepFirst
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import pl.kcieslar.wyjazdyosp.databinding.FragmentStepFirstBinding
 import org.greenrobot.eventbus.EventBus
@@ -135,19 +138,11 @@ class StepFirstFragment(
         datePicker.show(childFragmentManager, "Wybierz datę")
     }
 
-    private fun openTimePicker(view: DateTimeFormFieldView) {
-        val defaultValue = LocalTime.parse(view.getValue(), timeFormatter)
-        val timePicker = MaterialTimePicker.Builder()
-            .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(defaultValue.hour)
-            .setMinute(defaultValue.minute)
-            .build()
-        timePicker.addOnPositiveButtonClickListener {
-            val newHour: Int = timePicker.hour
-            val newMinute: Int = timePicker.minute
-            view.setValue(String.format("%02d:%02d", newHour, newMinute))
-        }
-        timePicker.show(childFragmentManager, "Wybierz godzinę")
+    private fun openTimePicker(dateFormView: DateTimeFormFieldView) {
+        val defaultValue = LocalTime.parse(dateFormView.getValue(), timeFormatter)
+        TimePickerDialog(context, TimePickerDialog.THEME_HOLO_LIGHT, { _, hourOfDay, minute ->
+            dateFormView.setValue(String.format("%02d:%02d", hourOfDay, minute))
+        }, defaultValue.hour, defaultValue.minute, true).show()
     }
 
     override fun onDestroyView() {

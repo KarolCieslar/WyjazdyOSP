@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import org.greenrobot.eventbus.EventBus
@@ -33,6 +35,15 @@ class AddOrEditActionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddOrEditActionBinding.inflate(inflater, container, false)
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when (currentStep) {
+                    StepNumber.THIRD -> setCurrentStep(StepNumber.SECOND)
+                    StepNumber.SECOND -> setCurrentStep(StepNumber.FIRST)
+                    else -> findNavController().navigateUp()
+                }
+            }
+        })
 
         setupViewPager()
 

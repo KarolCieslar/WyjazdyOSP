@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
@@ -36,11 +38,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.myToolbar)
+        binding.myToolbar.inflateMenu(R.menu.appbar_menu)
+        binding.myToolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_help)
+
 
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this, R.color.red)
-
 
         val navView: BottomNavigationView = binding.navView
 
@@ -58,6 +62,29 @@ class MainActivity : AppCompatActivity() {
                 R.id.addOrEditAction -> navView.isVisible = false
                 else -> navView.isVisible = true
             }
+        }
+
+        showTutorial()
+    }
+
+    private fun showTutorial() {
+        val sharedPref = getSharedPreferences("SHARED_PREF_APP_OSP", MODE_PRIVATE)
+        if (!sharedPref.getBoolean("TUTORIAL_SHOWED", false)) {
+            TapTargetView.showFor(this,
+                TapTarget.forToolbarMenuItem(
+                    binding.myToolbar, R.id.helpIcon, getString(R.string.tutorial_question_mark_title),
+                    getString(R.string.tutorial_question_mark_description)
+                )
+                    .cancelable(true)
+                    .descriptionTextColor(R.color.white)
+                    .tintTarget(true),
+                object : TapTargetView.Listener() {
+                    override fun onTargetClick(view: TapTargetView) {
+                        super.onTargetClick(view)
+                        view.dismiss(true)
+                        sharedPref?.edit()?.putBoolean("TUTORIAL_SHOWED", true)?.apply()
+                    }
+                })
         }
     }
 

@@ -33,7 +33,6 @@ import java.time.*
 import java.time.temporal.IsoFields
 import java.util.*
 
-
 class SalaryFragment : Fragment() {
 
     private val viewModel: SalaryViewModel by viewModels()
@@ -49,7 +48,7 @@ class SalaryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSalaryBinding.inflate(inflater, container, false)
-        sharedPref = activity?.getSharedPreferences("SALARY_HOUR_VALUE", Context.MODE_PRIVATE)
+        sharedPref = activity?.getSharedPreferences("SHARED_PREF_APP_OSP", Context.MODE_PRIVATE)
         selectedQuarter = Quarter("Default Quarter", Calendar.getInstance().get(Calendar.YEAR), LocalDate.now().get(IsoFields.QUARTER_OF_YEAR))
 
         getNewSalaryValue()
@@ -71,24 +70,24 @@ class SalaryFragment : Fragment() {
     }
 
     private fun initSpinner() {
-        val provinceList: MutableList<Quarter> = mutableListOf()
-        provinceList.add(Quarter("PAZ - GRU - 2023", 2023, 4))
-        provinceList.add(Quarter("LIP - WRZ - 2023", 2023, 3))
-        provinceList.add(Quarter("KWI - CZE - 2023", 2023, 2))
-        provinceList.add(Quarter("STY - MAR - 2023", 2023, 1))
-        provinceList.add(Quarter("PAZ - GRU - 2022", 2022, 4))
+        val quarterList: MutableList<Quarter> = mutableListOf()
+        quarterList.add(Quarter("PAZ - GRU - 2023", 2023, 4))
+        quarterList.add(Quarter("LIP - WRZ - 2023", 2023, 3))
+        quarterList.add(Quarter("KWI - CZE - 2023", 2023, 2))
+        quarterList.add(Quarter("STY - MAR - 2023", 2023, 1))
+        quarterList.add(Quarter("PAZ - GRU - 2022", 2022, 4))
 
-        binding.quarterSelect.item = provinceList.map { it.name }
+        binding.quarterSelect.item = quarterList.map { it.name }
 
         binding.quarterSelect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
-                buildFragmentUI(provinceList[position])
+                buildFragmentUI(quarterList[position])
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>) {}
         }
 
-        val selectedItem = provinceList.indexOfFirst { selectedQuarter.quarter == it.quarter && selectedQuarter.year == it.year }
+        val selectedItem = quarterList.indexOfFirst { selectedQuarter.quarter == it.quarter && selectedQuarter.year == it.year }
         binding.quarterSelect.setSelection(selectedItem)
     }
 

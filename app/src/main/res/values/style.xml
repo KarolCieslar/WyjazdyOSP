@@ -13,6 +13,11 @@
         <item name="tabStyle">@style/MyTabLayoutStyle</item>
     </style>
 
+    <style name="BottomNavigationText" parent="@android:style/TextAppearance"/>
+    <style name="BottomNavigationText.Selected">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="MyTabLayoutStyle" parent="android:Widget">
         <item name="tabIndicator">@color/red</item>
         <item name="tabPaddingStart">0dp</item>
