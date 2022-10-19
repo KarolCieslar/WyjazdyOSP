@@ -8,4 +8,10 @@
         android:title="Wskazówka"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/settingsIcon"
+        android:icon="@drawable/ic_settings"
+        android:title="Kontakt"
+        app:showAsAction="always" />
+
 </menu>

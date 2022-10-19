@@ -17,6 +17,7 @@
     <string name="button_save_action">Zapisz Wyjazd</string>
     <string name="button_remove_confirm">Tak, usuń!</string>
     <string name="button_remove_decline">Nie, nie chcę!</string>
+    <string name="button_send_message">Wyślij wiadomość!</string>
 
     <string name="field_empty">To pole nie może być puste!</string>
     <string name="form_date_range_error">Błędna data lub godzina! Akcja nie trwała nawet jednej minuty!</string>

@@ -16,6 +16,7 @@ import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
+import pl.kcieslar.wyjazdyosp.views.ContactMeDialogView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 import java.time.format.DateTimeFormatter
@@ -94,6 +95,10 @@ class MainActivity : AppCompatActivity() {
                 showHelpDialog()
                 true
             }
+            R.id.settingsIcon -> {
+                showContactMeDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -113,6 +118,10 @@ class MainActivity : AppCompatActivity() {
         }
         val dialog = HelpDialogView(this)
         dialog.setDescription(this.resources.getString(stringRes))
+    }
+
+    private fun showContactMeDialog() {
+        ContactMeDialogView(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
