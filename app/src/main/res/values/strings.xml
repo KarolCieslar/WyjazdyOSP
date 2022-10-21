@@ -4,6 +4,7 @@
     <string name="title_add_action">Dodaj Wyjazd</string>
     <string name="title_forces">Siły i Środki</string>
     <string name="title_salary">Ekwiwalent</string>
+    <string name="title_settings">Ustawienia</string>
 
     <string name="tutorial_question_mark_title">Służę pomocą!</string>
     <string name="tutorial_question_mark_description">Na każdym ekranie w aplikacji znajdziesz taką ikonkę. Kliknij w nią jeśli będziesz miał problem ze zrozumieniem funkcji.</string>
@@ -16,6 +17,7 @@
     <string name="button_save">Zapisz</string>
     <string name="button_save_action">Zapisz Wyjazd</string>
     <string name="button_remove_confirm">Tak, usuń!</string>
+    <string name="button_add_confirm">Tak, dodaj!</string>
     <string name="button_remove_decline">Nie, nie chcę!</string>
     <string name="button_send_message">Wyślij wiadomość!</string>
 

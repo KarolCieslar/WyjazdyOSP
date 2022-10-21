@@ -21,7 +21,7 @@ import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.mergeList
 import pl.kcieslar.wyjazdyosp.utils.setHorizontalMargin
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.viewmodel.AddActionViewModel
+import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 
 
 class StepSecondFragment: Fragment() {

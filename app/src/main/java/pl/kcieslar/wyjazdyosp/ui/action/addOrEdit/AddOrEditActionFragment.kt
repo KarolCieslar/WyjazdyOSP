@@ -17,7 +17,6 @@ import org.greenrobot.eventbus.ThreadMode
 import pl.kcieslar.wyjazdyosp.databinding.FragmentAddOrEditActionBinding
 import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
-import pl.kcieslar.wyjazdyosp.viewmodel.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 
 

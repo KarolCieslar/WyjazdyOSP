@@ -18,7 +18,9 @@ import pl.kcieslar.wyjazdyosp.model.CarInAction
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.viewmodel.AddActionViewModel
+import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
+import pl.kcieslar.wyjazdyosp.views.FunctionNotSelectedDialogView
+import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 
 class StepThirdFragment : Fragment() {
 
@@ -67,6 +69,19 @@ class StepThirdFragment : Fragment() {
         return true
     }
 
+    private fun isEveryCarHasFiremanFunctions(): Boolean {
+        var checkValue = 0
+        selectedCarsList.forEach { car ->
+            adapter.getFiremans().forEach { fireman ->
+                val firemanFunctions = fireman.functions[car.id]
+                if (firemanFunctions?.contains(FiremanFunction.DRIVER) == true) {
+                    checkValue++
+                }
+            }
+        }
+        return checkValue == selectedCarsList.size
+    }
+
     private fun prepareAdapter() {
         adapter = StepThirdAdapter(binding.recyclerView, viewModel.action)
         binding.recyclerView.adapter = adapter
@@ -77,8 +92,16 @@ class StepThirdFragment : Fragment() {
         binding.primaryButton.setText(requireContext().resources.getString(if (viewModel.isEditMode) R.string.button_save_action else R.string.button_add_action))
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
-                addNewAction()
-                findNavController().navigateUp()
+                if (!isEveryCarHasFiremanFunctions()) {
+                    val dialog = FunctionNotSelectedDialogView(requireContext())
+                    dialog.setOnPrimaryButtonClickListener {
+                        addNewAction()
+                        findNavController().navigateUp()
+                    }
+                } else {
+                    addNewAction()
+                    findNavController().navigateUp()
+                }
             }
         }
 

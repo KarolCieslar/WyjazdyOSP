@@ -7,7 +7,10 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -16,7 +19,8 @@ import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
-import pl.kcieslar.wyjazdyosp.views.ContactMeDialogView
+import pl.kcieslar.wyjazdyosp.ui.action.list.ListActionFragmentDirections
+import pl.kcieslar.wyjazdyosp.ui.settings.SettingsFragment
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 import java.time.format.DateTimeFormatter
@@ -61,6 +65,10 @@ class MainActivity : AppCompatActivity() {
             currentFragmentId = destination.id
             when (destination.id) {
                 R.id.addOrEditAction -> navView.isVisible = false
+                R.id.settingsFragment -> {
+                    navView.isVisible = false
+                    binding.myToolbar.menu.clear()
+                }
                 else -> navView.isVisible = true
             }
         }
@@ -96,7 +104,8 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.settingsIcon -> {
-                showContactMeDialog()
+                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+                navHostFragment.navController.navigate(R.id.action_global_to_settingsFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -118,10 +127,6 @@ class MainActivity : AppCompatActivity() {
         }
         val dialog = HelpDialogView(this)
         dialog.setDescription(this.resources.getString(stringRes))
-    }
-
-    private fun showContactMeDialog() {
-        ContactMeDialogView(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

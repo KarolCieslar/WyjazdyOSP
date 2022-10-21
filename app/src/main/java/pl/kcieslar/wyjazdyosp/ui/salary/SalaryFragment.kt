@@ -26,7 +26,6 @@ import pl.kcieslar.wyjazdyosp.databinding.FragmentSalaryBinding
 import pl.kcieslar.wyjazdyosp.model.Quarter
 import pl.kcieslar.wyjazdyosp.utils.convertStringToLocalDateTime
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
-import pl.kcieslar.wyjazdyosp.viewmodel.SalaryViewModel
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.SalaryValueDialogView
 import java.time.*

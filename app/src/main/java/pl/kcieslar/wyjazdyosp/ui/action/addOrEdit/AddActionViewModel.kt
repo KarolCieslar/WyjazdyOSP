@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.viewmodel
+package pl.kcieslar.wyjazdyosp.ui.action.addOrEdit
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

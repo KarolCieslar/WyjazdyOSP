@@ -17,7 +17,7 @@ import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import pl.kcieslar.wyjazdyosp.utils.ForcesStringType
 import pl.kcieslar.wyjazdyosp.utils.getForcesString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.viewmodel.ForcesViewModel
+import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.views.AddOrEditForcesDialogView
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 

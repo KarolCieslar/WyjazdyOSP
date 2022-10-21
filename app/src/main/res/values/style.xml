@@ -11,6 +11,7 @@
         <!-- Customize your theme here. -->
         <item name="popupMenuStyle">@style/MyPopupMenu</item>
         <item name="tabStyle">@style/MyTabLayoutStyle</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="BottomNavigationText" parent="@android:style/TextAppearance"/>
