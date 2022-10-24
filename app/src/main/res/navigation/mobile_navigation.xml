@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/listAction">
+    app:startDestination="@+id/actionListFragment">
 
     <action
         android:id="@+id/action_global_to_settingsFragment"
@@ -18,7 +18,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/listAction"
+        android:id="@+id/actionListFragment"
         android:name="pl.kcieslar.wyjazdyosp.ui.action.list.ListActionFragment"
         android:label="@string/title_list_action"
         tools:layout="@layout/fragment_list_action">

@@ -82,7 +82,6 @@ class StepFirstFragment(
     private fun isFormValid(): Boolean {
         val errorList: MutableList<Boolean> = mutableListOf()
         errorList.add(binding.etLocation.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
-        errorList.add(binding.etRaportNumber.checkIsNullAndSetError(resources.getString(R.string.field_empty)))
 
         val outDate = LocalDateTime.parse("${binding.outDate.getValue()} ${binding.outTime.getValue()}", dateFormatterHelper)
         val inDate = LocalDateTime.parse("${binding.inDate.getValue()} ${binding.inTime.getValue()}", dateFormatterHelper)

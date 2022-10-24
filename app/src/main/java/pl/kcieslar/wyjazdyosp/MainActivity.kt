@@ -7,24 +7,21 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.getkeepsafe.taptargetview.TapTarget
-import com.getkeepsafe.taptargetview.TapTargetView
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
-import pl.kcieslar.wyjazdyosp.ui.action.list.ListActionFragmentDirections
-import pl.kcieslar.wyjazdyosp.ui.settings.SettingsFragment
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.listAction, R.id.salaryFragment, R.id.forcesFragment, R.id.addOrEditAction
+                R.id.actionListFragment, R.id.salaryFragment, R.id.forcesFragment, R.id.addOrEditAction
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -79,21 +76,43 @@ class MainActivity : AppCompatActivity() {
     private fun showTutorial() {
         val sharedPref = getSharedPreferences("SHARED_PREF_APP_OSP", MODE_PRIVATE)
         if (!sharedPref.getBoolean("TUTORIAL_SHOWED", false)) {
-            TapTargetView.showFor(this,
-                TapTarget.forToolbarMenuItem(
-                    binding.myToolbar, R.id.helpIcon, getString(R.string.tutorial_question_mark_title),
-                    getString(R.string.tutorial_question_mark_description)
+            TapTargetSequence(this)
+                .continueOnCancel(true)
+                .targets(
+                    TapTarget.forToolbarMenuItem(
+                        binding.myToolbar,
+                        R.id.helpIcon, getString(R.string.tutorial_question_mark_title),
+                        getString(R.string.tutorial_question_mark_desc)
+                    ).textColor(R.color.white).descriptionTextAlpha(0.8f).outerCircleAlpha(0.97f).titleTextSize(25),
+                    TapTarget.forView(
+                        binding.navView.findViewById(R.id.actionListFragment),
+                        getString(R.string.tutorial_list_action_fragment_title),
+                        getString(R.string.tutorial_list_action_fragment_desc)
+                    ).textColor(R.color.white).descriptionTextAlpha(0.8f).outerCircleAlpha(0.97f).titleTextSize(25),
+                    TapTarget.forView(
+                        binding.navView.findViewById(R.id.salaryFragment),
+                        getString(R.string.tutorial_salary_fragment_title),
+                        getString(R.string.tutorial_salary_fragment_desc)
+                    ).textColor(R.color.white).descriptionTextAlpha(0.8f).outerCircleAlpha(0.97f).titleTextSize(25),
+                    TapTarget.forView(
+                        binding.navView.findViewById(R.id.forcesFragment),
+                        getString(R.string.tutorial_forces_fragment_title),
+                        getString(R.string.tutorial_forces_fragment_desc)
+                    ).textColor(R.color.white).descriptionTextAlpha(0.8f).outerCircleAlpha(0.97f).titleTextSize(25)
                 )
-                    .cancelable(true)
-                    .descriptionTextColor(R.color.white)
-                    .tintTarget(true),
-                object : TapTargetView.Listener() {
-                    override fun onTargetClick(view: TapTargetView) {
-                        super.onTargetClick(view)
-                        view.dismiss(true)
+                .listener(object : TapTargetSequence.Listener {
+                    override fun onSequenceFinish() {
                         sharedPref?.edit()?.putBoolean("TUTORIAL_SHOWED", true)?.apply()
                     }
-                })
+
+                    override fun onSequenceStep(lastTarget: TapTarget, targetClicked: Boolean) {
+                        // Sonar
+                    }
+
+                    override fun onSequenceCanceled(lastTarget: TapTarget) {
+                        // Sonar
+                    }
+                }).start()
         }
     }
 

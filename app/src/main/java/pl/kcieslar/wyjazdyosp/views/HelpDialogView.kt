@@ -28,7 +28,6 @@ class HelpDialogView @JvmOverloads constructor(
         val inset = InsetDrawable(back, 50)
         dialog.window!!.setBackgroundDrawable(inset)
 
-        binding.cancelButton.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 

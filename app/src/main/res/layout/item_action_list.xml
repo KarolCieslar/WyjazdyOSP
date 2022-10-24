@@ -15,6 +15,7 @@
     <TextView
         android:id="@+id/number"
         android:layout_width="wrap_content"
+        android:paddingBottom="@dimen/margin10"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_semibold"
         android:textColor="@color/black"
@@ -40,7 +41,6 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:drawableLeft="@drawable/ic_location"
         android:drawablePadding="9dp"
         android:fontFamily="@font/inter_regular"

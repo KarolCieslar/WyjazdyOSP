@@ -2,6 +2,7 @@ package pl.kcieslar.wyjazdyosp.ui.action.list
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -45,6 +46,7 @@ class ListActionAdapter(
                     binding.moreInfoView.isVisible = !binding.moreInfoView.isVisible
                 }
 
+                binding.number.visibility = if (action.number.isNullOrEmpty()) View.GONE else View.VISIBLE
                 binding.number.text = action.number
                 binding.autoincrement.text = "#${itemList.size - position}"
                 binding.location.text = action.location
