@@ -1,7 +1,7 @@
-package pl.kcieslar.wyjazdyosp.repository
+package pl.kcieslar.wyjazdyosp.domain.repository
 
 import androidx.lifecycle.LiveData
-import pl.kcieslar.wyjazdyosp.data.CarDao
+import pl.kcieslar.wyjazdyosp.data.dao.CarDao
 import pl.kcieslar.wyjazdyosp.model.Car
 import javax.inject.Inject
 

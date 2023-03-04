@@ -1,7 +1,7 @@
-package pl.kcieslar.wyjazdyosp.repository
+package pl.kcieslar.wyjazdyosp.domain.repository
 
 import androidx.lifecycle.LiveData
-import pl.kcieslar.wyjazdyosp.data.FiremanDao
+import pl.kcieslar.wyjazdyosp.data.dao.FiremanDao
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import javax.inject.Inject
