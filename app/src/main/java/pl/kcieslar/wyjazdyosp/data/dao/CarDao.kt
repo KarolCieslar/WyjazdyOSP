@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.data
+package pl.kcieslar.wyjazdyosp.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

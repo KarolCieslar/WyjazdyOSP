@@ -1,8 +1,8 @@
-package pl.kcieslar.wyjazdyosp.domain.repository
+package pl.kcieslar.wyjazdyosp.data.repository
 
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.dao.ActionDao
-import pl.kcieslar.wyjazdyosp.data.repository.ActionRepository
+import pl.kcieslar.wyjazdyosp.domain.repository.ActionRepository
 import pl.kcieslar.wyjazdyosp.model.Action
 import javax.inject.Inject
 

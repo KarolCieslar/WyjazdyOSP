@@ -8,10 +8,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import pl.kcieslar.wyjazdyosp.data.*
-import pl.kcieslar.wyjazdyosp.repository.ActionRepository
-import pl.kcieslar.wyjazdyosp.repository.CarRepository
-import pl.kcieslar.wyjazdyosp.repository.EquipmentRepository
-import pl.kcieslar.wyjazdyosp.repository.FiremanRepository
+import pl.kcieslar.wyjazdyosp.data.dao.ActionDao
+import pl.kcieslar.wyjazdyosp.data.dao.CarDao
+import pl.kcieslar.wyjazdyosp.data.dao.EquipmentDao
+import pl.kcieslar.wyjazdyosp.data.dao.FiremanDao
 import javax.inject.Singleton
 
 @Module
@@ -25,30 +25,6 @@ class AppModule {
             MainDatabase::class.java,
             "main_database_10"
         ).build()
-
-    @Provides
-    @Singleton
-    fun provideActionRepository(actionDao: ActionDao): ActionRepository {
-        return ActionRepository(actionDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideCarRepository(carDao: CarDao): CarRepository {
-        return CarRepository(carDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideEquipmentRepository(equipmentDao: EquipmentDao): EquipmentRepository {
-        return EquipmentRepository(equipmentDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideFiremanRepository(firemanDao: FiremanDao): FiremanRepository {
-        return FiremanRepository(firemanDao)
-    }
 
     @Provides
     @Singleton

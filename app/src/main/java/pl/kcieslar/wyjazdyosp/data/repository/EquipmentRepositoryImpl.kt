@@ -1,25 +1,26 @@
-package pl.kcieslar.wyjazdyosp.domain.repository
+package pl.kcieslar.wyjazdyosp.data.repository
 
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.dao.EquipmentDao
+import pl.kcieslar.wyjazdyosp.domain.repository.EquipmentRepository
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import javax.inject.Inject
 
-class EquipmentRepository @Inject constructor(
+class EquipmentRepositoryImpl @Inject constructor(
     private val equipmentDao: EquipmentDao
-) {
+) : EquipmentRepository {
 
     val getAllEquipment: LiveData<List<Equipment>> = equipmentDao.getAllEquipments()
 
-    suspend fun addEquipment(equipment: Equipment) {
+    override suspend fun addEquipment(equipment: Equipment) {
         equipmentDao.addEquipment(equipment)
     }
 
-    suspend fun editEquipment(equipment: Equipment) {
+    override suspend fun editEquipment(equipment: Equipment) {
         equipmentDao.editEquipment(equipment)
     }
 
-    suspend fun removeEquipment(equipment: Equipment) {
+    override suspend fun removeEquipment(equipment: Equipment) {
         equipmentDao.removeEquipment(equipment)
     }
 }

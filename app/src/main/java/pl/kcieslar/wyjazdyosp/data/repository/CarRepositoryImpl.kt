@@ -1,26 +1,27 @@
-package pl.kcieslar.wyjazdyosp.domain.repository
+package pl.kcieslar.wyjazdyosp.data.repository
 
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.dao.CarDao
+import pl.kcieslar.wyjazdyosp.domain.repository.CarRepository
 import pl.kcieslar.wyjazdyosp.model.Car
 import javax.inject.Inject
 
-class CarRepository @Inject constructor(
+class CarRepositoryImpl @Inject constructor(
     private val carDao: CarDao
-) {
+) : CarRepository {
 
     val getAllCars: LiveData<List<Car>> = carDao.getAllCars()
     val carsCount: LiveData<Int> = carDao.carsCount()
 
-    suspend fun addCar(car: Car) {
+    override suspend fun addCar(car: Car) {
         carDao.addCar(car)
     }
 
-    suspend fun editCar(car: Car) {
+    override suspend fun editCar(car: Car) {
         carDao.editCar(car)
     }
 
-    suspend fun removeCar(car: Car) {
+    override suspend fun removeCar(car: Car) {
         carDao.removeCar(car)
     }
 }

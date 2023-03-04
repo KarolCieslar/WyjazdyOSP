@@ -11,19 +11,19 @@ import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
-import pl.kcieslar.wyjazdyosp.repository.ActionRepository
-import pl.kcieslar.wyjazdyosp.repository.CarRepository
-import pl.kcieslar.wyjazdyosp.repository.EquipmentRepository
-import pl.kcieslar.wyjazdyosp.repository.FiremanRepository
+import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
+import pl.kcieslar.wyjazdyosp.data.repository.CarRepositoryImpl
+import pl.kcieslar.wyjazdyosp.data.repository.EquipmentRepositoryImpl
+import pl.kcieslar.wyjazdyosp.data.repository.FiremanRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel
 class AddActionViewModel @Inject constructor(
     private val application: Application,
-    private val carRepository: CarRepository,
-    private val firemanRepository: FiremanRepository,
-    private val equipmentRepository: EquipmentRepository,
-    private val actionRepository: ActionRepository
+    private val carRepository: CarRepositoryImpl,
+    private val firemanRepository: FiremanRepositoryImpl,
+    private val equipmentRepository: EquipmentRepositoryImpl,
+    private val actionRepository: ActionRepositoryImpl
 ) : AndroidViewModel(application) {
 
     val carList: LiveData<List<Car>> = carRepository.getAllCars

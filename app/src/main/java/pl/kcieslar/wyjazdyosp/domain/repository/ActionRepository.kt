@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.data.repository
+package pl.kcieslar.wyjazdyosp.domain.repository
 
 import pl.kcieslar.wyjazdyosp.model.Action
 
