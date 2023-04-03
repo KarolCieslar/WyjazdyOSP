@@ -20,7 +20,6 @@ import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.views.FunctionNotSelectedDialogView
-import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 
 class StepThirdFragment : Fragment() {
 

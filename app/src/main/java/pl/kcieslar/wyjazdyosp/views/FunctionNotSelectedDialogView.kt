@@ -5,12 +5,10 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
-import android.text.Html
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import pl.kcieslar.wyjazdyosp.databinding.ViewConfirmDialogBinding
 import pl.kcieslar.wyjazdyosp.databinding.ViewFunctionNotSelectedDialogBinding
 
 class FunctionNotSelectedDialogView @JvmOverloads constructor(

@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Action
@@ -49,13 +48,13 @@ class AddActionViewModel(application: Application) : AndroidViewModel(applicatio
     lateinit var action: Action
 
     fun addAction(action: Action) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             actionRepository.addAction(action)
         }
     }
 
     fun editAction(action: Action) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             actionRepository.editAction(action)
         }
     }

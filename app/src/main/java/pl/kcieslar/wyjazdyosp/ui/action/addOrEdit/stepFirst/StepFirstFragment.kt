@@ -30,7 +30,7 @@ class StepFirstFragment(
 ) : Fragment() {
 
     private val viewModel: AddActionViewModel by activityViewModels()
-    private var _binding: FragmentStepFirstBinding? = null // TODO: PRzebudować bo za długo się ładuje
+    private var _binding: FragmentStepFirstBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(

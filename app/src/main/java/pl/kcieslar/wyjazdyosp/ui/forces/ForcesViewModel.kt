@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Car
@@ -14,7 +13,6 @@ import pl.kcieslar.wyjazdyosp.model.Forces
 import pl.kcieslar.wyjazdyosp.repository.CarRepository
 import pl.kcieslar.wyjazdyosp.Repository.EquipmentRepository
 import pl.kcieslar.wyjazdyosp.repository.FiremanRepository
-import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
 class ForcesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -41,7 +39,7 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun addItem(forcesType: ForcesDataType, name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (forcesType) {
                 ForcesDataType.CAR -> carRepository.addCar(Car(0, name))
                 ForcesDataType.FIREMAN -> firemanRepository.addFireman(Fireman(0, name))
@@ -51,7 +49,7 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun editItem(forcesType: ForcesDataType, itemId: Int, name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (forcesType) {
                 ForcesDataType.CAR -> carRepository.editCar(Car(itemId, name))
                 ForcesDataType.FIREMAN -> firemanRepository.editFireman(Fireman(itemId, name))
@@ -61,7 +59,7 @@ class ForcesViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun removeItem(item: Forces) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (item) {
                 is Car -> carRepository.removeCar(item)
                 is Fireman -> firemanRepository.removeFireman(item)

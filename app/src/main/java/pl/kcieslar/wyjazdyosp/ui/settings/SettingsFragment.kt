@@ -22,7 +22,6 @@ class SettingsFragment : Fragment() {
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         binding.sendMailButton.setClickListener { sendEmail() }
-        setHasOptionsMenu(false)
         setMenuVisibility(false)
         return binding.root
     }
