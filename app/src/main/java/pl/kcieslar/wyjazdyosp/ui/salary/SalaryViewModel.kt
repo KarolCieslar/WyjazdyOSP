@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.repository.FiremanRepository

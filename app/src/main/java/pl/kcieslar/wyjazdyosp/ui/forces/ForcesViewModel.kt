@@ -6,12 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.model.Forces
-import pl.kcieslar.wyjazdyosp.repository.ActionRepository
 import pl.kcieslar.wyjazdyosp.repository.CarRepository
 import pl.kcieslar.wyjazdyosp.repository.EquipmentRepository
 import pl.kcieslar.wyjazdyosp.repository.FiremanRepository
