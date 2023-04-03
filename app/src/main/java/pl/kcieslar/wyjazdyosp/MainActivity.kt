@@ -16,6 +16,7 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     companion object {

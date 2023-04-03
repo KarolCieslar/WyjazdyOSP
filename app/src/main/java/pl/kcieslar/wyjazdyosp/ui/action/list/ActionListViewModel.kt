@@ -4,22 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.repository.ActionRepository
+import javax.inject.Inject
 
-class ActionListViewModel(application: Application) : AndroidViewModel(application) {
-
-
-    val actionList: LiveData<List<Action>>
+@HiltViewModel
+class ActionListViewModel @Inject constructor(
+    private val application: Application,
     private val actionRepository: ActionRepository
+) : AndroidViewModel(application) {
 
-    init {
-        val database = MainDatabase.getFiremansDatabase(application)
-        actionRepository = ActionRepository(database.actionDao())
-        actionList = actionRepository.getAllActions
-    }
+    val actionList: LiveData<List<Action>> = actionRepository.getAllActions
 
     fun removeAction(action: Action) {
         viewModelScope.launch {

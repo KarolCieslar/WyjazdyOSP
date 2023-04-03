@@ -3,8 +3,11 @@ package pl.kcieslar.wyjazdyosp.repository
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.ActionDao
 import pl.kcieslar.wyjazdyosp.model.Action
+import javax.inject.Inject
 
-class ActionRepository(private val actionDao: ActionDao) {
+class ActionRepository @Inject constructor(
+    private val actionDao: ActionDao
+) {
 
     val getAllActions: LiveData<List<Action>> = actionDao.getAllActions()
 

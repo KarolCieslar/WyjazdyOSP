@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.FiremanDao
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Fireman
+import javax.inject.Inject
 
-class FiremanRepository(private val firemanDao: FiremanDao) {
+class FiremanRepository @Inject constructor(
+    private val firemanDao: FiremanDao
+) {
 
     val getAllFiremans: LiveData<List<Fireman>> = firemanDao.getAllFiremans()
     val getAllFiremanActions: LiveData<List<Action>> = firemanDao.getAllFiremanActions()

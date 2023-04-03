@@ -3,8 +3,11 @@ package pl.kcieslar.wyjazdyosp.repository
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.CarDao
 import pl.kcieslar.wyjazdyosp.model.Car
+import javax.inject.Inject
 
-class CarRepository(private val carDao: CarDao) {
+class CarRepository @Inject constructor(
+    private val carDao: CarDao
+) {
 
     val getAllCars: LiveData<List<Car>> = carDao.getAllCars()
     val carsCount: LiveData<Int> = carDao.carsCount()

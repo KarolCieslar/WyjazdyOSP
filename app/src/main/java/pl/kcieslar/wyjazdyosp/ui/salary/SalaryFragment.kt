@@ -19,6 +19,7 @@ import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.zhuinden.livedatacombinetuplekt.combineTuple
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatterHelper
 import pl.kcieslar.wyjazdyosp.R
@@ -32,6 +33,7 @@ import java.time.*
 import java.time.temporal.IsoFields
 import java.util.*
 
+@AndroidEntryPoint
 class SalaryFragment : Fragment() {
 
     private val viewModel: SalaryViewModel by viewModels()

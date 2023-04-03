@@ -6,6 +6,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -47,43 +48,50 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
     // Navigation Component
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     // Room components
-    implementation "androidx.room:room-runtime:2.5.1"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.3.6'
-    implementation 'com.google.firebase:firebase-analytics:21.2.1'
-    kapt "androidx.room:room-compiler:2.5.1"
-    implementation "androidx.room:room-ktx:2.5.1"
-    androidTestImplementation "androidx.room:room-testing:2.5.1"
+    implementation("androidx.room:room-runtime:2.5.1")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.3.6")
+    implementation("com.google.firebase:firebase-analytics:21.2.1")
+    kapt("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.room:room-ktx:2.5.1")
 
     // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation 'com.github.florent37:diagonallayout:1.0.9'
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.6.1"
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    implementation 'com.github.Zhuinden:livedata-combinetuple-kt:2.0.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("com.github.florent37:diagonallayout:1.0.9")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.1")
+    implementation("com.android.support.constraint:constraint-layout:2.0.4")
+    implementation("com.github.Zhuinden:livedata-combinetuple-kt:2.0.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
     // Other
-    implementation 'io.github.florent37:shapeofview:1.4.7'
-    implementation "com.google.android.material:material:1.8.0"
+    implementation("io.github.florent37:shapeofview:1.4.7")
+    implementation("com.google.android.material:material:1.8.0")
     implementation("org.greenrobot:eventbus:3.3.1")
-    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
-    implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
-    implementation 'com.google.code.gson:gson:2.9.1'
-    implementation platform('com.google.firebase:firebase-bom:31.0.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
+    implementation("com.github.chivorns:smartmaterialspinner:1.5.0")
+    implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
+    implementation("com.google.code.gson:gson:2.9.1")
+    implementation platform("com.google.firebase:firebase-bom:31.0.0")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
     // Kotlin components
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20"
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
+    // Dependency Injection
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }
