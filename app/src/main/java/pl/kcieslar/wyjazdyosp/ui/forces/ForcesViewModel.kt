@@ -4,39 +4,30 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import pl.kcieslar.wyjazdyosp.data.MainDatabase
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.model.Forces
+import pl.kcieslar.wyjazdyosp.repository.ActionRepository
 import pl.kcieslar.wyjazdyosp.repository.CarRepository
-import pl.kcieslar.wyjazdyosp.Repository.EquipmentRepository
+import pl.kcieslar.wyjazdyosp.repository.EquipmentRepository
 import pl.kcieslar.wyjazdyosp.repository.FiremanRepository
+import javax.inject.Inject
 
-class ForcesViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ForcesViewModel @Inject constructor(
+    private val application: Application,
+    private val carRepository: CarRepository,
+    private val firemanRepository: FiremanRepository,
+    private val equipmentRepository: EquipmentRepository,
+) : AndroidViewModel(application) {
 
-    val carList: LiveData<List<Car>>
-    private val carRepository: CarRepository
-
-    val firemanList: LiveData<List<Fireman>>
-    private val firemanRepository: FiremanRepository
-
-    val equipmentList: LiveData<List<Equipment>>
-    private val equipmentRepository: EquipmentRepository
-
-
-    init {
-        val database = MainDatabase.getFiremansDatabase(application)
-        carRepository = CarRepository(database.carDao())
-        carList = carRepository.getAllCars
-
-        firemanRepository = FiremanRepository(database.firemanDao())
-        firemanList = firemanRepository.getAllFiremans
-
-        equipmentRepository = EquipmentRepository(database.equipmentDao())
-        equipmentList = equipmentRepository.getAllEquipment
-    }
+    val carList: LiveData<List<Car>> = carRepository.getAllCars
+    val firemanList: LiveData<List<Fireman>> = firemanRepository.getAllFiremans
+    val equipmentList: LiveData<List<Equipment>> = equipmentRepository.getAllEquipment
 
     fun addItem(forcesType: ForcesDataType, name: String) {
         viewModelScope.launch {

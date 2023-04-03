@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
@@ -21,6 +22,7 @@ import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.views.AddOrEditForcesDialogView
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 
+@AndroidEntryPoint
 class ForcesViewPagerFragment(
     private val forcesDataType: ForcesDataType,
     private val openAddDialogAtInit: Boolean? = null

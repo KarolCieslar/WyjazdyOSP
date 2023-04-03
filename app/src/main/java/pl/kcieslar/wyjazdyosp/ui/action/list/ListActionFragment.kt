@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
 import pl.kcieslar.wyjazdyosp.model.Action
@@ -18,6 +19,7 @@ import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 
+@AndroidEntryPoint
 class ListActionFragment : Fragment() {
 
     private val viewModel: ActionListViewModel by viewModels()

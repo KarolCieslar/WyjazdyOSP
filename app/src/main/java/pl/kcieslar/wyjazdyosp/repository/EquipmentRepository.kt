@@ -1,10 +1,13 @@
-package pl.kcieslar.wyjazdyosp.Repository
+package pl.kcieslar.wyjazdyosp.repository
 
 import androidx.lifecycle.LiveData
 import pl.kcieslar.wyjazdyosp.data.EquipmentDao
 import pl.kcieslar.wyjazdyosp.model.Equipment
+import javax.inject.Inject
 
-class EquipmentRepository(private val equipmentDao: EquipmentDao) {
+class EquipmentRepository @Inject constructor(
+    private val equipmentDao: EquipmentDao
+) {
 
     val getAllEquipment: LiveData<List<Equipment>> = equipmentDao.getAllEquipments()
 

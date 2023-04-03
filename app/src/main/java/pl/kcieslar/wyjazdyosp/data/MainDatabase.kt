@@ -1,8 +1,6 @@
 package pl.kcieslar.wyjazdyosp.data
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import pl.kcieslar.wyjazdyosp.model.Action
@@ -18,25 +16,4 @@ abstract class MainDatabase : RoomDatabase() {
     abstract fun firemanDao(): FiremanDao
     abstract fun equipmentDao(): EquipmentDao
     abstract fun actionDao(): ActionDao
-
-    companion object {
-        @Volatile
-        private var INSTANCE: MainDatabase? = null
-
-        fun getFiremansDatabase(context: Context): MainDatabase {
-            val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
-            }
-            synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    MainDatabase::class.java,
-                    "main_database_10"
-                ).build()
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
 }
