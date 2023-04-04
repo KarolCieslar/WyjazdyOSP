@@ -1,9 +1,8 @@
 package pl.kcieslar.wyjazdyosp.ui.action.addOrEdit
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,12 +18,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddActionViewModel @Inject constructor(
-    private val application: Application,
     private val carRepository: CarRepositoryImpl,
     private val firemanRepository: FiremanRepositoryImpl,
     private val equipmentRepository: EquipmentRepositoryImpl,
     private val actionRepository: ActionRepositoryImpl
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     val carList: LiveData<List<Car>> = carRepository.getAllCars
     val firemanList: LiveData<List<Fireman>> = firemanRepository.getAllFiremans
