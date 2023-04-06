@@ -38,7 +38,7 @@ class ListActionFragment : Fragment() {
             onEditButtonClick = { action -> openEditFragment(action) },
             onRemoveButtonClick = { action -> removeItem(action) }
         )
-        val recyclerView = binding.recyclerView
+        val recyclerView = binding.actionListRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
