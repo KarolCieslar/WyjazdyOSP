@@ -95,5 +95,6 @@
     <string name="help_view_add_or_edit_action_step_one"><![CDATA[Dodawanie wyjazdu składa się z trzech etapów. Pierwszy z nich wymaga od Ciebie uzupełnienia podstawowych informacji. <b>Opis zdarzenia oraz meldunek</b> jest opcjonalny.]]></string>
     <string name="help_view_add_or_edit_action_step_second">Zaznacz sprzęt oraz pojazdy, które brały udział w akcji. Do wybranych przez Ciebie pojazdów będzie można przypisać druhów. Musisz zaznaczyć minimum jeden pojazd aby przejść dalej.</string>
     <string name="help_view_add_or_edit_action_step_third"><![CDATA[Przypisz druhów do pojazdów. Wybierz dowódcę oraz kierowcę zaznaczając odpowiednią ikonę przy jego nazwisku. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.<br><br>Zaznaczony druh w jednym samochodzie automatycznie zniknie z pozostałych. Każdy samochód musi mieć przypisanego minimum jednego ratownika.]]></string>
+    <string name="salary_edit_dialog_description">Wprowadź stawkę jaką otrzymuje strażak ochotnik za każdą rozpoczęto godzinę akcji.</string>
 
 </resources>

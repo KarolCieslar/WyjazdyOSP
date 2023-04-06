@@ -27,11 +27,15 @@ fun EditText.checkIsNullAndSetError(errorText: String) : Boolean {
 }
 
 fun Fragment.showSnackBar(text: String) {
-    (activity as MainActivity?)!!.showSnackBar(text)
+    if (activity is MainActivity) {
+        (activity as MainActivity).showSnackBar(text)
+    }
 }
 
 fun Fragment.setHelpDialogString(helpDialogStringRes: HelpDialogStringRes) {
-    (activity as MainActivity?)!!.setHelpDialogString(helpDialogStringRes)
+    if (activity is MainActivity) {
+        (activity as MainActivity).setHelpDialogString(helpDialogStringRes)
+    }
 }
 
 fun convertStringToLocalDateTime(stringDate: String) : LocalDateTime {
@@ -89,13 +93,3 @@ fun <T> mergeList(first: List<T>, second: List<T>): List<T> {
     list.addAll(second)
     return list
 }
-
-//fun View.setBottomMargin(marginBottom: Int) {
-//    val params: LinearLayout.LayoutParams =
-//        LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//    params.setMargins(marginLeft, marginTop, marginRight, marginBottom.dp)
-//    this.layoutParams = params
-//}
-//
-//val Int.dp: Int
-//    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

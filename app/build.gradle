@@ -19,7 +19,7 @@ android {
         versionCode 8
         versionName "1.0.1"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "pl.kcieslar.wyjazdyosp.HiltTestRunner"
     }
 
     buildTypes {
@@ -31,7 +31,7 @@ android {
 
         debug {
             debuggable true
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -63,6 +63,8 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.firebase:firebase-crashlytics:18.3.6")
     implementation("com.google.firebase:firebase-analytics:21.2.1")
+    implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
+    implementation 'androidx.test:rules:1.5.0'
     kapt("androidx.room:room-compiler:2.5.1")
     implementation("androidx.room:room-ktx:2.5.1")
 
@@ -94,4 +96,23 @@ dependencies {
     // Dependency Injection
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("com.google.truth:truth:1.0.1")
+    androidTestImplementation("android.arch.core:core-testing:1.1.1")
+    debugImplementation("androidx.fragment:fragment-testing:1.5.0")
+    debugImplementation("androidx.test:monitor:1.6.1")
+
+    // Dagger Hilt Testing
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
+    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.44")
+
+    // Mockito Testing
+    androidTestImplementation("org.mockito:mockito-core:4.5.1")
+    androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito:2.28.1")
+    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
 }
