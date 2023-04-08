@@ -14,10 +14,10 @@ android {
 
     defaultConfig {
         applicationId "pl.kcieslar.wyjazdyosp"
-        minSdk 26
+        minSdk 21
         targetSdk 33
-        versionCode 8
-        versionName "1.0.1"
+        versionCode 9
+        versionName "1.0.2"
 
         testInstrumentationRunner "pl.kcieslar.wyjazdyosp.HiltTestRunner"
     }

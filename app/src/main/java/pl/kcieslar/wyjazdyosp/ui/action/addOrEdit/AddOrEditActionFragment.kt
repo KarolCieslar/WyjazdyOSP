@@ -34,7 +34,7 @@ class AddOrEditActionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddOrEditActionBinding.inflate(inflater, container, false)
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 when (currentStep) {
                     StepNumber.THIRD -> setCurrentStep(StepNumber.SECOND)
