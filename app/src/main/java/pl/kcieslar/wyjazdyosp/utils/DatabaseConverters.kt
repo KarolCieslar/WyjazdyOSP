@@ -1,6 +1,9 @@
 package pl.kcieslar.wyjazdyosp.utils
 
+import android.util.Log
 import androidx.room.TypeConverter
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import pl.kcieslar.wyjazdyosp.model.Car
@@ -35,7 +38,17 @@ class DatabaseConverters {
     fun listOfCarInActionToString(value: List<CarInAction>?) = Gson().toJson(value)
 
     @TypeConverter
-    fun stringListOfToCarInAction(value: String) = Gson().fromJson(value, Array<CarInAction>::class.java).toList()
+    fun stringListOfToCarInAction(value: String): List<CarInAction> {
+        return try {
+            val list = Gson().fromJson(value, Array<CarInAction>::class.java)
+            list.toList()
+        } catch (e: Exception) {
+            val single = Gson().fromJson(value, CarInAction::class.java)
+            Firebase.crashlytics.log("DatabaseConverters Crash with JSON value: $value")
+            Log.e("DatabaseConverters", "stringListOfToCarInAction: ", e)
+            listOf(single)
+        }
+    }
 
     @TypeConverter
     fun listOfEquipmentsToString(value: List<Equipment>?) = Gson().toJson(value)
