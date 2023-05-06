@@ -9,7 +9,7 @@ import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.list.FiremansInActionAdapter
 
-class CarInActionItemView(
+class CarInActionItemView (
     context: Context,
     car: Car,
     firemanList: List<Fireman>,

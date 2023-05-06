@@ -23,7 +23,6 @@ import pl.kcieslar.wyjazdyosp.views.HelpDialogView
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -167,4 +166,5 @@ class MainActivity : AppCompatActivity() {
             Snackbar.LENGTH_SHORT
         ).show()
     }
+
 }

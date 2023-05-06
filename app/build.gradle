@@ -14,10 +14,10 @@ android {
 
     defaultConfig {
         applicationId "pl.kcieslar.wyjazdyosp"
-        minSdk 21
+        minSdk 26
         targetSdk 33
-        versionCode 9
-        versionName "1.0.2"
+        versionCode 12
+        versionName "1.0.5"
 
         testInstrumentationRunner "pl.kcieslar.wyjazdyosp.HiltTestRunner"
     }
@@ -25,7 +25,7 @@ android {
     buildTypes {
         release {
             debuggable false
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -62,7 +62,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.5.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.firebase:firebase-crashlytics:18.3.6")
-    implementation("com.google.firebase:firebase-analytics:21.2.1")
+    implementation("com.google.firebase:firebase-analytics:21.2.2")
     implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     implementation 'androidx.test:rules:1.5.0'
     kapt("androidx.room:room-compiler:2.5.1")
