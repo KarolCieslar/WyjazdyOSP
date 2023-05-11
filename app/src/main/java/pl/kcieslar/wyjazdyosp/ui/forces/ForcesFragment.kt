@@ -47,7 +47,7 @@ class ForcesFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = ForcesViewPagerAdapter(requireActivity(), 3, openAddDialogAtInit = args.openAddDialogAtInit)
+        val adapter = ForcesViewPagerAdapter(this, 3, openAddDialogAtInit = args.openAddDialogAtInit)
         binding.viewPager.adapter = adapter
     }
 }

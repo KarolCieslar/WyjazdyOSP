@@ -10,7 +10,7 @@ class ActionRepositoryImpl @Inject constructor(
     private val actionDao: ActionDao
 ) : ActionRepository {
 
-    val getAllActions: LiveData<List<Action>> = actionDao.getAllActions()
+    val getAllActions: LiveData<List<Action>?> = actionDao.getAllActions()
 
     override suspend fun addAction(action: Action) {
         actionDao.addAction(action)

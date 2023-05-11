@@ -15,24 +15,32 @@ import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
+import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.utils.ForcesStringType
 import pl.kcieslar.wyjazdyosp.utils.getForcesString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.views.AddOrEditForcesDialogView
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 
 @AndroidEntryPoint
-class ForcesViewPagerFragment(
-    private val forcesDataType: ForcesDataType,
-    private val openAddDialogAtInit: Boolean? = null
-) : Fragment() {
+class ForcesViewPagerFragment : Fragment() {
+    private var forcesDataType: ForcesDataType = ForcesDataType.CAR
+    private var openAddDialogAtInit: Boolean? = null
 
     private val viewModel: ForcesViewModel by viewModels()
     private var _binding: FragmentForcesViewPagerBinding? = null
     private val binding get() = _binding!!
     private lateinit var dataList: LiveData<List<Forces>>
     private lateinit var adapter: ViewPagerListAdapter
+
+    companion object {
+        fun newInstance(forcesDataType: ForcesDataType, openAddDialogAtInit: Boolean? = null): Fragment {
+            val fragment = ForcesViewPagerFragment()
+            fragment.forcesDataType = forcesDataType
+            fragment.openAddDialogAtInit = openAddDialogAtInit
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -17,5 +17,5 @@ interface ActionDao {
     suspend fun removeAction(action: Action)
 
     @Query("SELECT * FROM actions ORDER BY id DESC")
-    fun getAllActions(): LiveData<List<Action>>
+    fun getAllActions(): LiveData<List<Action>?>
 }

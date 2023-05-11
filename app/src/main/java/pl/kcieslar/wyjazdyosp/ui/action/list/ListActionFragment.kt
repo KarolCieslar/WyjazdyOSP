@@ -43,12 +43,14 @@ class ListActionFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.actionList.observe(viewLifecycleOwner, Observer {
-            binding.emptyView.isVisible = it.isEmpty()
-            if (it.isEmpty()) binding.emptyView.apply {
-                setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
-                setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
+            it?.let {
+                binding.emptyView.isVisible = it.isEmpty()
+                if (it.isEmpty()) binding.emptyView.apply {
+                    setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
+                    setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
+                }
+                adapter.setList(it)
             }
-            adapter.setList(it)
         })
 
         binding.floatingActionButton.setOnClickListener {

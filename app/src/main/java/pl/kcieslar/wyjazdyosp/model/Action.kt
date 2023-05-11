@@ -28,4 +28,11 @@ data class Action(
         val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
         return inTime.format(dateFormatterHelper)
     }
+    fun showCarsInActionAsString() : String {
+        var carsInActionAsString = ""
+        for (carInAction in carsInAction) {
+            carsInActionAsString += "$carInAction, "
+        }
+        return carsInActionAsString
+    }
 }

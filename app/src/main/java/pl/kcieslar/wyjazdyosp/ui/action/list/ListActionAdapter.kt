@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import pl.kcieslar.wyjazdyosp.databinding.ItemActionListBinding
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.utils.durationFormatter
@@ -56,8 +57,13 @@ class ListActionAdapter(
                 binding.actionTime.text = "Czas trwania: ${diffText}"
 
                 binding.crevList.removeAllViews()
+                FirebaseCrashlytics.getInstance().log("Cars in action size: ${action.carsInAction.size}")
                 action.carsInAction.forEachIndexed { index, carInAction ->
-                    binding.crevList.addView(CarInActionItemView(context, carInAction.car, carInAction.firemans, index == action.carsInAction.size - 1))
+                    if (carInAction.car != null && carInAction.firemans != null) {
+                        val carInActionItemView = CarInActionItemView(context)
+                        carInActionItemView.setData(context, carInAction.car, carInAction.firemans, index == action.carsInAction.size - 1)
+                        binding.crevList.addView(carInActionItemView)
+                    }
                 }
 
                 binding.equipmentList.removeAllViews()
@@ -100,9 +106,11 @@ class ListActionAdapter(
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].id == newList[newItemPosition].id
         }
+
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return false
         }
+
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
     }

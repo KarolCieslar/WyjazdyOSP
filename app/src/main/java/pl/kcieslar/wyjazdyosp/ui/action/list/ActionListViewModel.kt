@@ -15,7 +15,7 @@ class ActionListViewModel @Inject constructor(
     private val actionRepository: ActionRepositoryImpl
 ) : ViewModel() {
 
-    val actionList: LiveData<List<Action>> = actionRepository.getAllActions
+    val actionList: LiveData<List<Action>?> = actionRepository.getAllActions
 
     fun removeAction(action: Action) {
         viewModelScope.launch {
