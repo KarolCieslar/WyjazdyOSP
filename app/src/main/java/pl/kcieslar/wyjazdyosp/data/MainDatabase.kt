@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.utils.DatabaseConverters
 
-@Database(entities=[Action::class], version = 1, exportSchema = false)
-@TypeConverters(DatabaseConverters::class)
-abstract class MainDatabase : RoomDatabase() {
-}
+//@Database(entities=[], version = 1, exportSchema = false)
+//@TypeConverters(DatabaseConverters::class)
+//abstract class MainDatabase : RoomDatabase() {
+//}

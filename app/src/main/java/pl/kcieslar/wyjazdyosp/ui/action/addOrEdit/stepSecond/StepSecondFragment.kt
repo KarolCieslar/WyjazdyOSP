@@ -1,6 +1,7 @@
 package pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepSecond
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhuinden.livedatacombinetuplekt.combineTuple
 import org.greenrobot.eventbus.EventBus
@@ -31,7 +33,6 @@ class StepSecondFragment: Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: StepSecondAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,25 +41,47 @@ class StepSecondFragment: Fragment() {
         _binding = FragmentStepSecondBinding.inflate(inflater, container, false)
 
         prepareAdapter()
+        showLoader(true)
 
-//        combineTuple(viewModel.equipmentList, viewModel.carList).observe(viewLifecycleOwner) { (equipmentList, carList) ->
-//            if (equipmentList != null && carList != null) {
-//                val carsAndEquipments = mergeList(equipmentList, carList)
-//                val isAnyCar = carList.isNotEmpty()
-//                binding.viewGroup.isVisible = isAnyCar
-//                binding.errorView.isVisible = !isAnyCar
-//                setBottomButtonsListener(isAnyCar)
-//                if (!isAnyCar) {
-//                    binding.errorView.apply {
-//                        setMainText(resources.getString(R.string.add_action_empty_view_main))
-//                        setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
-//                    }
-//                }
-//                adapter.setData(carsAndEquipments.toMutableList())
-//            }
-//        }
+        viewModel.forcesList.observe(viewLifecycleOwner, Observer {
+            showLoader(false)
+            if (it.exception != null) {
+                Log.e("StepSeconfFragment", it.exception!!.message.toString())
+                showCallErrorView(true, it.exception?.message.toString())
+            } else {
+                val carsAndEquipments = mergeList(it.equipmentList, it.carList)
+                val isAnyCar = it.carList.isNotEmpty()
+                binding.viewGroup.isVisible = isAnyCar
+                binding.errorView.isVisible = !isAnyCar
+                setBottomButtonsListener(isAnyCar)
+                if (!isAnyCar) {
+                    binding.errorView.apply {
+                        setMainText(resources.getString(R.string.add_action_empty_view_main))
+                        setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
+                    }
+                }
+                adapter.setData(carsAndEquipments.toMutableList())
+            }
+        })
 
         return binding.root
+    }
+
+    private fun showLoader(show: Boolean) {
+        binding.progressBar.isVisible = show
+    }
+
+    private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
+        binding.errorView.apply {
+            isVisible = show
+            setMainText(context.getString(R.string.error_occured))
+            errorMessage?.let {
+                setDescription(it)
+            }
+            setButtonData("SPRÓBUJ PONOWNIE") {
+                viewModel.refreshData()
+            }
+        }
     }
 
     private fun prepareAdapter() {

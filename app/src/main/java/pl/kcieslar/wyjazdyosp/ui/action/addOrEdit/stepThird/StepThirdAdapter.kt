@@ -43,7 +43,6 @@ class StepThirdAdapter(
         return allFiremansList
     }
 
-
     inner class ViewHolder(private val binding: ItemAddActionCarBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         private lateinit var firemansAdapter: FiremanRecyclerAdapter

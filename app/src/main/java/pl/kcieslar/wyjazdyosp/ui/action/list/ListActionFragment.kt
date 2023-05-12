@@ -1,6 +1,7 @@
 package pl.kcieslar.wyjazdyosp.ui.action.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
 import pl.kcieslar.wyjazdyosp.model.Action
+import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
@@ -42,16 +44,42 @@ class ListActionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-//        viewModel.actionList.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                binding.errorView.isVisible = it.isEmpty()
-//                if (it.isEmpty()) binding.errorView.apply {
-//                    setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
-//                    setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
-//                }
-//                adapter.setList(it)
-//            }
-//        })
+        viewModel.viewModelEvents.observe(viewLifecycleOwner) {
+            when (it) {
+                is ActionListViewModel.LoadingData -> {
+                    showLoader(true)
+                    showCallErrorView(false)
+                }
+                is ActionListViewModel.CallBackSuccessfully -> {
+                    showLoader(false)
+                    showCallErrorView(false)
+                    viewModel.refreshData()
+                }
+                is ActionListViewModel.CallBackError -> {
+                    showLoader(false)
+                    showCallErrorView(true, it.exception?.message.toString())
+                    Log.e("ListActionFragment CallBackError", it.exception.toString())
+                }
+            }
+        }
+
+        viewModel.actionList.observe(viewLifecycleOwner, Observer {
+            showLoader(false)
+            if (it.exception != null) {
+                Log.e("ListActionFragment", it.exception!!.message.toString())
+                showCallErrorView(true, it.exception?.message.toString())
+            } else {
+                it.list?.let { list ->
+                    binding.errorView.isVisible = list.isEmpty()
+                    if (list.isEmpty()) binding.errorView.apply {
+                        setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
+                        setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
+                        showButton(false)
+                    }
+                    adapter.setList(list)
+                }
+            }
+        })
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
@@ -59,6 +87,23 @@ class ListActionFragment : Fragment() {
 
         setHelpDialogString(HelpDialogStringRes.ACTION_LIST)
         return binding.root
+    }
+
+    private fun showLoader(show: Boolean) {
+        binding.progressBar.isVisible = show
+    }
+
+    private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
+        binding.errorView.apply {
+            isVisible = show
+            setMainText(context.getString(R.string.error_occured))
+            errorMessage?.let {
+                setDescription(it)
+            }
+            setButtonData("SPRÓBUJ PONOWNIE") {
+                viewModel.refreshData()
+            }
+        }
     }
 
     private fun openEditFragment(action: Action) {

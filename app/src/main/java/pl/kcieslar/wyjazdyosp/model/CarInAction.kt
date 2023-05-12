@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CarInAction(
-    val car: Car,
-    val firemans: List<Fireman>
+    val car: Car = Car(),
+    val firemans: List<Fireman> = emptyList()
 ) : Parcelable

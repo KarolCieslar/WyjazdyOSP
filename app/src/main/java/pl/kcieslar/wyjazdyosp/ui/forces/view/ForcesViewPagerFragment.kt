@@ -67,26 +67,28 @@ class ForcesViewPagerFragment : Fragment() {
             when (it) {
                 is ForcesViewModel.LoadingData -> {
                     showLoader(true)
-                    showErrorView(false)
+                    showCallErrorView(false)
                 }
                 is ForcesViewModel.CallBackSuccessfully -> {
                     showLoader(false)
-                    showErrorView(false)
+                    showCallErrorView(false)
                     viewModel.refreshData(forcesDataType)
                 }
                 is ForcesViewModel.CallBackError -> {
                     showLoader(false)
-                    showErrorView(true, it.exception?.message.toString())
+                    showCallErrorView(true, it.exception?.message.toString())
+                    Log.e("ForcesViewPagerFragment CallBackError", it.exception.toString())
                 }
             }
         }
 
         dataList.observe(viewLifecycleOwner, Observer {
+            showLoader(false)
             if (it.exception != null) {
                 Log.e("ForcesViewPagerFragment", it.exception!!.message.toString())
+                showCallErrorView(true, it.exception?.message.toString())
             } else {
                 it.list?.let { list ->
-                    showLoader(false)
                     binding.errorView.isVisible = list.isEmpty()
                     binding.floatingActionButton.isVisible = list.isNotEmpty()
                     if (list.isEmpty()) binding.errorView.apply {
@@ -110,14 +112,16 @@ class ForcesViewPagerFragment : Fragment() {
         binding.progressBar.isVisible = show
     }
 
-    private fun showErrorView(show: Boolean, errorMessage: String? = null) {
+    private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
         binding.errorView.apply {
             isVisible = show
-            setMainText("WYSTĄPIŁ BŁĄD")
+            setMainText(context.getString(R.string.error_occured))
             errorMessage?.let {
                 setDescription(it)
             }
-            setButtonData("SPRÓBUJ PONOWNIE") { viewModel.refreshData(forcesDataType) }
+            setButtonData("SPRÓBUJ PONOWNIE") {
+                viewModel.refreshData(forcesDataType)
+            }
         }
     }
 
@@ -133,6 +137,7 @@ class ForcesViewPagerFragment : Fragment() {
         }
     }
 
+    // TODO: DOROBIĆ TUTAJ UNIKALNE ID
     private fun openAddDialog() {
         val dialog = AddOrEditForcesDialogView(requireContext())
         dialog.apply {

@@ -1,6 +1,7 @@
 package pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,15 +40,30 @@ class StepThirdFragment : Fragment() {
         setBottomButtonsListener()
         prepareAdapter()
 
+        viewModel.viewModelEvents.observe(viewLifecycleOwner) {
+            when (it) {
+                is AddActionViewModel.ActionAddedSuccessfully -> {
+                    // TODO: Navigate up z parametrem force update który odebrany zostanie w ListActionsFragment i zrobi refresh na liście
+                    // TODO: Poprawić selectionStatus bo jest bez sensu. Mozna to zrobić inaczej w Firebase
+                    findNavController().navigateUp()
+                }
+                is AddActionViewModel.CallBackError -> {
+                    // TODO: Zrobić snackbara z przyciskiem RETRY i dać refresh calla
+                    showSnackBar("Błąd dodawania wyjazdu")
+                    Log.e("StepThirdFragment CallBackError", it.exception.toString())
+                }
+            }
+        }
+
         viewModel.selectedCarsList.observe(viewLifecycleOwner, Observer {
             adapter.setCars(it)
             selectedCarsList = it
         })
 
-//        viewModel.firemanList.observe(viewLifecycleOwner, Observer {
-//            val firemans = it.map { fireman -> fireman.copy() }
-//            adapter.setFiremans(firemans)
-//        })
+        viewModel.forcesList.observe(viewLifecycleOwner, Observer {
+            val firemans = it.firemanList.map { fireman -> fireman.copy() }
+            adapter.setFiremans(firemans)
+        })
 
         return binding.root
     }
@@ -68,7 +84,7 @@ class StepThirdFragment : Fragment() {
         return true
     }
 
-    private fun isEveryCarHasFiremanFunctions(): Boolean {
+    private fun isEveryCarHasDriverFunctions(): Boolean {
         var checkValue = 0
         selectedCarsList.forEach { car ->
             adapter.getFiremans().forEach { fireman ->
@@ -91,15 +107,13 @@ class StepThirdFragment : Fragment() {
         binding.primaryButton.setText(requireContext().resources.getString(if (viewModel.isEditMode) R.string.button_save_action else R.string.button_add_action))
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
-                if (!isEveryCarHasFiremanFunctions()) {
+                if (!isEveryCarHasDriverFunctions()) {
                     val dialog = FunctionNotSelectedDialogView(requireContext())
                     dialog.setOnPrimaryButtonClickListener {
                         addNewAction()
-                        findNavController().navigateUp()
                     }
                 } else {
                     addNewAction()
-                    findNavController().navigateUp()
                 }
             }
         }

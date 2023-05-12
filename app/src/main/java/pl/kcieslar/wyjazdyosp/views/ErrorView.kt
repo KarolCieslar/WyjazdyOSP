@@ -28,4 +28,8 @@ class ErrorView @JvmOverloads constructor (
             setClickListener(action)
         }
     }
+
+    fun showButton(show: Boolean) {
+        binding.button.isVisible = show
+    }
 }

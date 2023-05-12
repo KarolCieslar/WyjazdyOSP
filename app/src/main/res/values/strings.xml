@@ -41,6 +41,8 @@
     <string name="add_action_empty_view_main">Brak samochodów!</string>
     <string name="add_action_empty_view_additional_description">Przejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
 
+    <string name="error_occured">WYSTĄPIŁ BŁĄD</string>
+
     <!-- Forces ListAction -->
     <string name="list_action_fragment_empty_view_main">BRAK AKCJI</string>
     <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz wprowadzonej \nżadnej akcji! Dodaj akcję klikając ikonę plusika.</string>
