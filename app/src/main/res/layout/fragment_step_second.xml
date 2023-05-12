@@ -46,7 +46,7 @@
         app:layout_constraintGuide_percent="0.4" />
 
     <pl.kcieslar.wyjazdyosp.views.ErrorView
-        android:id="@+id/emptyView"
+        android:id="@+id/error_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"

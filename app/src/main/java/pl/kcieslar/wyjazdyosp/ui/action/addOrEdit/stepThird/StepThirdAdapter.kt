@@ -70,7 +70,7 @@ class StepThirdAdapter(
             )
             binding.firemanRecyclerView.adapter = firemansAdapter
             val filteredItems = getFilteredFiremans(carId)
-            binding.emptyView.isVisible = filteredItems.isEmpty()
+            binding.errorView.isVisible = filteredItems.isEmpty()
             firemansAdapter.setData(filteredItems)
         }
 

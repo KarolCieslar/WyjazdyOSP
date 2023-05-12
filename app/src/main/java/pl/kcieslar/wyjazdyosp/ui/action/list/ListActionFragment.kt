@@ -44,8 +44,8 @@ class ListActionFragment : Fragment() {
 
 //        viewModel.actionList.observe(viewLifecycleOwner, Observer {
 //            it?.let {
-//                binding.emptyView.isVisible = it.isEmpty()
-//                if (it.isEmpty()) binding.emptyView.apply {
+//                binding.errorView.isVisible = it.isEmpty()
+//                if (it.isEmpty()) binding.errorView.apply {
 //                    setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
 //                    setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
 //                }

@@ -1,6 +1,5 @@
 package pl.kcieslar.wyjazdyosp.ui.forces
 
-import android.media.audiofx.DynamicsProcessing.Eq
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -33,6 +32,10 @@ class ForcesViewModel @Inject constructor(
     val viewModelEvents: LiveData<ViewModelEvent>
         get() = _viewModelEvents
 
+    init {
+        _viewModelEvents.value = LoadingData()
+    }
+
     val firemanList = RefreshableLiveData {
         liveData(Dispatchers.IO) {
             emit(firemanRepository.getFiremans())
@@ -52,6 +55,7 @@ class ForcesViewModel @Inject constructor(
     }
 
     fun refreshData(forcesType: ForcesDataType) {
+        _viewModelEvents.value = LoadingData()
         viewModelScope.launch {
             when (forcesType) {
                 ForcesDataType.CAR -> carList.refresh()
@@ -107,6 +111,7 @@ class ForcesViewModel @Inject constructor(
         }
     }
 
+    inner class LoadingData : ViewModelEvent()
     inner class CallBackSuccessfully : ViewModelEvent()
     inner class CallBackError(val exception: Exception?) : ViewModelEvent()
 }

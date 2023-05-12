@@ -46,10 +46,10 @@ class StepSecondFragment: Fragment() {
 //                val carsAndEquipments = mergeList(equipmentList, carList)
 //                val isAnyCar = carList.isNotEmpty()
 //                binding.viewGroup.isVisible = isAnyCar
-//                binding.emptyView.isVisible = !isAnyCar
+//                binding.errorView.isVisible = !isAnyCar
 //                setBottomButtonsListener(isAnyCar)
 //                if (!isAnyCar) {
-//                    binding.emptyView.apply {
+//                    binding.errorView.apply {
 //                        setMainText(resources.getString(R.string.add_action_empty_view_main))
 //                        setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
 //                    }

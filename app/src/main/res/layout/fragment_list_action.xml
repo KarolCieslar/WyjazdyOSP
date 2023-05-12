@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <pl.kcieslar.wyjazdyosp.views.ErrorView
-        android:id="@+id/emptyView"
+        android:id="@+id/error_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin16"

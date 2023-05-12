@@ -117,7 +117,7 @@ class SalaryFragment : Fragment() {
 
         if (salaryPerHour == -1) {
             binding.viewGroup.isVisible = false
-            binding.emptyView.apply {
+            binding.errorView.apply {
                 isVisible = true
                 setMainText(resources.getString(R.string.salary_fragment_salary_not_set))
                 setDescription(resources.getString(R.string.salary_fragment_salary_not_set_description))
@@ -148,10 +148,10 @@ class SalaryFragment : Fragment() {
     private fun handleSalaryViewData(selectedQuarter: Quarter?) {
 //        combineTuple(viewModel.firemanList, viewModel.firemanActions).observe(viewLifecycleOwner) { (firemans, actions) ->
 //            if (firemans != null && actions != null) {
-//                binding.emptyView.isVisible = firemans.isEmpty()
+//                binding.errorView.isVisible = firemans.isEmpty()
 //                binding.viewGroup.isVisible = firemans.isNotEmpty()
 //                changeSelectDateState(viewModel.dateButtonSelected)
-//                if (firemans.isEmpty()) binding.emptyView.apply {
+//                if (firemans.isEmpty()) binding.errorView.apply {
 //                    setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
 //                    setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
 //                    setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) {

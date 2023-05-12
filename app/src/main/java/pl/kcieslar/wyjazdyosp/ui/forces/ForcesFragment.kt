@@ -52,10 +52,6 @@ class ForcesFragment : Fragment() {
     private fun setupViewPager() {
         val adapter = ForcesViewPagerAdapter(this, 3, openAddDialogAtInit = args.openAddDialogAtInit)
         binding.viewPager.adapter = adapter
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-            }
-        })
+        binding.viewPager.offscreenPageLimit = 1
     }
 }

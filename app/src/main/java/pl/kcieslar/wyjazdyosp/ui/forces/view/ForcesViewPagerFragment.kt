@@ -65,8 +65,19 @@ class ForcesViewPagerFragment : Fragment() {
 
         viewModel.viewModelEvents.observe(viewLifecycleOwner) {
             when (it) {
-                is ForcesViewModel.CallBackSuccessfully -> viewModel.refreshData(forcesDataType)
-                is ForcesViewModel.CallBackError -> showSnackBar(it.exception?.message.toString())
+                is ForcesViewModel.LoadingData -> {
+                    showLoader(true)
+                    showErrorView(false)
+                }
+                is ForcesViewModel.CallBackSuccessfully -> {
+                    showLoader(false)
+                    showErrorView(false)
+                    viewModel.refreshData(forcesDataType)
+                }
+                is ForcesViewModel.CallBackError -> {
+                    showLoader(false)
+                    showErrorView(true, it.exception?.message.toString())
+                }
             }
         }
 
@@ -75,9 +86,10 @@ class ForcesViewPagerFragment : Fragment() {
                 Log.e("ForcesViewPagerFragment", it.exception!!.message.toString())
             } else {
                 it.list?.let { list ->
-                    binding.emptyView.isVisible = list.isEmpty()
+                    showLoader(false)
+                    binding.errorView.isVisible = list.isEmpty()
                     binding.floatingActionButton.isVisible = list.isNotEmpty()
-                    if (list.isEmpty()) binding.emptyView.apply {
+                    if (list.isEmpty()) binding.errorView.apply {
                         setMainText(getForcesString(context, ForcesStringType.EMPTY_VIEW_MAIN, forcesDataType))
                         setDescription(getForcesString(context, ForcesStringType.EMPTY_VIEW_DESCRIPTION, forcesDataType))
                         setButtonData(getForcesString(context, ForcesStringType.EMPTY_VIEW_BUTTON, forcesDataType)) { openAddDialog() }
@@ -91,6 +103,21 @@ class ForcesViewPagerFragment : Fragment() {
 
         if (openAddDialogAtInit == true) {
             openAddDialog()
+        }
+    }
+
+    private fun showLoader(show: Boolean) {
+        binding.progressBar.isVisible = show
+    }
+
+    private fun showErrorView(show: Boolean, errorMessage: String? = null) {
+        binding.errorView.apply {
+            isVisible = show
+            setMainText("WYSTĄPIŁ BŁĄD")
+            errorMessage?.let {
+                setDescription(it)
+            }
+            setButtonData("SPRÓBUJ PONOWNIE") { viewModel.refreshData(forcesDataType) }
         }
     }
 
