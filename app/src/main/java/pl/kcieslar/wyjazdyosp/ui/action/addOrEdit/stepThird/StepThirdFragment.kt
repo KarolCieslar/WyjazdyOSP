@@ -44,10 +44,10 @@ class StepThirdFragment : Fragment() {
             selectedCarsList = it
         })
 
-        viewModel.firemanList.observe(viewLifecycleOwner, Observer {
-            val firemans = it.map { fireman -> fireman.copy() }
-            adapter.setFiremans(firemans)
-        })
+//        viewModel.firemanList.observe(viewLifecycleOwner, Observer {
+//            val firemans = it.map { fireman -> fireman.copy() }
+//            adapter.setFiremans(firemans)
+//        })
 
         return binding.root
     }

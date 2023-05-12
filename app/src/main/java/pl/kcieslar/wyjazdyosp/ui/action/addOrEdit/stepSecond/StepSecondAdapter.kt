@@ -13,6 +13,7 @@ import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondCarBinding
 import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondEquipmentBinding
 import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondSeparatorBinding
 import pl.kcieslar.wyjazdyosp.model.*
+import pl.kcieslar.wyjazdyosp.utils.generateRandomUUID
 
 
 class StepSecondAdapter(
@@ -135,10 +136,9 @@ class StepSecondAdapter(
         action.equipment.forEach { if(!itemList.contains(it)) removedItems.add(it) }
         action.carsInAction.map { it.car }.forEach { if(!itemList.contains(it)) removedItems.add(it) }
         if (removedItems.isNotEmpty()) {
-            itemList.add(Fireman(-1, "SEPARATOR"))
+            itemList.add(Fireman("", -1, "SEPARATOR"))
             itemList.addAll(removedItems)
         }
-
         notifyDataSetChanged()
     }
 

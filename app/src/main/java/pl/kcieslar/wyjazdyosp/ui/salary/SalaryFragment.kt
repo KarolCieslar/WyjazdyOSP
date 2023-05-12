@@ -146,32 +146,32 @@ class SalaryFragment : Fragment() {
     }
 
     private fun handleSalaryViewData(selectedQuarter: Quarter?) {
-        combineTuple(viewModel.firemanList, viewModel.firemanActions).observe(viewLifecycleOwner) { (firemans, actions) ->
-            if (firemans != null && actions != null) {
-                binding.emptyView.isVisible = firemans.isEmpty()
-                binding.viewGroup.isVisible = firemans.isNotEmpty()
-                changeSelectDateState(viewModel.dateButtonSelected)
-                if (firemans.isEmpty()) binding.emptyView.apply {
-                    setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
-                    setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
-                    setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) {
-                        findNavController().navigate(SalaryFragmentDirections.actionSalaryFragmentToForcesFragment(1, true))
-                    }
-                }
-
-                val filteredActions = actions.filter {
-                    val date = convertStringToLocalDateTime(it.outTime).toLocalDate()
-                    if (viewModel.dateButtonSelected) {
-                        val fromDate = LocalDate.parse(binding.fromDate.getValue(), dateFormatter)
-                        val toDate = LocalDate.parse(binding.toDate.getValue(), dateFormatter)
-                        date.isEqual(toDate) || date.isEqual(fromDate) || date.isAfter(fromDate) && date.isBefore(toDate)
-                    } else {
-                        date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
-                    }
-                }
-                adapter.setData(firemans, filteredActions)
-            }
-        }
+//        combineTuple(viewModel.firemanList, viewModel.firemanActions).observe(viewLifecycleOwner) { (firemans, actions) ->
+//            if (firemans != null && actions != null) {
+//                binding.emptyView.isVisible = firemans.isEmpty()
+//                binding.viewGroup.isVisible = firemans.isNotEmpty()
+//                changeSelectDateState(viewModel.dateButtonSelected)
+//                if (firemans.isEmpty()) binding.emptyView.apply {
+//                    setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
+//                    setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
+//                    setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) {
+//                        findNavController().navigate(SalaryFragmentDirections.actionSalaryFragmentToForcesFragment(1, true))
+//                    }
+//                }
+//
+//                val filteredActions = actions.filter {
+//                    val date = convertStringToLocalDateTime(it.outTime).toLocalDate()
+//                    if (viewModel.dateButtonSelected) {
+//                        val fromDate = LocalDate.parse(binding.fromDate.getValue(), dateFormatter)
+//                        val toDate = LocalDate.parse(binding.toDate.getValue(), dateFormatter)
+//                        date.isEqual(toDate) || date.isEqual(fromDate) || date.isAfter(fromDate) && date.isBefore(toDate)
+//                    } else {
+//                        date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
+//                    }
+//                }
+//                adapter.setData(firemans, filteredActions)
+//            }
+//        }
     }
 
     private fun setDateClickListener() {

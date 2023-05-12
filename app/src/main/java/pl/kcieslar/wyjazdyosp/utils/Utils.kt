@@ -4,6 +4,7 @@ import android.content.Context
 
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
+import java.util.*
 
 fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataType: ForcesDataType, textVariable: String? = null) : String {
     val stringRes = when (stringType) {
@@ -61,6 +62,10 @@ fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataTy
         return context.resources.getString(stringRes, it)
     }
     return context.resources.getString(stringRes)
+}
+
+fun generateRandomUUID() : String {
+    return UUID.randomUUID().toString()
 }
 
 enum class ForcesStringType {

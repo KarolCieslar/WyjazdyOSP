@@ -42,16 +42,16 @@ class ListActionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.actionList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.emptyView.isVisible = it.isEmpty()
-                if (it.isEmpty()) binding.emptyView.apply {
-                    setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
-                    setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
-                }
-                adapter.setList(it)
-            }
-        })
+//        viewModel.actionList.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                binding.emptyView.isVisible = it.isEmpty()
+//                if (it.isEmpty()) binding.emptyView.apply {
+//                    setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
+//                    setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
+//                }
+//                adapter.setList(it)
+//            }
+//        })
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))

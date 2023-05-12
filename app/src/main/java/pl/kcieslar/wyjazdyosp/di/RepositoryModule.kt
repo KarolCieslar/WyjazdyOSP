@@ -32,5 +32,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindFiremanRepository(firemanRepositoryImpl: FiremanRepositoryImpl): FiremanRepository
+    abstract fun bindFiremanRepository(firemanRepository: FiremanRepositoryImpl): FiremanRepository
 }

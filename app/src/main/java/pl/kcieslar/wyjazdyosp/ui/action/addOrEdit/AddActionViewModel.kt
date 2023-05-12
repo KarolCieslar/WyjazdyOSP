@@ -9,24 +9,21 @@ import kotlinx.coroutines.launch
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
-import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.CarRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.EquipmentRepositoryImpl
-import pl.kcieslar.wyjazdyosp.data.repository.FiremanRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel
 class AddActionViewModel @Inject constructor(
     private val carRepository: CarRepositoryImpl,
-    private val firemanRepository: FiremanRepositoryImpl,
     private val equipmentRepository: EquipmentRepositoryImpl,
     private val actionRepository: ActionRepositoryImpl
 ) : ViewModel() {
 
-    val carList: LiveData<List<Car>> = carRepository.getAllCars
-    val firemanList: LiveData<List<Fireman>> = firemanRepository.getAllFiremans
-    val equipmentList: LiveData<List<Equipment>> = equipmentRepository.getAllEquipment
+  //  val carList: LiveData<List<Car>> = carRepository.getAllCars
+//    val firemanList: LiveData<List<Fireman>> = firemanRepository.getFiremans()
+    //val equipmentList: LiveData<List<Equipment>> = equipmentRepository.getAllEquipment
     var selectedCarsList: MutableLiveData<List<Car>> = MutableLiveData()
 
     fun setSelectedCars(list: List<Car>) {

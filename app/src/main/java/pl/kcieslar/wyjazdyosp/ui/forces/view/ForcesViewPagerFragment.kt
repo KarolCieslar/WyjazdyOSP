@@ -1,6 +1,7 @@
 package pl.kcieslar.wyjazdyosp.ui.forces.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseForcesResponse
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
+import pl.kcieslar.wyjazdyosp.ui.forces.FORCES_TYPE_ARG
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.utils.ForcesStringType
@@ -30,27 +33,27 @@ class ForcesViewPagerFragment : Fragment() {
     private val viewModel: ForcesViewModel by viewModels()
     private var _binding: FragmentForcesViewPagerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dataList: LiveData<List<Forces>>
+    private lateinit var dataList: LiveData<FirebaseForcesResponse>
     private lateinit var adapter: ViewPagerListAdapter
-
-    companion object {
-        fun newInstance(forcesDataType: ForcesDataType, openAddDialogAtInit: Boolean? = null): Fragment {
-            val fragment = ForcesViewPagerFragment()
-            fragment.forcesDataType = forcesDataType
-            fragment.openAddDialogAtInit = openAddDialogAtInit
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentForcesViewPagerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        arguments?.takeIf {
+            it.containsKey(FORCES_TYPE_ARG)
+        }?.apply {
+            forcesDataType = this.getSerializable(FORCES_TYPE_ARG) as ForcesDataType
+        }
         this.dataList = when (forcesDataType) {
-            ForcesDataType.CAR -> viewModel.carList as LiveData<List<Forces>>
-            ForcesDataType.FIREMAN -> viewModel.firemanList as LiveData<List<Forces>>
-            ForcesDataType.EQUIPMENT -> viewModel.equipmentList as LiveData<List<Forces>>
+            ForcesDataType.CAR -> viewModel.carList as LiveData<FirebaseForcesResponse>
+            ForcesDataType.FIREMAN -> viewModel.firemanList as LiveData<FirebaseForcesResponse>
+            ForcesDataType.EQUIPMENT -> viewModel.equipmentList as LiveData<FirebaseForcesResponse>
         }
 
         adapter = ViewPagerListAdapter(
@@ -60,15 +63,28 @@ class ForcesViewPagerFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        dataList.observe(viewLifecycleOwner, Observer {
-            binding.emptyView.isVisible = it.isEmpty()
-            binding.floatingActionButton.isVisible = it.isNotEmpty()
-            if (it.isEmpty()) binding.emptyView.apply {
-                setMainText(getForcesString(context, ForcesStringType.EMPTY_VIEW_MAIN, forcesDataType))
-                setDescription(getForcesString(context, ForcesStringType.EMPTY_VIEW_DESCRIPTION, forcesDataType))
-                setButtonData(getForcesString(context, ForcesStringType.EMPTY_VIEW_BUTTON, forcesDataType)) { openAddDialog() }
+        viewModel.viewModelEvents.observe(viewLifecycleOwner) {
+            when (it) {
+                is ForcesViewModel.CallBackSuccessfully -> viewModel.refreshData(forcesDataType)
+                is ForcesViewModel.CallBackError -> showSnackBar(it.exception?.message.toString())
             }
-            adapter.setItems(it)
+        }
+
+        dataList.observe(viewLifecycleOwner, Observer {
+            if (it.exception != null) {
+                Log.e("ForcesViewPagerFragment", it.exception!!.message.toString())
+            } else {
+                it.list?.let { list ->
+                    binding.emptyView.isVisible = list.isEmpty()
+                    binding.floatingActionButton.isVisible = list.isNotEmpty()
+                    if (list.isEmpty()) binding.emptyView.apply {
+                        setMainText(getForcesString(context, ForcesStringType.EMPTY_VIEW_MAIN, forcesDataType))
+                        setDescription(getForcesString(context, ForcesStringType.EMPTY_VIEW_DESCRIPTION, forcesDataType))
+                        setButtonData(getForcesString(context, ForcesStringType.EMPTY_VIEW_BUTTON, forcesDataType)) { openAddDialog() }
+                    }
+                    adapter.setItems(list)
+                }
+            }
         })
 
         binding.floatingActionButton.setOnClickListener { openAddDialog() }
@@ -76,8 +92,6 @@ class ForcesViewPagerFragment : Fragment() {
         if (openAddDialogAtInit == true) {
             openAddDialog()
         }
-
-        return binding.root
     }
 
     private fun removeItem(item: Forces) {
@@ -97,9 +111,9 @@ class ForcesViewPagerFragment : Fragment() {
         dialog.apply {
             setTitle(getForcesString(context, ForcesStringType.ADD_DIALOG_TITLE, forcesDataType))
             setPrimaryButtonText(resources.getString(R.string.button_add))
-            setOnPrimaryButtonClickListener { editTextString ->
-                if (!isObjectExist(editTextString)) {
-                    viewModel.addItem(forcesDataType, editTextString)
+            setOnPrimaryButtonClickListener { objectName ->
+                if (!isObjectExist(objectName)) {
+                    viewModel.addItem(forcesDataType, objectName)
                     dismiss()
                 } else {
                     setError(getForcesString(context, ForcesStringType.OBJECT_ALREADY_EXIST, forcesDataType))
@@ -116,7 +130,7 @@ class ForcesViewPagerFragment : Fragment() {
             setEditTextValue(item.name)
             setOnPrimaryButtonClickListener { editTextString ->
                 if (!isObjectExist(editTextString, item.name)) {
-                    viewModel.editItem(forcesDataType, item.id, editTextString)
+                    viewModel.editItem(item, editTextString)
                     dismiss()
                 } else {
                     setError(getForcesString(context, ForcesStringType.OBJECT_ALREADY_EXIST, forcesDataType))

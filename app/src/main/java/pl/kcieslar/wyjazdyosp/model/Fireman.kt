@@ -1,22 +1,21 @@
 package pl.kcieslar.wyjazdyosp.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import com.google.firebase.database.Exclude
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird.FiremanFunction
 
 @Parcelize
-@Entity(tableName = "fireman")
 data class Fireman(
-    @PrimaryKey(autoGenerate = true)
-    override val id: Int,
-    override val name: String
-) : Parcelable, Forces {
+    override var key: String = "",
+    override val id: Int = -1,
+    override val name: String = "",
+) : Forces, Parcelable {
+    @Exclude
     @IgnoredOnParcel
-    @Ignore var selectStatus: Int? = null
+    var selectStatus: Int? = null
+    @Exclude
     @IgnoredOnParcel
-    @Ignore var functions: MutableMap<Int, MutableList<FiremanFunction>> = mutableMapOf()
+    var functions: MutableMap<Int, MutableList<FiremanFunction>> = mutableMapOf()
 }

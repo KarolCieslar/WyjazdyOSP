@@ -13,8 +13,8 @@ class SalaryViewModel @Inject constructor(
     private val firemanRepository: FiremanRepositoryImpl
 ) : ViewModel() {
 
-    val firemanList: LiveData<List<Fireman>> = firemanRepository.getAllFiremans
-    val firemanActions: LiveData<List<Action>> = firemanRepository.getAllFiremanActions
+//    val firemanList: LiveData<List<Fireman>> = firemanRepository.getAllFiremans
+//    val firemanActions: LiveData<List<Action>> = firemanRepository.getAllFiremanActions
     var dateButtonSelected = false
 
 }

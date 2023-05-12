@@ -41,22 +41,22 @@ class StepSecondFragment: Fragment() {
 
         prepareAdapter()
 
-        combineTuple(viewModel.equipmentList, viewModel.carList).observe(viewLifecycleOwner) { (equipmentList, carList) ->
-            if (equipmentList != null && carList != null) {
-                val carsAndEquipments = mergeList(equipmentList, carList)
-                val isAnyCar = carList.isNotEmpty()
-                binding.viewGroup.isVisible = isAnyCar
-                binding.emptyView.isVisible = !isAnyCar
-                setBottomButtonsListener(isAnyCar)
-                if (!isAnyCar) {
-                    binding.emptyView.apply {
-                        setMainText(resources.getString(R.string.add_action_empty_view_main))
-                        setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
-                    }
-                }
-                adapter.setData(carsAndEquipments.toMutableList())
-            }
-        }
+//        combineTuple(viewModel.equipmentList, viewModel.carList).observe(viewLifecycleOwner) { (equipmentList, carList) ->
+//            if (equipmentList != null && carList != null) {
+//                val carsAndEquipments = mergeList(equipmentList, carList)
+//                val isAnyCar = carList.isNotEmpty()
+//                binding.viewGroup.isVisible = isAnyCar
+//                binding.emptyView.isVisible = !isAnyCar
+//                setBottomButtonsListener(isAnyCar)
+//                if (!isAnyCar) {
+//                    binding.emptyView.apply {
+//                        setMainText(resources.getString(R.string.add_action_empty_view_main))
+//                        setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
+//                    }
+//                }
+//                adapter.setData(carsAndEquipments.toMutableList())
+//            }
+//        }
 
         return binding.root
     }
