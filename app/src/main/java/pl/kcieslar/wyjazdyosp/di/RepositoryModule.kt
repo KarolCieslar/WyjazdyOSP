@@ -4,14 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
-import pl.kcieslar.wyjazdyosp.data.repository.CarRepositoryImpl
-import pl.kcieslar.wyjazdyosp.data.repository.EquipmentRepositoryImpl
-import pl.kcieslar.wyjazdyosp.data.repository.FiremanRepositoryImpl
-import pl.kcieslar.wyjazdyosp.domain.repository.ActionRepository
-import pl.kcieslar.wyjazdyosp.domain.repository.CarRepository
-import pl.kcieslar.wyjazdyosp.domain.repository.EquipmentRepository
-import pl.kcieslar.wyjazdyosp.domain.repository.FiremanRepository
+import pl.kcieslar.wyjazdyosp.data.repository.*
+import pl.kcieslar.wyjazdyosp.domain.repository.*
 import javax.inject.Singleton
 
 @Module
@@ -24,13 +18,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindCarRepository(carRepositoryImpl: CarRepositoryImpl): CarRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindEquipmentRepository(equipmentRepositoryImpl: EquipmentRepositoryImpl): EquipmentRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindFiremanRepository(firemanRepository: FiremanRepositoryImpl): FiremanRepository
+    abstract fun bindForcesRepository(forcesRepository: ForcesRepositoryImpl): ForcesRepository
 }

@@ -11,9 +11,7 @@ import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.model.*
 import pl.kcieslar.wyjazdyosp.mvvm.RefreshableLiveData
 import pl.kcieslar.wyjazdyosp.mvvm.SingleLiveEvent
-import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird.FiremanFunction
-import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
-import pl.kcieslar.wyjazdyosp.utils.ViewModelEvent
+import pl.kcieslar.wyjazdyosp.mvvm.ViewModelEvent
 import javax.inject.Inject
 
 @HiltViewModel

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zhuinden.livedatacombinetuplekt.combineTuple
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentStepSecondBinding
@@ -24,7 +23,6 @@ import pl.kcieslar.wyjazdyosp.utils.mergeList
 import pl.kcieslar.wyjazdyosp.utils.setHorizontalMargin
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
-
 
 class StepSecondFragment: Fragment() {
 
@@ -49,8 +47,8 @@ class StepSecondFragment: Fragment() {
                 Log.e("StepSeconfFragment", it.exception!!.message.toString())
                 showCallErrorView(true, it.exception?.message.toString())
             } else {
-                val carsAndEquipments = mergeList(it.equipmentList, it.carList)
-                val isAnyCar = it.carList.isNotEmpty()
+                val carsAndEquipments = mergeList(it.getEquipmentList(), it.getCarList())
+                val isAnyCar = it.getCarList().isNotEmpty()
                 binding.viewGroup.isVisible = isAnyCar
                 binding.errorView.isVisible = !isAnyCar
                 setBottomButtonsListener(isAnyCar)

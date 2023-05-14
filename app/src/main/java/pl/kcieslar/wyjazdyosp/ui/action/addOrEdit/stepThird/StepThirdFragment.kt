@@ -61,7 +61,7 @@ class StepThirdFragment : Fragment() {
         })
 
         viewModel.forcesList.observe(viewLifecycleOwner, Observer {
-            val firemans = it.firemanList.map { fireman -> fireman.copy() }
+            val firemans = it.getFiremanList().map { fireman -> fireman.copy() }
             adapter.setFiremans(firemans)
         })
 
@@ -72,7 +72,7 @@ class StepThirdFragment : Fragment() {
         selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
             adapter.getFiremans().forEach { fireman ->
-                if (fireman.selectStatus == car.id) {
+                if (fireman.selectStatus == car.key) {
                     firemansInCar.add(fireman)
                 }
             }
@@ -88,7 +88,7 @@ class StepThirdFragment : Fragment() {
         var checkValue = 0
         selectedCarsList.forEach { car ->
             adapter.getFiremans().forEach { fireman ->
-                val firemanFunctions = fireman.functions[car.id]
+                val firemanFunctions = fireman.functions[car.key]
                 if (firemanFunctions?.contains(FiremanFunction.DRIVER) == true) {
                     checkValue++
                 }
@@ -128,7 +128,7 @@ class StepThirdFragment : Fragment() {
         selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
             adapter.getFiremans().forEach { fireman ->
-                if (fireman.selectStatus == car.id) {
+                if (fireman.selectStatus == car.key) {
                     firemansInCar.add(fireman)
                 }
             }

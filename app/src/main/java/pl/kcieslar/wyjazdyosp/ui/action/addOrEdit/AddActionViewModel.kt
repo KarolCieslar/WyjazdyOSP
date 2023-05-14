@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.model.Action
@@ -12,7 +11,7 @@ import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.mvvm.RefreshableLiveData
 import pl.kcieslar.wyjazdyosp.mvvm.SingleLiveEvent
-import pl.kcieslar.wyjazdyosp.utils.ViewModelEvent
+import pl.kcieslar.wyjazdyosp.mvvm.ViewModelEvent
 import javax.inject.Inject
 
 @HiltViewModel

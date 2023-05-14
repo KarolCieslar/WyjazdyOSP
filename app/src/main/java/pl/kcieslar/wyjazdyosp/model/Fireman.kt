@@ -5,17 +5,19 @@ import com.google.firebase.database.Exclude
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird.FiremanFunction
+import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
+import pl.kcieslar.wyjazdyosp.utils.generateRandomUUID
 
 @Parcelize
 data class Fireman(
-    override var key: String = "",
-    override val id: Int = -1,
-    override val name: String = "",
+    override var key: String = generateRandomUUID(),
+    override var name: String = "",
+    override val type: ForcesDataType = ForcesDataType.FIREMAN,
 ) : Forces, Parcelable {
     @Exclude
     @IgnoredOnParcel
-    var selectStatus: Int? = null
+    var selectStatus: String? = null
     @Exclude
     @IgnoredOnParcel
-    var functions: MutableMap<Int, MutableList<FiremanFunction>> = mutableMapOf()
+    var functions: MutableMap<String, MutableList<FiremanFunction>> = mutableMapOf()
 }

@@ -19,7 +19,6 @@ import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 
-
 class AddOrEditActionFragment : Fragment() {
 
     val viewModel: AddActionViewModel by viewModels()

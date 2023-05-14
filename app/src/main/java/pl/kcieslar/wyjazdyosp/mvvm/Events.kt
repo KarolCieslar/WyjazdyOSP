@@ -1,3 +1,3 @@
-package pl.kcieslar.wyjazdyosp.utils
+package pl.kcieslar.wyjazdyosp.mvvm
 
 open class ViewModelEvent

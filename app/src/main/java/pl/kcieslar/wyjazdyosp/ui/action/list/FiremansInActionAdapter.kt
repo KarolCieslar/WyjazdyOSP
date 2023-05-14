@@ -10,7 +10,7 @@ import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird.FiremanFunction
 
 class FiremansInActionAdapter(
-    private val carId: Int
+    private val carKey: String
 ): RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
 
     private var firemanList: List<Fireman> = emptyList()
@@ -27,7 +27,7 @@ class FiremansInActionAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder) {
             with(firemanList[position]) {
-                val firemanFunctions = this.functions[carId]
+                val firemanFunctions = this.functions[carKey]
                 binding.name.text = this.name
                 binding.commanderIcon.isVisible = firemanFunctions?.contains(FiremanFunction.COMMANDER) ?: false
                 binding.driverIcon.isVisible = firemanFunctions?.contains(FiremanFunction.DRIVER) ?: false

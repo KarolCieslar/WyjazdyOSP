@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.ItemForcesListBinding
-import pl.kcieslar.wyjazdyosp.model.Car
-import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.model.Forces
+import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
 class ViewPagerListAdapter(
     val onItemClick: ((item: Forces) -> Unit),
@@ -31,10 +30,10 @@ class ViewPagerListAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder){
             with(itemList[position]){
-                val icon = when (this) {
-                    is Fireman -> R.drawable.ic_fireman
-                    is Car -> R.drawable.ic_car
-                    else -> R.drawable.ic_equipment
+                val icon = when (this.type) {
+                    ForcesDataType.FIREMAN -> R.drawable.ic_fireman
+                    ForcesDataType.CAR -> R.drawable.ic_car
+                    ForcesDataType.EQUIPMENT -> R.drawable.ic_equipment
                 }
                 binding.icon.setImageDrawable(ContextCompat.getDrawable(context, icon))
                 binding.name.text = this.name
@@ -68,7 +67,7 @@ class ViewPagerListAdapter(
 
     class DiffUtils(private val oldList: List<Forces>, private val newList: List<Forces>) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
+            return oldList[oldItemPosition].name == newList[newItemPosition].name
         }
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition] == newList[newItemPosition] && oldItemPosition == newItemPosition

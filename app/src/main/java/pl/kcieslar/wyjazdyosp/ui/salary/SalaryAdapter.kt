@@ -62,7 +62,7 @@ class SalaryAdapter: RecyclerView.Adapter<SalaryAdapter.MyViewHolder>() {
         actionList.forEach { action ->
             action.carsInAction.forEach { carInAction ->
                 carInAction.firemans.forEach {
-                    if (it.id == fireman.id) {
+                    if (it.key == fireman.key) {
                         firemanActions.add(action)
                     }
                 }

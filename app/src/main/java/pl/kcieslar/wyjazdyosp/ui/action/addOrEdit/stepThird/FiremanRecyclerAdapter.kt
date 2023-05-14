@@ -14,7 +14,7 @@ import pl.kcieslar.wyjazdyosp.model.Fireman
 class FiremanRecyclerAdapter(
     val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit),
     val onFunctionIconClick: ((fireman: Fireman, firemanFunction: FiremanFunction) -> Unit),
-    private val carId: Int,
+    private val carKey: String,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -60,7 +60,7 @@ class FiremanRecyclerAdapter(
     }
 
     private fun getIconSelectStatus(fireman: Fireman, firemanFunction: FiremanFunction): Int {
-        val firemanFunctions = fireman.functions[carId]
+        val firemanFunctions = fireman.functions[carKey]
         return ContextCompat.getColor(context, if (firemanFunctions?.contains(firemanFunction) == true) R.color.black else R.color.black100)
     }
 
@@ -83,7 +83,7 @@ class FiremanRecyclerAdapter(
 
     class FiremanDiff(private val oldList: List<Fireman>, private val newList: List<Fireman>) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
+            return oldList[oldItemPosition].key == newList[newItemPosition].key
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

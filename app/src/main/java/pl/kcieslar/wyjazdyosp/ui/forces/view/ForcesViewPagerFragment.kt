@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseForcesResponse
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
 import pl.kcieslar.wyjazdyosp.ui.forces.FORCES_TYPE_ARG
@@ -33,7 +31,6 @@ class ForcesViewPagerFragment : Fragment() {
     private val viewModel: ForcesViewModel by viewModels()
     private var _binding: FragmentForcesViewPagerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dataList: LiveData<FirebaseForcesResponse>
     private lateinit var adapter: ViewPagerListAdapter
 
     override fun onCreateView(
@@ -49,11 +46,6 @@ class ForcesViewPagerFragment : Fragment() {
             it.containsKey(FORCES_TYPE_ARG)
         }?.apply {
             forcesDataType = this.getSerializable(FORCES_TYPE_ARG) as ForcesDataType
-        }
-        this.dataList = when (forcesDataType) {
-            ForcesDataType.CAR -> viewModel.carList as LiveData<FirebaseForcesResponse>
-            ForcesDataType.FIREMAN -> viewModel.firemanList as LiveData<FirebaseForcesResponse>
-            ForcesDataType.EQUIPMENT -> viewModel.equipmentList as LiveData<FirebaseForcesResponse>
         }
 
         adapter = ViewPagerListAdapter(
@@ -72,7 +64,7 @@ class ForcesViewPagerFragment : Fragment() {
                 is ForcesViewModel.CallBackSuccessfully -> {
                     showLoader(false)
                     showCallErrorView(false)
-                    viewModel.refreshData(forcesDataType)
+                    viewModel.refreshData()
                 }
                 is ForcesViewModel.CallBackError -> {
                     showLoader(false)
@@ -82,13 +74,13 @@ class ForcesViewPagerFragment : Fragment() {
             }
         }
 
-        dataList.observe(viewLifecycleOwner, Observer {
+        viewModel.forcesList.observe(viewLifecycleOwner, Observer {
             showLoader(false)
             if (it.exception != null) {
                 Log.e("ForcesViewPagerFragment", it.exception!!.message.toString())
                 showCallErrorView(true, it.exception?.message.toString())
             } else {
-                it.list?.let { list ->
+                it.getSpecificTypeList(forcesDataType).let { list ->
                     binding.errorView.isVisible = list.isEmpty()
                     binding.floatingActionButton.isVisible = list.isNotEmpty()
                     if (list.isEmpty()) binding.errorView.apply {
@@ -120,7 +112,7 @@ class ForcesViewPagerFragment : Fragment() {
                 setDescription(it)
             }
             setButtonData("SPRÓBUJ PONOWNIE") {
-                viewModel.refreshData(forcesDataType)
+                viewModel.refreshData()
             }
         }
     }
@@ -137,7 +129,6 @@ class ForcesViewPagerFragment : Fragment() {
         }
     }
 
-    // TODO: DOROBIĆ TUTAJ UNIKALNE ID
     private fun openAddDialog() {
         val dialog = AddOrEditForcesDialogView(requireContext())
         dialog.apply {
@@ -162,7 +153,8 @@ class ForcesViewPagerFragment : Fragment() {
             setEditTextValue(item.name)
             setOnPrimaryButtonClickListener { editTextString ->
                 if (!isObjectExist(editTextString, item.name)) {
-                    viewModel.editItem(item, editTextString)
+                    item.name = editTextString
+                    viewModel.editItem(item)
                     dismiss()
                 } else {
                     setError(getForcesString(context, ForcesStringType.OBJECT_ALREADY_EXIST, forcesDataType))

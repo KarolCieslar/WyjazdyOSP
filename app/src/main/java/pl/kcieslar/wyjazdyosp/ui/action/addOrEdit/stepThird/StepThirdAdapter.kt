@@ -14,7 +14,6 @@ import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Fireman
 
-
 class StepThirdAdapter(
     val recyclerView: RecyclerView,
     val action: Action
@@ -50,69 +49,69 @@ class StepThirdAdapter(
         init {
             binding.item.setOnClickListener(this)
             binding.firemanRecyclerView.layoutManager = LinearLayoutManager(context)
-            currentExpandedCar = itemList[0].id
+            currentExpandedCar = itemList[0].key
         }
 
         fun bind() {
             val car = itemList[layoutPosition]
-            val isSelected = car.id == currentExpandedCar
+            val isSelected = car.key == currentExpandedCar
             binding.name.text = car.name
-            prepareAdapterAndSetData(binding, car.id)
+            prepareAdapterAndSetData(binding, car.key)
             handleExpandLayoutVisible(binding, isSelected)
         }
 
-        private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, carId: Int) {
+        private fun prepareAdapterAndSetData(binding: ItemAddActionCarBinding, carKey: String) {
             firemansAdapter = FiremanRecyclerAdapter(
-                onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, carId, isChecked) },
-                onFunctionIconClick = { fireman, function -> changeFiremanFunction(allFiremansList.first { it == fireman }, function, carId) },
-                carId = carId
+                onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, carKey, isChecked) },
+                onFunctionIconClick = { fireman, function -> changeFiremanFunction(allFiremansList.first { it == fireman }, function, carKey) },
+                carKey = carKey
             )
             binding.firemanRecyclerView.adapter = firemansAdapter
-            val filteredItems = getFilteredFiremans(carId)
+            val filteredItems = getFilteredFiremans(carKey)
             binding.errorView.isVisible = filteredItems.isEmpty()
             firemansAdapter.setData(filteredItems)
         }
 
-        private fun changeFiremanSelectStatus(fireman: Fireman, carId: Int, isSelected: Boolean) {
-            allFiremansList.first { it == fireman }.selectStatus = if (isSelected) carId else null
-            firemansAdapter.setData(getFilteredFiremans(carId))
+        private fun changeFiremanSelectStatus(fireman: Fireman, carKey: String, isSelected: Boolean) {
+            allFiremansList.first { it == fireman }.selectStatus = if (isSelected) carKey else null
+            firemansAdapter.setData(getFilteredFiremans(carKey))
         }
 
-        private fun changeFiremanFunction(fireman: Fireman, function: FiremanFunction, carId: Int) {
-            val filteredFiremans = getFilteredFiremans(carId).toMutableList()
-            val firemanFunctions = fireman.functions[carId] ?: mutableListOf()
+        private fun changeFiremanFunction(fireman: Fireman, function: FiremanFunction, carKey: String) {
+            val filteredFiremans = getFilteredFiremans(carKey).toMutableList()
+            val firemanFunctions = fireman.functions[carKey] ?: mutableListOf()
             if (firemanFunctions.contains(function)) {
                 firemanFunctions.remove(function)
             } else {
                 if (function != FiremanFunction.OWNCAR) {
                     filteredFiremans.forEach {
-                        val thisFiremanFunctions = it.functions[carId] ?: mutableListOf()
+                        val thisFiremanFunctions = it.functions[carKey] ?: mutableListOf()
                         thisFiremanFunctions.remove(function)
-                        it.functions[carId] = thisFiremanFunctions
+                        it.functions[carKey] = thisFiremanFunctions
                     }
                 }
                 firemanFunctions.add(function)
-                fireman.functions[carId] = firemanFunctions
+                fireman.functions[carKey] = firemanFunctions
             }
             firemansAdapter.setData(filteredFiremans)
         }
 
         override fun onClick(view: View?) {
-            val carId = itemList[layoutPosition].id
+            val carKey = itemList[layoutPosition].key
             repeat(itemList.size) {
                 val holder = recyclerView.findViewHolderForAdapterPosition(it) as ViewHolder?
                 if (holder != null) {
                     handleExpandLayoutVisible(holder.binding, false)
                 }
             }
-            if (currentExpandedCar == carId) {
-                currentExpandedCar = -1
+            if (currentExpandedCar == carKey) {
+                currentExpandedCar = UNSELECTED
                 handleExpandLayoutVisible(binding, false)
             } else {
-                currentExpandedCar = carId
+                currentExpandedCar = carKey
                 handleExpandLayoutVisible(binding, true)
             }
-            prepareAdapterAndSetData(binding, carId)
+            prepareAdapterAndSetData(binding, carKey)
         }
     }
 
@@ -130,22 +129,22 @@ class StepThirdAdapter(
     fun setFiremans(list: List<Fireman>) {
         this.allFiremansList = list.toMutableList()
         action.carsInAction.flatMap { it.firemans }.forEach { firemanEditor ->
-            if (allFiremansList.firstOrNull { firemanEditor.id == it.id } != null) allFiremansList.removeIf { it.id == firemanEditor.id}
+            if (allFiremansList.firstOrNull { firemanEditor.key == it.key } != null) allFiremansList.removeIf { it.key == firemanEditor.key}
             allFiremansList.add(firemanEditor)
         }
         notifyDataSetChanged()
     }
 
-    private fun getFilteredFiremans(carId: Int): List<Fireman> {
+    private fun getFilteredFiremans(carKey: String): List<Fireman> {
         allFiremansList.forEach { fireman ->
-            if (!itemList.map { it.id }.contains(fireman.selectStatus)) {
+            if (!itemList.map { it.key }.contains(fireman.selectStatus)) {
                 fireman.selectStatus = null
             }
         }
-        return allFiremansList.filter { it.selectStatus == null || it.selectStatus == carId }
+        return allFiremansList.filter { it.selectStatus == null || it.selectStatus == carKey }
     }
 
     companion object {
-        private const val UNSELECTED = 0
+        private const val UNSELECTED = "UNSELECTED"
     }
 }
