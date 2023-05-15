@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="pl.kcieslar.wyjazdyosp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:name=".WyjazdyOspApplication"
@@ -12,7 +12,7 @@
             android:name="pl.kcieslar.wyjazdyosp.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
 import pl.kcieslar.wyjazdyosp.model.Action
-import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
@@ -63,7 +61,7 @@ class ListActionFragment : Fragment() {
             }
         }
 
-        viewModel.actionList.observe(viewLifecycleOwner, Observer {
+        viewModel.actionList.observe(viewLifecycleOwner) {
             showLoader(false)
             if (it.exception != null) {
                 Log.e("ListActionFragment", it.exception!!.message.toString())
@@ -79,7 +77,7 @@ class ListActionFragment : Fragment() {
                     adapter.setList(list)
                 }
             }
-        })
+        }
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
