@@ -17,9 +17,9 @@ import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.CarInAction
 import pl.kcieslar.wyjazdyosp.model.Fireman
+import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.views.FunctionNotSelectedDialogView
 
 class StepThirdFragment : Fragment() {
@@ -43,8 +43,6 @@ class StepThirdFragment : Fragment() {
         viewModel.viewModelEvents.observe(viewLifecycleOwner) {
             when (it) {
                 is AddActionViewModel.ActionAddedSuccessfully -> {
-                    // TODO: Navigate up z parametrem force update który odebrany zostanie w ListActionsFragment i zrobi refresh na liście
-                    // TODO: Poprawić selectionStatus bo jest bez sensu. Mozna to zrobić inaczej w Firebase
                     findNavController().navigateUp()
                 }
                 is AddActionViewModel.CallBackError -> {
@@ -60,7 +58,7 @@ class StepThirdFragment : Fragment() {
             selectedCarsList = it
         })
 
-        viewModel.forcesList.observe(viewLifecycleOwner, Observer {
+        viewModel.forces.observe(viewLifecycleOwner, Observer {
             val firemans = it.getFiremanList().map { fireman -> fireman.copy() }
             adapter.setFiremans(firemans)
         })
@@ -72,7 +70,7 @@ class StepThirdFragment : Fragment() {
         selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
             adapter.getFiremans().forEach { fireman ->
-                if (fireman.selectStatus == car.key) {
+                if (fireman.selectedCar == car.key) {
                     firemansInCar.add(fireman)
                 }
             }
@@ -128,7 +126,7 @@ class StepThirdFragment : Fragment() {
         selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
             adapter.getFiremans().forEach { fireman ->
-                if (fireman.selectStatus == car.key) {
+                if (fireman.selectedCar == car.key) {
                     firemansInCar.add(fireman)
                 }
             }

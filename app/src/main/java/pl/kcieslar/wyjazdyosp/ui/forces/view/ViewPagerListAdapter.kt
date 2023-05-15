@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.ItemForcesListBinding
@@ -28,8 +27,8 @@ class ViewPagerListAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        with(holder){
-            with(itemList[position]){
+        with(holder) {
+            with(itemList[position]) {
                 val icon = when (this.type) {
                     ForcesDataType.FIREMAN -> R.drawable.ic_fireman
                     ForcesDataType.CAR -> R.drawable.ic_car
@@ -54,25 +53,11 @@ class ViewPagerListAdapter(
     }
 
     fun setItems(newItemList: List<Forces>) {
-        val diffCallback = DiffUtils(itemList, newItemList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        itemList.clear()
-        itemList.addAll(newItemList)
-        diffResult.dispatchUpdatesTo(this)
+        itemList = newItemList.toMutableList()
+        notifyDataSetChanged()
     }
 
-    fun getItems() : List<Forces> {
+    fun getItems(): List<Forces> {
         return itemList
-    }
-
-    class DiffUtils(private val oldList: List<Forces>, private val newList: List<Forces>) : DiffUtil.Callback() {
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].name == newList[newItemPosition].name
-        }
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition] && oldItemPosition == newItemPosition
-        }
-        override fun getOldListSize() = oldList.size
-        override fun getNewListSize() = newList.size
     }
 }

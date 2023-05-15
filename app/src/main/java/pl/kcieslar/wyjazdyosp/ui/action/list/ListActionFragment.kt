@@ -61,7 +61,14 @@ class ListActionFragment : Fragment() {
             }
         }
 
-        viewModel.actionList.observe(viewLifecycleOwner) {
+        // TODO: Poprawić wszystkie showErrorView bo raz jest funkcja a raz bezposrednie wołanie na widoku
+        // TODO: Zrobić aby po kliknięciu edytuj mieli możliwość wyboru który etap chcą etytować
+        // TODO: Zrobić exclude na obiekt Action bo formatted daate leci do firebase
+        // TODO: Zrobić logowania i rejestracie
+        // TODO: Zrobić export starej bazdy ROOM DATABASE
+        // TODO: Zrobić dependency injection dla DatabaseInstance Firebase
+        // TODO: Poprawić dodawanie akcji bo nie działa
+        viewModel.actions.observe(viewLifecycleOwner) {
             showLoader(false)
             if (it.exception != null) {
                 Log.e("ListActionFragment", it.exception!!.message.toString())
@@ -69,6 +76,7 @@ class ListActionFragment : Fragment() {
             } else {
                 it.list?.let { list ->
                     binding.errorView.isVisible = list.isEmpty()
+                    binding.actionListRecyclerView.isVisible = list.isNotEmpty()
                     if (list.isEmpty()) binding.errorView.apply {
                         setMainText(resources.getString(R.string.list_action_fragment_empty_view_main))
                         setDescription(resources.getString(R.string.list_action_fragment_empty_view_description))
@@ -79,8 +87,18 @@ class ListActionFragment : Fragment() {
             }
         }
 
-        binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
+
+        viewModel.isAnyCarsAndFiremans.observe(viewLifecycleOwner) {isAnyCarsAndFiremans ->
+            binding.floatingActionButton.apply {
+                alpha = if (isAnyCarsAndFiremans) 1f else 0.5f
+                setOnClickListener {
+                    if (isAnyCarsAndFiremans) {
+                        findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(null))
+                    } else {
+                        showSnackBar(resources.getString(R.string.list_action_no_cars_or_firemans))
+                    }
+                }
+            }
         }
 
         setHelpDialogString(HelpDialogStringRes.ACTION_LIST)
@@ -91,7 +109,9 @@ class ListActionFragment : Fragment() {
         binding.progressBar.isVisible = show
     }
 
+    // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
     private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
+        binding.actionListRecyclerView.isVisible = !show
         binding.errorView.apply {
             isVisible = show
             setMainText(context.getString(R.string.error_occured))

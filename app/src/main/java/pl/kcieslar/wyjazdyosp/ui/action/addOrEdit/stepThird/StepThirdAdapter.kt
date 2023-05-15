@@ -73,7 +73,7 @@ class StepThirdAdapter(
         }
 
         private fun changeFiremanSelectStatus(fireman: Fireman, carKey: String, isSelected: Boolean) {
-            allFiremansList.first { it == fireman }.selectStatus = if (isSelected) carKey else null
+            allFiremansList.first { it == fireman }.selectedCar = if (isSelected) carKey else null
             firemansAdapter.setData(getFilteredFiremans(carKey))
         }
 
@@ -108,7 +108,7 @@ class StepThirdAdapter(
                 currentExpandedCar = UNSELECTED
                 handleExpandLayoutVisible(binding, false)
             } else {
-                currentExpandedCar = carKey
+                currentExpandedCar = carKey!!
                 handleExpandLayoutVisible(binding, true)
             }
             prepareAdapterAndSetData(binding, carKey)
@@ -137,11 +137,11 @@ class StepThirdAdapter(
 
     private fun getFilteredFiremans(carKey: String): List<Fireman> {
         allFiremansList.forEach { fireman ->
-            if (!itemList.map { it.key }.contains(fireman.selectStatus)) {
-                fireman.selectStatus = null
+            if (!itemList.map { it.key }.contains(fireman.selectedCar)) {
+                fireman.selectedCar = null
             }
         }
-        return allFiremansList.filter { it.selectStatus == null || it.selectStatus == carKey }
+        return allFiremansList.filter { it.selectedCar == null || it.selectedCar == carKey }
     }
 
     companion object {

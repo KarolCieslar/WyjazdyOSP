@@ -58,6 +58,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/stepSecondFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepSecond.StepSecondFragment"
+        tools:layout="@layout/fragment_step_second">
+
+        <action
+            android:id="@+id/action_stepSecondFragment_to_forcesFragment"
+            app:destination="@id/forcesFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/forcesFragment"
         android:name="pl.kcieslar.wyjazdyosp.ui.forces.ForcesFragment"
         android:label="@string/title_forces"

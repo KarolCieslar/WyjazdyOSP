@@ -4,6 +4,8 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.model.Action
@@ -24,23 +26,30 @@ class AddActionViewModel @Inject constructor(
     val viewModelEvents: LiveData<ViewModelEvent>
         get() = _viewModelEvents
 
+    private val _forcesList = MutableLiveData<ForcesResponse>()
+    val forces: LiveData<ForcesResponse>
+        get() = _forcesList
+
     init {
         _viewModelEvents.value = LoadingData()
+        observeForcesList()
+    }
+
+    private fun observeForcesList() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                forcesRepository.getForces().collect {
+                    _forcesList.postValue(it)
+                }
+            }
+        }
     }
 
     var selectedCarsList: MutableLiveData<List<Car>> = MutableLiveData()
 
-    val forcesList = RefreshableLiveData {
-        liveData(Dispatchers.IO) {
-            emit(forcesRepository.getForces())
-        }
-    }
-
     fun refreshData() {
         _viewModelEvents.value = LoadingData()
-        viewModelScope.launch {
-            forcesList.refresh()
-        }
+        observeForcesList()
     }
 
     fun setSelectedCars(list: List<Car>) {

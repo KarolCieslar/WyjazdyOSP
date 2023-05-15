@@ -49,18 +49,11 @@
         android:id="@+id/errorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:paddingBottom="30dp"
         android:visibility="gone"
+        android:layout_marginTop="@dimen/margin50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/viewGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="primaryButton, recyclerView" />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -1,6 +1,10 @@
 package pl.kcieslar.wyjazdyosp.utils
 
 import android.content.Context
+import androidx.annotation.NonNull
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType

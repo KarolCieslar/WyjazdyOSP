@@ -36,7 +36,7 @@ class FiremanRecyclerAdapter(
         fun bind(fireman: Fireman) {
             binding.divider.isVisible = itemList.size != adapterPosition + 1
             binding.name.text = fireman.name
-            binding.checkbox.isChecked = fireman.selectStatus != null
+            binding.checkbox.isChecked = fireman.selectedCar != null
             binding.checkbox.setOnClickListener {
                 onCheckBoxChange(fireman, binding.checkbox.isChecked)
             }

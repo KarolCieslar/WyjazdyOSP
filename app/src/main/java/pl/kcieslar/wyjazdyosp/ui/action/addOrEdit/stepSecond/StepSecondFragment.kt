@@ -11,6 +11,8 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.R
@@ -24,7 +26,7 @@ import pl.kcieslar.wyjazdyosp.utils.setHorizontalMargin
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 
-class StepSecondFragment: Fragment() {
+class StepSecondFragment : Fragment() {
 
     private val viewModel: AddActionViewModel by activityViewModels()
     private var _binding: FragmentStepSecondBinding? = null
@@ -41,21 +43,23 @@ class StepSecondFragment: Fragment() {
         prepareAdapter()
         showLoader(true)
 
-        viewModel.forcesList.observe(viewLifecycleOwner, Observer {
+        viewModel.forces.observe(viewLifecycleOwner, Observer {
             showLoader(false)
             if (it.exception != null) {
                 Log.e("StepSeconfFragment", it.exception!!.message.toString())
                 showCallErrorView(true, it.exception?.message.toString())
+                setBottomButtonsListener(shouldShowNextButton = false)
             } else {
                 val carsAndEquipments = mergeList(it.getEquipmentList(), it.getCarList())
                 val isAnyCar = it.getCarList().isNotEmpty()
-                binding.viewGroup.isVisible = isAnyCar
+                binding.recyclerView.isVisible = isAnyCar
                 binding.errorView.isVisible = !isAnyCar
-                setBottomButtonsListener(isAnyCar)
+                setBottomButtonsListener(shouldShowNextButton = isAnyCar)
                 if (!isAnyCar) {
                     binding.errorView.apply {
                         setMainText(resources.getString(R.string.add_action_empty_view_main))
                         setDescription(resources.getString(R.string.add_action_empty_view_additional_description))
+                        showButton(false)
                     }
                 }
                 adapter.setData(carsAndEquipments.toMutableList())
@@ -70,6 +74,7 @@ class StepSecondFragment: Fragment() {
     }
 
     private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
+        binding.recyclerView.isVisible = !show
         binding.errorView.apply {
             isVisible = show
             setMainText(context.getString(R.string.error_occured))
@@ -93,7 +98,8 @@ class StepSecondFragment: Fragment() {
         return adapter.getSelectedItems().filterIsInstance<Car>().isNotEmpty()
     }
 
-    private fun setBottomButtonsListener(isAnyCar: Boolean) {
+    private fun setBottomButtonsListener(shouldShowNextButton: Boolean) {
+        binding.primaryButton.isVisible = shouldShowNextButton
         binding.primaryButton.setClickListener {
             if (isFormValid()) {
                 val selectedCars = adapter.getSelectedItems().filterIsInstance<Car>()
@@ -110,7 +116,7 @@ class StepSecondFragment: Fragment() {
             EventBus.getDefault().post(SetCurrentViewPagerItem(AddOrEditActionFragment.StepNumber.FIRST))
         }
 
-        if (!isAnyCar) {
+        if (shouldShowNextButton) {
             binding.cancelButton.updateLayoutParams<ConstraintLayout.LayoutParams> {
                 startToStart = binding.constraintLayout.id
                 endToEnd = binding.constraintLayout.id

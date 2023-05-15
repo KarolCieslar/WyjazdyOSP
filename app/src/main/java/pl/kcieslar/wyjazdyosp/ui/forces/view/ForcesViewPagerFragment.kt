@@ -74,7 +74,7 @@ class ForcesViewPagerFragment : Fragment() {
             }
         }
 
-        viewModel.forcesList.observe(viewLifecycleOwner, Observer {
+        viewModel.forces.observe(viewLifecycleOwner, Observer {
             showLoader(false)
             if (it.exception != null) {
                 Log.e("ForcesViewPagerFragment", it.exception!!.message.toString())
@@ -83,6 +83,7 @@ class ForcesViewPagerFragment : Fragment() {
                 it.getSpecificTypeList(forcesDataType).let { list ->
                     binding.errorView.isVisible = list.isEmpty()
                     binding.floatingActionButton.isVisible = list.isNotEmpty()
+                    binding.recyclerView.isVisible = list.isNotEmpty()
                     if (list.isEmpty()) binding.errorView.apply {
                         setMainText(getForcesString(context, ForcesStringType.EMPTY_VIEW_MAIN, forcesDataType))
                         setDescription(getForcesString(context, ForcesStringType.EMPTY_VIEW_DESCRIPTION, forcesDataType))
@@ -105,6 +106,8 @@ class ForcesViewPagerFragment : Fragment() {
     }
 
     private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
+        binding.recyclerView.isVisible = !show
+        binding.floatingActionButton.isVisible = !show
         binding.errorView.apply {
             isVisible = show
             setMainText(context.getString(R.string.error_occured))

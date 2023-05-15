@@ -13,7 +13,8 @@ import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondCarBinding
 import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondEquipmentBinding
 import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondSeparatorBinding
 import pl.kcieslar.wyjazdyosp.model.*
-
+import pl.kcieslar.wyjazdyosp.model.Forces
+import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
 class StepSecondAdapter(
     val action: Action
@@ -48,14 +49,14 @@ class StepSecondAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            ViewType.EQUIPMENT -> {
+        when (itemList[position].type) {
+            ForcesDataType.EQUIPMENT -> {
                 (holder as EquipmentElementViewHolder).bind(itemList[position] as Equipment)
             }
-            ViewType.CAR -> {
+            ForcesDataType.CAR -> {
                 (holder as CarElementViewHolder).bind(itemList[position] as Car)
             }
-            ViewType.SEPARATOR -> {
+            ForcesDataType.FIREMAN -> {
                 (holder as SeparatorViewHolder).bind()
             }
         }
@@ -121,9 +122,9 @@ class StepSecondAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (itemList[position]) {
-            is Car -> ViewType.CAR
-            is Equipment -> ViewType.EQUIPMENT
+        return when (itemList[position].type) {
+            ForcesDataType.CAR -> ViewType.CAR
+            ForcesDataType.EQUIPMENT -> ViewType.EQUIPMENT
             else -> ViewType.SEPARATOR
         }
     }
@@ -135,7 +136,7 @@ class StepSecondAdapter(
         action.equipment.forEach { if(!itemList.contains(it)) removedItems.add(it) }
         action.carsInAction.map { it.car }.forEach { if(!itemList.contains(it)) removedItems.add(it) }
         if (removedItems.isNotEmpty()) {
-            itemList.add(Fireman("","SEPARATOR"))
+            itemList.add(Fireman(name = "SEPARATOR"))
             itemList.addAll(removedItems)
         }
         notifyDataSetChanged()

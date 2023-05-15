@@ -46,6 +46,7 @@
     <!-- Forces ListAction -->
     <string name="list_action_fragment_empty_view_main">BRAK AKCJI</string>
     <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz wprowadzonej \nżadnej akcji! Dodaj akcję klikając ikonę plusika.</string>
+    <string name="list_action_no_cars_or_firemans">Musisz posiadać conajmniej jednego ratownika oraz jedno auto aby dodać wyjazd.</string>
     <string name="list_action_increment">Wyjazd #</string>
     <string name="list_action_number">Meldunek:</string>
     <string name="list_action_location">Lokalizacja:</string>
