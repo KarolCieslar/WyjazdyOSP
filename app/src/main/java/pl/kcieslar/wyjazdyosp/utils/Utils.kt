@@ -68,10 +68,6 @@ fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataTy
     return context.resources.getString(stringRes)
 }
 
-fun generateRandomUUID() : String {
-    return UUID.randomUUID().toString()
-}
-
 enum class ForcesStringType {
     EMPTY_VIEW_MAIN, EMPTY_VIEW_DESCRIPTION, EMPTY_VIEW_BUTTON, ADD_DIALOG_TITLE, REMOVE_FIRCES_DIALOG_DESCRIPTION, EDIT_DIALOG_TITLE, OBJECT_ALREADY_EXIST;
 }

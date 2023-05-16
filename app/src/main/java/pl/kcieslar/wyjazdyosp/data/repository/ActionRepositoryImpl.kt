@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
@@ -54,7 +55,7 @@ class ActionRepositoryImpl @Inject constructor() : ActionRepository {
 
     override suspend fun addAction(action: Action) : FirebaseCallResponse {
         return try {
-            actionRef.child(action.key).setValue(action).await()
+            actionRef.push().setValue(action).await()
             FirebaseCallResponse(true, null)
         } catch (exception: Exception) {
             FirebaseCallResponse(false, exception)
@@ -66,6 +67,12 @@ class ActionRepositoryImpl @Inject constructor() : ActionRepository {
     }
 
     override suspend fun removeAction(action: Action) : FirebaseCallResponse {
-        return FirebaseCallResponse(true, null)
+        return try {
+            delay(5000)
+            actionRef.child(action.key).removeValue().await()
+            FirebaseCallResponse(true, null)
+        } catch (exception: Exception) {
+            FirebaseCallResponse(false, exception)
+        }
     }
 }

@@ -21,7 +21,6 @@ import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.checkIsNullAndSetError
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
-import pl.kcieslar.wyjazdyosp.utils.generateRandomUUID
 import pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
 import java.time.*
 
@@ -51,7 +50,7 @@ class StepFirstFragment(
             binding.inTime.setValue(action.inTime.split(" ")[1])
             viewModel.action = action
         } else {
-            viewModel.action = Action(generateRandomUUID(), 0, LocalDateTime.now().toString(), LocalDateTime.now().toString(), "", "", "", emptyList(), emptyList())
+            viewModel.action = Action("", LocalDateTime.now().toString(), LocalDateTime.now().toString(), "", "", "", emptyList(), emptyList())
             setCurrentInOutDate()
         }
         setInOutDateTimeClickListener()

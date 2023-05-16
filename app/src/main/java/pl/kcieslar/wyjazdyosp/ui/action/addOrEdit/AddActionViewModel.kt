@@ -64,7 +64,8 @@ class AddActionViewModel @Inject constructor(
 
     lateinit var action: Action
 
-    fun addAction(action: Action) {
+    fun addAction() {
+        _viewModelEvents.value = StartAddingNewAction()
         viewModelScope.launch {
             val response = actionRepository.addAction(action)
             if (response.isSuccess) {
@@ -75,10 +76,11 @@ class AddActionViewModel @Inject constructor(
         }
     }
 
-    fun editAction(action: Action) {
+    fun editAction() {
         // Sonar
     }
 
+    inner class StartAddingNewAction : ViewModelEvent()
     inner class LoadingData : ViewModelEvent()
     inner class ActionAddedSuccessfully : ViewModelEvent()
     inner class CallBackError(val exception: Exception?) : ViewModelEvent()

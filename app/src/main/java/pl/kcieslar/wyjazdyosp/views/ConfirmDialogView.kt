@@ -32,6 +32,10 @@ class ConfirmDialogView @JvmOverloads constructor(
         dialog.show()
     }
 
+    fun dismiss() {
+        dialog.dismiss()
+    }
+
     fun setTitle(text: String) {
         binding.title.text = text
     }
@@ -42,8 +46,16 @@ class ConfirmDialogView @JvmOverloads constructor(
 
     fun setOnPrimaryButtonClickListener(action: (() -> Unit)) {
         binding.primaryButton.setClickListener {
-            dialog.dismiss()
             action()
         }
+    }
+
+    fun getPrimaryButton() = binding.primaryButton
+
+    fun setProgressBar(isVisible: Boolean) {
+        binding.primaryButton.setProgressBar(isVisible)
+        binding.cancelButton.setCancelButtonEnable(!isVisible)
+        binding.cancelButton.alpha = if (isVisible) 0.5f else 1f
+        dialog.setCancelable(!isVisible)
     }
 }

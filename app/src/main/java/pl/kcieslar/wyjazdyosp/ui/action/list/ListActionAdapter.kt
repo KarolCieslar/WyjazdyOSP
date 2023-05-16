@@ -95,23 +95,25 @@ class ListActionAdapter(
     }
 
     fun setList(newItemList: List<Action>) {
-        val diffCallback = DiffUtils(itemList, newItemList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        itemList.clear()
-        itemList.addAll(newItemList)
-        diffResult.dispatchUpdatesTo(this)
+        itemList = newItemList.toMutableList()
+        notifyDataSetChanged()
+//        val diffCallback = DiffUtils(itemList, newItemList)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        itemList.clear()
+//        itemList.addAll(newItemList)
+//        diffResult.dispatchUpdatesTo(this)
     }
 
-    class DiffUtils(private val oldList: List<Action>, private val newList: List<Action>) : DiffUtil.Callback() {
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return false
-        }
-
-        override fun getOldListSize() = oldList.size
-        override fun getNewListSize() = newList.size
-    }
+//    class DiffUtils(private val oldList: List<Action>, private val newList: List<Action>) : DiffUtil.Callback() {
+//        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+//            return oldList[oldItemPosition].id == newList[newItemPosition].id
+//        }
+//
+//        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+//            return false
+//        }
+//
+//        override fun getOldListSize() = oldList.size
+//        override fun getNewListSize() = newList.size
+//    }
 }

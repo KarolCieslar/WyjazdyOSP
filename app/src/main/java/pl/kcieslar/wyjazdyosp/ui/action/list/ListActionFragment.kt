@@ -26,6 +26,7 @@ class ListActionFragment : Fragment() {
     private var _binding: FragmentListActionBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ListActionAdapter
+    private lateinit var confirmDialog: ConfirmDialogView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,38 +37,44 @@ class ListActionFragment : Fragment() {
 
         adapter = ListActionAdapter(
             onEditButtonClick = { action -> openEditFragment(action) },
-            onRemoveButtonClick = { action -> removeItem(action) }
+            onRemoveButtonClick = { action -> showRemoveDialog(action) }
         )
         val recyclerView = binding.actionListRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.viewModelEvents.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
+            when (event) {
                 is ActionListViewModel.LoadingData -> {
                     showLoader(true)
                     showCallErrorView(false)
                 }
-                is ActionListViewModel.CallBackSuccessfully -> {
-                    showLoader(false)
-                    showCallErrorView(false)
-                    viewModel.refreshData()
+                is ActionListViewModel.RemovingActionInProgress -> {
+                    confirmDialog.setProgressBar(true)
                 }
-                is ActionListViewModel.CallBackError -> {
-                    showLoader(false)
-                    showCallErrorView(true, it.exception?.message.toString())
-                    Log.e("ListActionFragment CallBackError", it.exception.toString())
+                is ActionListViewModel.RemovedActionSuccessfully -> {
+                    showSnackBar(resources.getString(R.string.removed_successfully))
+                    confirmDialog.dismiss()
+                    adapter.removeFromExpanded(event.action)
+                }
+                is ActionListViewModel.RemovedActionError -> {
+                    confirmDialog.setProgressBar(false)
+                    Log.e("ListActionFragment CallBackError", event.exception.toString())
+                    confirmDialog.getPrimaryButton().apply {
+                        setPrimaryButtonEnable(true)
+                        setText(resources.getString(R.string.button_retry))
+                        setOnClickListener { viewModel.removeAction(event.action) }
+                    }
+                    showSnackBar(resources.getString(R.string.list_action_fragment_error_remove_action))
                 }
             }
         }
 
         // TODO: Poprawić wszystkie showErrorView bo raz jest funkcja a raz bezposrednie wołanie na widoku
-        // TODO: Zrobić aby po kliknięciu edytuj mieli możliwość wyboru który etap chcą etytować
-        // TODO: Zrobić exclude na obiekt Action bo formatted daate leci do firebase
         // TODO: Zrobić logowania i rejestracie
         // TODO: Zrobić export starej bazdy ROOM DATABASE
-        // TODO: Zrobić dependency injection dla DatabaseInstance Firebase
-        // TODO: Poprawić dodawanie akcji bo nie działa
+        // TODO: Poprawić ekwiwalent
+        // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
         viewModel.actions.observe(viewLifecycleOwner) {
             showLoader(false)
             if (it.exception != null) {
@@ -109,7 +116,6 @@ class ListActionFragment : Fragment() {
         binding.progressBar.isVisible = show
     }
 
-    // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
     private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
         binding.actionListRecyclerView.isVisible = !show
         binding.errorView.apply {
@@ -128,14 +134,12 @@ class ListActionFragment : Fragment() {
         findNavController().navigate(ListActionFragmentDirections.actionListActionToAddOrEditAction(action))
     }
 
-    private fun removeItem(action: Action) {
-        val dialog = ConfirmDialogView(requireContext())
-        dialog.apply {
+    private fun showRemoveDialog(action: Action) {
+        confirmDialog = ConfirmDialogView(requireContext())
+        confirmDialog.apply {
             setTitle(resources.getString(R.string.confirm_dialog_title))
             setDescription(context.resources.getString(R.string.list_action_fragment_remove_dialog_description, action.number))
             setOnPrimaryButtonClickListener {
-                showSnackBar(resources.getString(R.string.removed_successfully))
-                adapter.removeFromExpanded(action)
                 viewModel.removeAction(action)
             }
         }

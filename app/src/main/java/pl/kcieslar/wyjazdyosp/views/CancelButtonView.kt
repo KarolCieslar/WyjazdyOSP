@@ -31,4 +31,11 @@ class CancelButtonView : FrameLayout {
     fun setClickListener(action: (() -> Unit)) {
         binding.button.setOnClickListener { action() }
     }
+
+    fun setCancelButtonEnable(enable: Boolean) {
+        binding.button.apply {
+            isClickable = enable
+            isEnabled = enable
+        }
+    }
 }

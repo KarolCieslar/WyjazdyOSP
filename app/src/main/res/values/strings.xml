@@ -20,6 +20,7 @@
     <string name="button_edit">Edytuj</string>
     <string name="button_add">Dodaj</string>
     <string name="button_add_action">Dodaj Wyjazd</string>
+    <string name="button_retry">PONÓW</string>
     <string name="button_save">Zapisz</string>
     <string name="button_save_action">Zapisz Wyjazd</string>
     <string name="button_remove_confirm">Tak, usuń!</string>
@@ -40,10 +41,12 @@
     <string name="add_action_step_first_description">Uzupełnij wszystkie informacje o zdarzeniu.</string>
     <string name="add_action_empty_view_main">Brak samochodów!</string>
     <string name="add_action_empty_view_additional_description">Przejdź do zakładki Siły i Środki aby\ndodać nowego ratownika, sprzęt lub pojazd.</string>
+    <string name="add_action_error">Błąd dodawania wyjazdu, spróbuj ponownie</string>
 
     <string name="error_occured">WYSTĄPIŁ BŁĄD</string>
 
     <!-- Forces ListAction -->
+    <string name="list_action_fragment_error_remove_action">Błąd usuwania wyjazdu, spróbuj ponownie</string>
     <string name="list_action_fragment_empty_view_main">BRAK AKCJI</string>
     <string name="list_action_fragment_empty_view_description">Niestety nie posiadasz wprowadzonej \nżadnej akcji! Dodaj akcję klikając ikonę plusika.</string>
     <string name="list_action_no_cars_or_firemans">Musisz posiadać conajmniej jednego ratownika oraz jedno auto aby dodać wyjazd.</string>
@@ -53,7 +56,7 @@
     <string name="list_action_out_time">Data wyjazdu:</string>
     <string name="list_action_in_time">Data powrotu:</string>
     <string name="list_action_duration">Czas trwania:</string>
-    <string name="list_action_fragment_remove_dialog_description"><![CDATA[Jesteś pewny, że chcesz usunąć akcję o meldunku <b>%1$s</b> z listy?]]></string>
+    <string name="list_action_fragment_remove_dialog_description"><![CDATA[Jesteś pewny, że chcesz usunąć akcję o numerze <b>%1$s</b> z listy?]]></string>
 
     <!-- Forces CarFragment -->
     <string name="car_fragment_empty_view_main">BRAK SAMOCHODÓW</string>

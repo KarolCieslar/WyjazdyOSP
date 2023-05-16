@@ -42,12 +42,21 @@ class StepThirdFragment : Fragment() {
 
         viewModel.viewModelEvents.observe(viewLifecycleOwner) {
             when (it) {
+                is AddActionViewModel.StartAddingNewAction -> {
+                    binding.primaryButton.setProgressBar(true)
+                    binding.cancelButton.setCancelButtonEnable(false)
+                }
                 is AddActionViewModel.ActionAddedSuccessfully -> {
                     findNavController().navigateUp()
                 }
                 is AddActionViewModel.CallBackError -> {
-                    // TODO: Zrobić snackbara z przyciskiem RETRY i dać refresh calla
-                    showSnackBar("Błąd dodawania wyjazdu")
+                    binding.primaryButton.apply {
+                        setPrimaryButtonEnable(true)
+                        setText(resources.getString(R.string.button_retry))
+                        setOnClickListener { addOrEditAction() }
+                    }
+                    binding.cancelButton.setCancelButtonEnable(true)
+                    showSnackBar(resources.getString(R.string.add_action_error))
                     Log.e("StepThirdFragment CallBackError", it.exception.toString())
                 }
             }
@@ -108,10 +117,10 @@ class StepThirdFragment : Fragment() {
                 if (!isEveryCarHasDriverFunctions()) {
                     val dialog = FunctionNotSelectedDialogView(requireContext())
                     dialog.setOnPrimaryButtonClickListener {
-                        addNewAction()
+                        addOrEditAction()
                     }
                 } else {
-                    addNewAction()
+                    addOrEditAction()
                 }
             }
         }
@@ -121,7 +130,7 @@ class StepThirdFragment : Fragment() {
         }
     }
 
-    private fun addNewAction() {
+    private fun addOrEditAction() {
         val carsInAction = mutableListOf<CarInAction>()
         selectedCarsList.forEach { car ->
             val firemansInCar = mutableListOf<Fireman>()
@@ -134,9 +143,9 @@ class StepThirdFragment : Fragment() {
         }
         viewModel.action = viewModel.action.copy(carsInAction = carsInAction)
         if (viewModel.isEditMode) {
-            viewModel.editAction(viewModel.action)
+            viewModel.editAction()
         } else {
-            viewModel.addAction(viewModel.action)
+            viewModel.addAction()
         }
     }
 

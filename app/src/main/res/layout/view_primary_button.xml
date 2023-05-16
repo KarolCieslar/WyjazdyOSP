@@ -1,15 +1,31 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/button"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="@drawable/primary_button_drawable"
-    android:clipToOutline="true"
-    android:fontFamily="@font/inter_semibold"
-    android:foreground="@drawable/ripple_drawable"
-    android:gravity="center"
-    android:paddingHorizontal="25dp"
-    android:textAllCaps="false"
-    android:textColor="@color/white"
-    android:textSize="16sp"
-    tools:text="Button texsaast" />
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:clipToOutline="true"
+        android:fontFamily="@font/inter_semibold"
+        android:foreground="@drawable/ripple_drawable"
+        android:gravity="center"
+        android:paddingHorizontal="25dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="Button texsaast" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:indeterminateTint="@color/white"
+        android:padding="@dimen/margin5" />
+
+</LinearLayout>

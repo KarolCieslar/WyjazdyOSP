@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.ViewPrimaryButtonBinding
 
@@ -37,6 +38,17 @@ class PrimaryButtonView : FrameLayout {
         binding.button.apply {
             isClickable = enable
             isEnabled = enable
+            isVisible = enable
         }
+        binding.progressBar.isVisible = !enable
+    }
+
+    fun setProgressBar(enable: Boolean) {
+        binding.progressBar.apply {
+            isClickable = !enable
+            isEnabled = !enable
+            isVisible = enable
+        }
+        binding.button.isVisible = !enable
     }
 }
