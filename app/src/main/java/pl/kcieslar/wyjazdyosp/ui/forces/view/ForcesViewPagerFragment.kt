@@ -14,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
+import pl.kcieslar.wyjazdyosp.ui.action.list.ActionListViewModel
+import pl.kcieslar.wyjazdyosp.ui.action.list.ListActionFragment
 import pl.kcieslar.wyjazdyosp.ui.forces.FORCES_TYPE_ARG
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
@@ -22,6 +24,7 @@ import pl.kcieslar.wyjazdyosp.utils.getForcesString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.AddOrEditForcesDialogView
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
+import pl.kcieslar.wyjazdyosp.views.RetryDialogView
 
 @AndroidEntryPoint
 class ForcesViewPagerFragment : Fragment() {
@@ -32,6 +35,10 @@ class ForcesViewPagerFragment : Fragment() {
     private var _binding: FragmentForcesViewPagerBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ViewPagerListAdapter
+
+    companion object {
+        private lateinit var loadingDialog: RetryDialogView
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +54,7 @@ class ForcesViewPagerFragment : Fragment() {
         }?.apply {
             forcesDataType = this.getSerializable(FORCES_TYPE_ARG) as ForcesDataType
         }
+        loadingDialog = RetryDialogView(requireContext())
 
         adapter = ViewPagerListAdapter(
             onItemClick = { item -> openEditDialog(item) },
@@ -55,21 +63,17 @@ class ForcesViewPagerFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.viewModelEvents.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
+            when (event) {
                 is ForcesViewModel.LoadingData -> {
                     showLoader(true)
                     showCallErrorView(false)
                 }
-                is ForcesViewModel.CallBackSuccessfully -> {
-                    showLoader(false)
-                    showCallErrorView(false)
-                    viewModel.refreshData()
-                }
-                is ForcesViewModel.CallBackError -> {
-                    showLoader(false)
-                    showCallErrorView(true, it.exception?.message.toString())
-                    Log.e("ForcesViewPagerFragment CallBackError", it.exception.toString())
+                is ForcesViewModel.CrudItemInProgress -> loadingDialog.show()
+                is ForcesViewModel.CrudItemSuccessfully -> loadingDialog.dismiss()
+                is ForcesViewModel.CrudItemError -> {
+                    loadingDialog.setRetryButtonAction { event.retryAction() }
+                    Log.e("ListActionFragment CrudItemError", event.exception.toString())
                 }
             }
         }
@@ -93,7 +97,6 @@ class ForcesViewPagerFragment : Fragment() {
                 }
             }
         })
-
         binding.floatingActionButton.setOnClickListener { openAddDialog() }
 
         if (openAddDialogAtInit == true) {
@@ -121,20 +124,20 @@ class ForcesViewPagerFragment : Fragment() {
     }
 
     private fun removeItem(item: Forces) {
-        val dialog = ConfirmDialogView(requireContext())
-        dialog.apply {
+        val confirmDialog = ConfirmDialogView(requireContext())
+        confirmDialog.apply {
             setTitle(resources.getString(R.string.confirm_dialog_title))
             setDescription(getForcesString(context, ForcesStringType.REMOVE_FIRCES_DIALOG_DESCRIPTION, forcesDataType, item.name))
             setOnPrimaryButtonClickListener {
-                showSnackBar(resources.getString(R.string.removed_successfully))
                 viewModel.removeItem(item)
+                dismiss()
             }
         }
     }
 
     private fun openAddDialog() {
-        val dialog = AddOrEditForcesDialogView(requireContext())
-        dialog.apply {
+        val addOrEditDialog = AddOrEditForcesDialogView(requireContext())
+        addOrEditDialog.apply {
             setTitle(getForcesString(context, ForcesStringType.ADD_DIALOG_TITLE, forcesDataType))
             setPrimaryButtonText(resources.getString(R.string.button_add))
             setOnPrimaryButtonClickListener { objectName ->
@@ -149,8 +152,8 @@ class ForcesViewPagerFragment : Fragment() {
     }
 
     private fun openEditDialog(item: Forces) {
-        val dialog = AddOrEditForcesDialogView(requireContext())
-        dialog.apply {
+        val addOrEditDialog = AddOrEditForcesDialogView(requireContext())
+        addOrEditDialog.apply {
             setTitle(getForcesString(context, ForcesStringType.EDIT_DIALOG_TITLE, forcesDataType))
             setPrimaryButtonText(resources.getString(R.string.button_save))
             setEditTextValue(item.name)

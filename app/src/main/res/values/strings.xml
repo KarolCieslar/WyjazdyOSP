@@ -44,6 +44,7 @@
     <string name="add_action_error">Błąd dodawania wyjazdu, spróbuj ponownie</string>
 
     <string name="error_occured">WYSTĄPIŁ BŁĄD</string>
+    <string name="error_remove_force">Błąd usuwania, spróbuj ponownie</string>
 
     <!-- Forces ListAction -->
     <string name="list_action_fragment_error_remove_action">Błąd usuwania wyjazdu, spróbuj ponownie</string>

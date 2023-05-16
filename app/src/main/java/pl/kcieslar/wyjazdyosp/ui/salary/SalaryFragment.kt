@@ -11,18 +11,21 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.zhuinden.livedatacombinetuplekt.combineTuple
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatterHelper
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentSalaryBinding
 import pl.kcieslar.wyjazdyosp.model.Quarter
+import pl.kcieslar.wyjazdyosp.utils.convertStringToLocalDateTime
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.SalaryValueDialogView
@@ -41,6 +44,10 @@ class SalaryFragment : Fragment() {
     private val adapter = SalaryAdapter()
     private lateinit var selectedQuarter: Quarter
 
+    companion object {
+        private var dateButtonSelected: Boolean = false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,13 +61,13 @@ class SalaryFragment : Fragment() {
         initSpinner()
         setDateClickListener()
         setDefaultFromToDate()
-        changeSelectDateState(viewModel.dateButtonSelected)
+        changeSelectDateState(dateButtonSelected)
 
         binding.openDateButton.setOnClickListener {
-            viewModel.dateButtonSelected = !viewModel.dateButtonSelected
-            changeSelectDateState(viewModel.dateButtonSelected)
-            binding.quarterSelect.isEnabled = !viewModel.dateButtonSelected
-            buildFragmentUI(if (!viewModel.dateButtonSelected) selectedQuarter else null)
+            dateButtonSelected = !dateButtonSelected
+            changeSelectDateState(dateButtonSelected)
+            binding.quarterSelect.isEnabled = !dateButtonSelected
+            buildFragmentUI(if (!dateButtonSelected) selectedQuarter else null)
         }
 
         setHelpDialogString(HelpDialogStringRes.SALARY)
@@ -143,32 +150,33 @@ class SalaryFragment : Fragment() {
     }
 
     private fun handleSalaryViewData(selectedQuarter: Quarter?) {
-//        combineTuple(viewModel.firemanList, viewModel.firemanActions).observe(viewLifecycleOwner) { (firemans, actions) ->
-//            if (firemans != null && actions != null) {
-//                binding.errorView.isVisible = firemans.isEmpty()
-//                binding.viewGroup.isVisible = firemans.isNotEmpty()
-//                changeSelectDateState(viewModel.dateButtonSelected)
-//                if (firemans.isEmpty()) binding.errorView.apply {
-//                    setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
-//                    setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
-//                    setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) {
-//                        findNavController().navigate(SalaryFragmentDirections.actionSalaryFragmentToForcesFragment(1, true))
-//                    }
-//                }
-//
-//                val filteredActions = actions.filter {
-//                    val date = convertStringToLocalDateTime(it.outTime).toLocalDate()
-//                    if (viewModel.dateButtonSelected) {
-//                        val fromDate = LocalDate.parse(binding.fromDate.getValue(), dateFormatter)
-//                        val toDate = LocalDate.parse(binding.toDate.getValue(), dateFormatter)
-//                        date.isEqual(toDate) || date.isEqual(fromDate) || date.isAfter(fromDate) && date.isBefore(toDate)
-//                    } else {
-//                        date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
-//                    }
-//                }
-//                adapter.setData(firemans, filteredActions)
-//            }
-//        }
+        combineTuple(viewModel.forces, viewModel.actions).observe(viewLifecycleOwner) { (forces, actions) ->
+            if (forces != null && actions != null) {
+                val firemans = forces.getFiremanList()
+                binding.errorView.isVisible = firemans.isEmpty()
+                binding.viewGroup.isVisible = firemans.isNotEmpty()
+                changeSelectDateState(dateButtonSelected)
+                if (firemans.isEmpty()) binding.errorView.apply {
+                    setMainText(resources.getString(R.string.fireman_fragment_empty_view_main))
+                    setDescription(resources.getString(R.string.fireman_fragment_empty_view_description))
+                    setButtonData(resources.getString(R.string.fireman_fragment_empty_view_button)) {
+                        findNavController().navigate(SalaryFragmentDirections.actionSalaryFragmentToForcesFragment(1, true))
+                    }
+                }
+
+                val filteredActions = actions.list?.filter {
+                    val date = convertStringToLocalDateTime(it.outTime).toLocalDate()
+                    if (dateButtonSelected) {
+                        val fromDate = LocalDate.parse(binding.fromDate.getValue(), dateFormatter)
+                        val toDate = LocalDate.parse(binding.toDate.getValue(), dateFormatter)
+                        date.isEqual(toDate) || date.isEqual(fromDate) || date.isAfter(fromDate) && date.isBefore(toDate)
+                    } else {
+                        date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
+                    }
+                } ?: listOf()
+                adapter.setData(firemans, filteredActions)
+            }
+        }
     }
 
     private fun setDateClickListener() {

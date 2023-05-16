@@ -18,6 +18,7 @@ import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
+import pl.kcieslar.wyjazdyosp.views.RetryDialogView
 
 @AndroidEntryPoint
 class ListActionFragment : Fragment() {
@@ -26,7 +27,10 @@ class ListActionFragment : Fragment() {
     private var _binding: FragmentListActionBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ListActionAdapter
-    private lateinit var confirmDialog: ConfirmDialogView
+
+    companion object {
+        private lateinit var loadingDialog: RetryDialogView
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +38,7 @@ class ListActionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListActionBinding.inflate(inflater, container, false)
+        loadingDialog = RetryDialogView(requireContext())
 
         adapter = ListActionAdapter(
             onEditButtonClick = { action -> openEditFragment(action) },
@@ -49,32 +54,25 @@ class ListActionFragment : Fragment() {
                     showLoader(true)
                     showCallErrorView(false)
                 }
-                is ActionListViewModel.RemovingActionInProgress -> {
-                    confirmDialog.setProgressBar(true)
-                }
+                is ActionListViewModel.RemovingActionInProgress -> loadingDialog.show()
                 is ActionListViewModel.RemovedActionSuccessfully -> {
+                    loadingDialog.dismiss()
                     showSnackBar(resources.getString(R.string.removed_successfully))
-                    confirmDialog.dismiss()
                     adapter.removeFromExpanded(event.action)
                 }
                 is ActionListViewModel.RemovedActionError -> {
-                    confirmDialog.setProgressBar(false)
+                    loadingDialog.setRetryButtonAction { viewModel.removeAction(event.action) }
                     Log.e("ListActionFragment CallBackError", event.exception.toString())
-                    confirmDialog.getPrimaryButton().apply {
-                        setPrimaryButtonEnable(true)
-                        setText(resources.getString(R.string.button_retry))
-                        setOnClickListener { viewModel.removeAction(event.action) }
-                    }
-                    showSnackBar(resources.getString(R.string.list_action_fragment_error_remove_action))
                 }
             }
         }
 
         // TODO: Poprawić wszystkie showErrorView bo raz jest funkcja a raz bezposrednie wołanie na widoku
         // TODO: Zrobić logowania i rejestracie
-        // TODO: Zrobić export starej bazdy ROOM DATABASE
+        // TODO: Zrobić export starej bazy ROOM DATABASE
         // TODO: Poprawić ekwiwalent
         // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
+        // TODO: Navbar skacze do góry czasami jak jest dialog add edit
         viewModel.actions.observe(viewLifecycleOwner) {
             showLoader(false)
             if (it.exception != null) {
@@ -93,7 +91,6 @@ class ListActionFragment : Fragment() {
                 }
             }
         }
-
 
         viewModel.isAnyCarsAndFiremans.observe(viewLifecycleOwner) {isAnyCarsAndFiremans ->
             binding.floatingActionButton.apply {
@@ -135,11 +132,12 @@ class ListActionFragment : Fragment() {
     }
 
     private fun showRemoveDialog(action: Action) {
-        confirmDialog = ConfirmDialogView(requireContext())
+        val confirmDialog = ConfirmDialogView(requireContext())
         confirmDialog.apply {
             setTitle(resources.getString(R.string.confirm_dialog_title))
             setDescription(context.resources.getString(R.string.list_action_fragment_remove_dialog_description, action.number))
             setOnPrimaryButtonClickListener {
+                confirmDialog.dismiss()
                 viewModel.removeAction(action)
             }
         }

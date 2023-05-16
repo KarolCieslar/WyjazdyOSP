@@ -11,6 +11,7 @@ import kotlinx.coroutines.withContext
 import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
 import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
+import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
@@ -53,39 +54,48 @@ class ForcesViewModel @Inject constructor(
     }
 
     fun addItem(forcesDataType: ForcesDataType, name: String) {
+        _viewModelEvents.value = CrudItemInProgress()
         viewModelScope.launch {
             val item = when (forcesDataType) {
                 ForcesDataType.CAR -> Car(name = name)
                 ForcesDataType.FIREMAN -> Fireman(name = name)
                 ForcesDataType.EQUIPMENT -> Equipment(name = name)
             }
-            handleResponse(forcesRepository.addItem(item))
+            val response = forcesRepository.addItem(item)
+            if (response.isSuccess) {
+                _viewModelEvents.value = CrudItemSuccessfully()
+            } else {
+                _viewModelEvents.value = CrudItemError(response.exception) { addItem(forcesDataType, name) }
+            }
         }
     }
 
     fun editItem(item: Forces) {
+        _viewModelEvents.value = CrudItemInProgress()
         viewModelScope.launch {
-            handleResponse(forcesRepository.editItem(item))
+            val response = forcesRepository.editItem(item)
+            if (response.isSuccess) {
+                _viewModelEvents.value = CrudItemSuccessfully()
+            } else {
+                _viewModelEvents.value = CrudItemError(response.exception) { editItem(item) }
+            }
         }
     }
 
     fun removeItem(item: Forces) {
+        _viewModelEvents.value = CrudItemInProgress()
         viewModelScope.launch {
-            handleResponse(forcesRepository.removeItem(item))
-        }
-    }
-
-    private fun handleResponse(response: FirebaseCallResponse) {
-        response.let {
+            val response = forcesRepository.removeItem(item)
             if (response.isSuccess) {
-                _viewModelEvents.value = CallBackSuccessfully()
+                _viewModelEvents.value = CrudItemSuccessfully()
             } else {
-                _viewModelEvents.value = CallBackError(response.exception)
+                _viewModelEvents.value = CrudItemError(response.exception) { removeItem(item) }
             }
         }
     }
 
     inner class LoadingData : ViewModelEvent()
-    inner class CallBackSuccessfully : ViewModelEvent()
-    inner class CallBackError(val exception: Exception?) : ViewModelEvent()
+    inner class CrudItemInProgress : ViewModelEvent()
+    inner class CrudItemSuccessfully : ViewModelEvent()
+    inner class CrudItemError(val exception: Exception?, val retryAction: (() -> Unit)) : ViewModelEvent()
 }

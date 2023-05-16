@@ -52,6 +52,7 @@ class StepThirdFragment : Fragment() {
                 is AddActionViewModel.CallBackError -> {
                     binding.primaryButton.apply {
                         setPrimaryButtonEnable(true)
+                        setProgressBar(false)
                         setText(resources.getString(R.string.button_retry))
                         setOnClickListener { addOrEditAction() }
                     }

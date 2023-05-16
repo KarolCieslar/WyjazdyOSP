@@ -38,9 +38,7 @@ class PrimaryButtonView : FrameLayout {
         binding.button.apply {
             isClickable = enable
             isEnabled = enable
-            isVisible = enable
         }
-        binding.progressBar.isVisible = !enable
     }
 
     fun setProgressBar(enable: Boolean) {
