@@ -70,9 +70,13 @@ class ListActionFragment : Fragment() {
         // TODO: Poprawić wszystkie showErrorView bo raz jest funkcja a raz bezposrednie wołanie na widoku
         // TODO: Zrobić logowania i rejestracie
         // TODO: Zrobić export starej bazy ROOM DATABASE
-        // TODO: Poprawić ekwiwalent
         // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
         // TODO: Navbar skacze do góry czasami jak jest dialog add edit
+        // TODO: Przy zapisie nowej akcji dodawany jest KEY do Forcesów oraz do Carsów oraz do Akcji a nie powinno
+        // TODO: Przy zapisisie nowej akcji dodawany jest selectedCarId do akcji a nie powinno
+        // TODO: Sortowanie listy forcesów
+        // TODO: Ikonki topbbara znikają jak się wejdzie z ustawień
+        // TODO: Zrobić zapis offline
         viewModel.actions.observe(viewLifecycleOwner) {
             showLoader(false)
             if (it.exception != null) {
