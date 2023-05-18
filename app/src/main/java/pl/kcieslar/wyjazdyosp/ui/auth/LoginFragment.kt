@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentLoginBinding
@@ -31,6 +32,7 @@ class LoginFragment : Fragment() {
         super.onStart()
         viewModel.getCurrentUser()?.let {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToActionListFragment())
+            FirebaseCrashlytics.getInstance().setUserId("${it.uid} - ${it.email}")
         }
     }
 

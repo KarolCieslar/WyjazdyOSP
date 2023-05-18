@@ -1,8 +1,11 @@
 package pl.kcieslar.wyjazdyosp.utils
 
 import android.content.Context
+import android.util.Log
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
+import java.lang.Exception
 
 fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataType: ForcesDataType, textVariable: String? = null) : String {
     val stringRes = when (stringType) {
@@ -64,4 +67,10 @@ fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataTy
 
 enum class ForcesStringType {
     EMPTY_VIEW_MAIN, EMPTY_VIEW_DESCRIPTION, EMPTY_VIEW_BUTTON, ADD_DIALOG_TITLE, REMOVE_FIRCES_DIALOG_DESCRIPTION, EDIT_DIALOG_TITLE, OBJECT_ALREADY_EXIST;
+}
+
+fun logFirebaseCrash(exception: Exception, message: String) {
+    Log.e("LogFirebaseCrash", "$message ${exception.message}")
+    FirebaseCrashlytics.getInstance().log(message)
+    FirebaseCrashlytics.getInstance().recordException(exception)
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentStepSecondBinding
@@ -23,6 +24,7 @@ import pl.kcieslar.wyjazdyosp.utils.mergeList
 import pl.kcieslar.wyjazdyosp.utils.setHorizontalMargin
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
+import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
 
 class StepSecondFragment : Fragment() {
 
@@ -44,7 +46,7 @@ class StepSecondFragment : Fragment() {
         viewModel.forces.observe(viewLifecycleOwner, Observer {
             showLoader(false)
             if (it.exception != null) {
-                Log.e("StepSeconfFragment", it.exception!!.message.toString())
+                logFirebaseCrash(it.exception!!, "StepSecondFragment - viewModel.forces.observe exception != null")
                 showCallErrorView(true, it.exception?.message.toString())
                 setBottomButtonsListener(shouldShowNextButton = false)
             } else {

@@ -16,8 +16,8 @@ android {
         applicationId "pl.kcieslar.wyjazdyosp"
         minSdk 26
         targetSdk 33
-        versionCode 16
-        versionName "1.0.9"
+        versionCode 17
+        versionName "2.0.0"
 
         testInstrumentationRunner "pl.kcieslar.wyjazdyosp.HiltTestRunner"
     }

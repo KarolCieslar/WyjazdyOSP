@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
 import pl.kcieslar.wyjazdyosp.model.Action
+import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
@@ -62,17 +64,19 @@ class ListActionFragment : Fragment() {
 
                 is ActionListViewModel.RemovedActionError -> {
                     showErrorDialogWithRetry { viewModel.removeAction(event.action) }
-                    Log.e("ListActionFragment CallBackError", event.exception.toString())
+                    logFirebaseCrash(event.exception!!, "ListActionFragment CallBackError - RemovedActionError")
                 }
             }
         }
 
-        // TODO: Poprawić wszystkie showErrorView bo raz jest funkcja a raz bezposrednie wołanie na widoku
         // TODO: Zrobić export starej bazy ROOM DATABASE
-        // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
+        // TODO: Sprawdzic co sie stanie jak zmieni sie nazwa ratownika
+        // TODO: Sortowanie akcji po dacie
+        // TODO: Zrobić tak aby w liscie akcji brało nazwę firemana
+        // TODO: Zrobić tak aby na stepSecondFragment brało pod uwagę ID a nie nazwę bo jak sie zmieni nazwę to sypie się step 2 i step 3
         viewModel.actions.observe(viewLifecycleOwner) {
             if (it.exception != null) {
-                Log.e("ListActionFragment", it.exception!!.message.toString())
+                logFirebaseCrash(it.exception!!, "ListActionFragment - viewModel.action.observe exception != null")
                 showCallErrorView(true, it.exception?.message.toString())
                 showShimmer(false)
             } else {

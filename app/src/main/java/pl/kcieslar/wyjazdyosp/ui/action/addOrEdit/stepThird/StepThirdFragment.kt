@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentStepThirdBinding
@@ -19,6 +20,7 @@ import pl.kcieslar.wyjazdyosp.model.CarInAction
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
+import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.FunctionNotSelectedDialogView
 
@@ -54,7 +56,7 @@ class StepThirdFragment : Fragment() {
                     }
                     binding.cancelButton.setCancelButtonEnable(true)
                     showSnackBar(resources.getString(R.string.add_action_error))
-                    Log.e("StepThirdFragment CallBackError", it.exception.toString())
+                    logFirebaseCrash(it.exception!!, "StepThirdFragment ErrorWithAddOrEditAction")
                 }
             }
         }

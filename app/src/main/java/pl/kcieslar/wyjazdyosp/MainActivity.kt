@@ -16,6 +16,7 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
