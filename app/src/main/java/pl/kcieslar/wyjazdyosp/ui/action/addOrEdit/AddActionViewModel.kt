@@ -5,13 +5,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
+import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
-import pl.kcieslar.wyjazdyosp.mvvm.RefreshableLiveData
 import pl.kcieslar.wyjazdyosp.mvvm.SingleLiveEvent
 import pl.kcieslar.wyjazdyosp.mvvm.ViewModelEvent
 import javax.inject.Inject
@@ -65,23 +64,28 @@ class AddActionViewModel @Inject constructor(
     lateinit var action: Action
 
     fun addAction() {
-        _viewModelEvents.value = StartAddingNewAction()
         viewModelScope.launch {
-            val response = actionRepository.addAction(action)
+            val response = actionRepository.addAction(action.convertToHashMap())
             if (response.isSuccess) {
-                _viewModelEvents.value = ActionAddedSuccessfully()
+                _viewModelEvents.value = ActionAddedOrEditedSuccessfully()
             } else {
-                _viewModelEvents.value = CallBackError(response.exception)
+                _viewModelEvents.value = ErrorWithAddOrEditAction(response.exception)
             }
         }
     }
 
     fun editAction() {
-        // Sonar
+        viewModelScope.launch {
+            val response = actionRepository.editAction(action.key, action.convertToHashMap())
+            if (response.isSuccess) {
+                _viewModelEvents.value = ActionAddedOrEditedSuccessfully()
+            } else {
+                _viewModelEvents.value = ErrorWithAddOrEditAction(response.exception)
+            }
+        }
     }
 
-    inner class StartAddingNewAction : ViewModelEvent()
     inner class LoadingData : ViewModelEvent()
-    inner class ActionAddedSuccessfully : ViewModelEvent()
-    inner class CallBackError(val exception: Exception?) : ViewModelEvent()
+    inner class ActionAddedOrEditedSuccessfully : ViewModelEvent()
+    inner class ErrorWithAddOrEditAction(val exception: Exception?) : ViewModelEvent()
 }

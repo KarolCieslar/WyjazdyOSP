@@ -28,17 +28,18 @@ class ListActionFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: ListActionAdapter
 
-    companion object {
-        private lateinit var loadingDialog: RetryDialogView
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListActionBinding.inflate(inflater, container, false)
-        loadingDialog = RetryDialogView(requireContext())
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showShimmer(true)
 
         adapter = ListActionAdapter(
             onEditButtonClick = { action -> openEditFragment(action) },
@@ -51,39 +52,32 @@ class ListActionFragment : Fragment() {
         viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is ActionListViewModel.LoadingData -> {
-                    showLoader(true)
+                    showShimmer(true)
                     showCallErrorView(false)
                 }
-                is ActionListViewModel.RemovingActionInProgress -> loadingDialog.show()
+
                 is ActionListViewModel.RemovedActionSuccessfully -> {
-                    loadingDialog.dismiss()
-                    showSnackBar(resources.getString(R.string.removed_successfully))
                     adapter.removeFromExpanded(event.action)
                 }
+
                 is ActionListViewModel.RemovedActionError -> {
-                    loadingDialog.setRetryButtonAction { viewModel.removeAction(event.action) }
+                    showErrorDialogWithRetry { viewModel.removeAction(event.action) }
                     Log.e("ListActionFragment CallBackError", event.exception.toString())
                 }
             }
         }
 
         // TODO: Poprawić wszystkie showErrorView bo raz jest funkcja a raz bezposrednie wołanie na widoku
-        // TODO: Zrobić logowania i rejestracie
         // TODO: Zrobić export starej bazy ROOM DATABASE
         // TODO: W KAŻDYM EXCEPTIONIE DAWAĆ SENDA DO FIREBASE CRASH
-        // TODO: Navbar skacze do góry czasami jak jest dialog add edit
-        // TODO: Przy zapisie nowej akcji dodawany jest KEY do Forcesów oraz do Carsów oraz do Akcji a nie powinno
-        // TODO: Przy zapisisie nowej akcji dodawany jest selectedCarId do akcji a nie powinno
-        // TODO: Sortowanie listy forcesów
-        // TODO: Ikonki topbbara znikają jak się wejdzie z ustawień
-        // TODO: Zrobić zapis offline
         viewModel.actions.observe(viewLifecycleOwner) {
-            showLoader(false)
             if (it.exception != null) {
                 Log.e("ListActionFragment", it.exception!!.message.toString())
                 showCallErrorView(true, it.exception?.message.toString())
+                showShimmer(false)
             } else {
                 it.list?.let { list ->
+                    showShimmer(false)
                     binding.errorView.isVisible = list.isEmpty()
                     binding.actionListRecyclerView.isVisible = list.isNotEmpty()
                     if (list.isEmpty()) binding.errorView.apply {
@@ -96,7 +90,7 @@ class ListActionFragment : Fragment() {
             }
         }
 
-        viewModel.isAnyCarsAndFiremans.observe(viewLifecycleOwner) {isAnyCarsAndFiremans ->
+        viewModel.isAnyCarsAndFiremans.observe(viewLifecycleOwner) { isAnyCarsAndFiremans ->
             binding.floatingActionButton.apply {
                 alpha = if (isAnyCarsAndFiremans) 1f else 0.5f
                 setOnClickListener {
@@ -110,11 +104,14 @@ class ListActionFragment : Fragment() {
         }
 
         setHelpDialogString(HelpDialogStringRes.ACTION_LIST)
-        return binding.root
     }
 
-    private fun showLoader(show: Boolean) {
-        binding.progressBar.isVisible = show
+    private fun showShimmer(show: Boolean) {
+        binding.shimmerFrameLayout.apply {
+            if (show) startShimmerAnimation() else stopShimmerAnimation()
+            isVisible = show
+        }
+        binding.floatingActionButton.isVisible = !show
     }
 
     private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
@@ -145,6 +142,11 @@ class ListActionFragment : Fragment() {
                 viewModel.removeAction(action)
             }
         }
+    }
+
+    private fun showErrorDialogWithRetry(retryAction: () -> Unit) {
+        val retryDialog = RetryDialogView(requireContext())
+        retryDialog.setRetryButtonAction(retryAction)
     }
 
     override fun onDestroyView() {

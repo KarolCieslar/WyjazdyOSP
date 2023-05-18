@@ -11,8 +11,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
+import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse
+import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
 import pl.kcieslar.wyjazdyosp.domain.repository.ForcesRepository
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
@@ -22,10 +22,12 @@ import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
-class ForcesRepositoryImpl @Inject constructor() : ForcesRepository {
+class ForcesRepositoryImpl @Inject constructor(
+    private val authRepository: AuthRepositoryImpl
+) : ForcesRepository {
 
     private val rootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
-    private val forcesRef: DatabaseReference = rootRef.child("forces")
+    private val forcesRef: DatabaseReference = rootRef.child(authRepository.getUser()!!.uid).child("forces")
 
     override fun getForces(): Flow<ForcesResponse?> {
         val response = ForcesResponse()

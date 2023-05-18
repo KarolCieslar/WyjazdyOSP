@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         binding.myToolbar.inflateMenu(R.menu.appbar_menu)
         binding.myToolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_help)
 
-
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this, R.color.red)
@@ -60,17 +59,27 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.myToolbar.menu.setGroupVisible(R.id.toolbarMenuIcons, true)
             currentFragmentId = destination.id
             when (destination.id) {
-                R.id.addOrEditAction -> navView.isVisible = false
+                R.id.registerFragment, R.id.loginFragment, R.id.resetPasswordFragment -> {
+                    navView.isVisible = false
+                    binding.arcView.isVisible = false
+                }
+                R.id.addOrEditAction -> {
+                    navView.isVisible = false
+                    binding.myToolbar.menu.findItem(R.id.settingsIcon).isVisible = false
+                }
                 R.id.settingsFragment -> {
                     navView.isVisible = false
-                    binding.myToolbar.menu.clear()
+                    binding.myToolbar.menu.setGroupVisible(R.id.toolbarMenuIcons, false)
                 }
-                else -> navView.isVisible = true
+                else -> {
+                    binding.arcView.isVisible = true
+                    navView.isVisible = true
+                }
             }
         }
-
         showTutorial()
     }
 

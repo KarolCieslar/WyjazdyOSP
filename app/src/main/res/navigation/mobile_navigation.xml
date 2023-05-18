@@ -3,12 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/actionListFragment">
+    app:startDestination="@+id/loginFragment">
 
     <action
         android:id="@+id/action_global_to_settingsFragment"
         app:popUpToInclusive="true"
         app:destination="@id/settingsFragment" />
+
+    <action
+        android:id="@+id/action_global_to_loginFragment"
+        app:popUpToInclusive="true"
+        app:destination="@id/loginFragment" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.auth.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_loginFragment_to_actionListFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/actionListFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.auth.RegisterFragment"
+        tools:layout="@layout/fragment_register">
+    </fragment>
+
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.auth.ResetPasswordFragment"
+        tools:layout="@layout/fragment_reset_password">
+
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"

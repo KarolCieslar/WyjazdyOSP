@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.data.firebaserepo
+package pl.kcieslar.wyjazdyosp.data.response
 
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment

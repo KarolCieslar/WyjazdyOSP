@@ -8,10 +8,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
+import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
-import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
@@ -54,7 +52,6 @@ class ForcesViewModel @Inject constructor(
     }
 
     fun addItem(forcesDataType: ForcesDataType, name: String) {
-        _viewModelEvents.value = CrudItemInProgress()
         viewModelScope.launch {
             val item = when (forcesDataType) {
                 ForcesDataType.CAR -> Car(name = name)
@@ -71,7 +68,6 @@ class ForcesViewModel @Inject constructor(
     }
 
     fun editItem(item: Forces) {
-        _viewModelEvents.value = CrudItemInProgress()
         viewModelScope.launch {
             val response = forcesRepository.editItem(item)
             if (response.isSuccess) {
@@ -83,7 +79,6 @@ class ForcesViewModel @Inject constructor(
     }
 
     fun removeItem(item: Forces) {
-        _viewModelEvents.value = CrudItemInProgress()
         viewModelScope.launch {
             val response = forcesRepository.removeItem(item)
             if (response.isSuccess) {
@@ -95,7 +90,6 @@ class ForcesViewModel @Inject constructor(
     }
 
     inner class LoadingData : ViewModelEvent()
-    inner class CrudItemInProgress : ViewModelEvent()
     inner class CrudItemSuccessfully : ViewModelEvent()
     inner class CrudItemError(val exception: Exception?, val retryAction: (() -> Unit)) : ViewModelEvent()
 }

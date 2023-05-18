@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import pl.kcieslar.wyjazdyosp.databinding.ItemActionListBinding
@@ -97,23 +96,5 @@ class ListActionAdapter(
     fun setList(newItemList: List<Action>) {
         itemList = newItemList.toMutableList()
         notifyDataSetChanged()
-//        val diffCallback = DiffUtils(itemList, newItemList)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//        itemList.clear()
-//        itemList.addAll(newItemList)
-//        diffResult.dispatchUpdatesTo(this)
     }
-
-//    class DiffUtils(private val oldList: List<Action>, private val newList: List<Action>) : DiffUtil.Callback() {
-//        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-//            return oldList[oldItemPosition].id == newList[newItemPosition].id
-//        }
-//
-//        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-//            return false
-//        }
-//
-//        override fun getOldListSize() = oldList.size
-//        override fun getNewListSize() = newList.size
-//    }
 }

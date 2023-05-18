@@ -9,10 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.databinding.FragmentSettingsBinding
+import pl.kcieslar.wyjazdyosp.ui.auth.AuthViewModel
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
+    private val viewModel: AuthViewModel by viewModels()
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
@@ -24,6 +30,14 @@ class SettingsFragment : Fragment() {
         binding.sendMailButton.setClickListener { sendEmail() }
         setMenuVisibility(false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.logoutButton.setOnClickListener {
+            viewModel.logout()
+            findNavController().navigate(SettingsFragmentDirections.actionGlobalToLoginFragment())
+        }
     }
 
     private fun sendEmail() {

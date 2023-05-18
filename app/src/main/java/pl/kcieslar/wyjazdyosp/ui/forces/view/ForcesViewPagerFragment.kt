@@ -14,14 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
-import pl.kcieslar.wyjazdyosp.ui.action.list.ActionListViewModel
-import pl.kcieslar.wyjazdyosp.ui.action.list.ListActionFragment
 import pl.kcieslar.wyjazdyosp.ui.forces.FORCES_TYPE_ARG
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.utils.ForcesStringType
 import pl.kcieslar.wyjazdyosp.utils.getForcesString
-import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.AddOrEditForcesDialogView
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.RetryDialogView
@@ -29,16 +26,11 @@ import pl.kcieslar.wyjazdyosp.views.RetryDialogView
 @AndroidEntryPoint
 class ForcesViewPagerFragment : Fragment() {
     private var forcesDataType: ForcesDataType = ForcesDataType.CAR
-    private var openAddDialogAtInit: Boolean? = null
 
     private val viewModel: ForcesViewModel by viewModels()
     private var _binding: FragmentForcesViewPagerBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ViewPagerListAdapter
-
-    companion object {
-        private lateinit var loadingDialog: RetryDialogView
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,12 +41,10 @@ class ForcesViewPagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf {
-            it.containsKey(FORCES_TYPE_ARG)
-        }?.apply {
-            forcesDataType = this.getSerializable(FORCES_TYPE_ARG) as ForcesDataType
+        arguments?.let {
+            if (it.containsKey(FORCES_TYPE_ARG)) forcesDataType = it.getSerializable(FORCES_TYPE_ARG) as ForcesDataType
         }
-        loadingDialog = RetryDialogView(requireContext())
+        showShimmer(true)
 
         adapter = ViewPagerListAdapter(
             onItemClick = { item -> openEditDialog(item) },
@@ -66,51 +56,50 @@ class ForcesViewPagerFragment : Fragment() {
         viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is ForcesViewModel.LoadingData -> {
-                    showLoader(true)
+                    showShimmer(true)
                     showCallErrorView(false)
                 }
-                is ForcesViewModel.CrudItemInProgress -> loadingDialog.show()
-                is ForcesViewModel.CrudItemSuccessfully -> loadingDialog.dismiss()
+
                 is ForcesViewModel.CrudItemError -> {
-                    loadingDialog.setRetryButtonAction { event.retryAction() }
+                    showErrorDialogWithRetry { event.retryAction() }
                     Log.e("ListActionFragment CrudItemError", event.exception.toString())
                 }
             }
         }
 
         viewModel.forces.observe(viewLifecycleOwner, Observer {
-            showLoader(false)
             if (it.exception != null) {
+                showShimmer(false)
                 Log.e("ForcesViewPagerFragment", it.exception!!.message.toString())
                 showCallErrorView(true, it.exception?.message.toString())
             } else {
                 it.getSpecificTypeList(forcesDataType).let { list ->
                     binding.errorView.isVisible = list.isEmpty()
-                    binding.floatingActionButton.isVisible = list.isNotEmpty()
                     binding.recyclerView.isVisible = list.isNotEmpty()
                     if (list.isEmpty()) binding.errorView.apply {
                         setMainText(getForcesString(context, ForcesStringType.EMPTY_VIEW_MAIN, forcesDataType))
                         setDescription(getForcesString(context, ForcesStringType.EMPTY_VIEW_DESCRIPTION, forcesDataType))
                         setButtonData(getForcesString(context, ForcesStringType.EMPTY_VIEW_BUTTON, forcesDataType)) { openAddDialog() }
                     }
+                    showShimmer(false)
                     adapter.setItems(list)
                 }
             }
         })
         binding.floatingActionButton.setOnClickListener { openAddDialog() }
-
-        if (openAddDialogAtInit == true) {
-            openAddDialog()
-        }
     }
 
-    private fun showLoader(show: Boolean) {
-        binding.progressBar.isVisible = show
+    private fun showShimmer(show: Boolean) {
+        binding.shimmerFrameLayout.apply {
+            if (show) startShimmerAnimation() else stopShimmerAnimation()
+            isVisible = show
+        }
+        binding.floatingActionButton.isVisible = !show
     }
 
     private fun showCallErrorView(show: Boolean, errorMessage: String? = null) {
         binding.recyclerView.isVisible = !show
-        binding.floatingActionButton.isVisible = !show
+        if (show) binding.floatingActionButton.isVisible = false
         binding.errorView.apply {
             isVisible = show
             setMainText(context.getString(R.string.error_occured))
@@ -121,6 +110,11 @@ class ForcesViewPagerFragment : Fragment() {
                 viewModel.refreshData()
             }
         }
+    }
+
+    private fun showErrorDialogWithRetry(retryAction: () -> Unit) {
+        val retryDialog = RetryDialogView(requireContext())
+        retryDialog.setRetryButtonAction(retryAction)
     }
 
     private fun removeItem(item: Forces) {

@@ -26,8 +26,11 @@
     <string name="button_remove_confirm">Tak, usuń!</string>
     <string name="button_add_confirm">Tak, dodaj!</string>
     <string name="button_remove_decline">Nie, nie chcę!</string>
-    <string name="button_send_message">Wyślij wiadomość!</string>
+    <string name="button_send_message">Wyślij wiadomość</string>
+    <string name="button_logout">Wyloguj się</string>
 
+    <string name="fields_are_empty">Wszystkie pola muszą zostać wypełnione!</string>
+    <string name="passwords_are_not_the_same">Podane hasła nie są identyczne!</string>
     <string name="field_empty">To pole nie może być puste!</string>
     <string name="form_date_range_error">Błędna data lub godzina! Akcja nie trwała nawet jednej minuty!</string>
     <string name="form_none_cars_selected">Należy zaznaczyć minimum jeden pojazd biorący udział w akcji!</string>

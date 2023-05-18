@@ -37,7 +37,8 @@ class ForcesFragment : Fragment() {
                 1 -> "Ratownicy"
                 else -> "Sprzet"
             }
-            tab.text = tabText }.attach()
+            tab.text = tabText
+        }.attach()
         selectPage(args.defaultTab)
     }
 
@@ -47,8 +48,10 @@ class ForcesFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = ForcesViewPagerAdapter(this, 3, openAddDialogAtInit = args.openAddDialogAtInit)
-        binding.viewPager.adapter = adapter
-        binding.viewPager.offscreenPageLimit = 1
+        val forcesAdapter = ForcesViewPagerAdapter(this, 3)
+        binding.viewPager.apply {
+            adapter = forcesAdapter
+            offscreenPageLimit = 1
+        }
     }
 }

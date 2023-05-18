@@ -13,7 +13,6 @@ const val OPEN_ADD_DIALOG_AT_INIT_ARG = "OPEN_ADD_DIALOG_AT_INIT_ARG"
 class ForcesViewPagerAdapter(
     fragment: Fragment,
     private var totalCount: Int,
-    private var openAddDialogAtInit: Boolean = false
 ) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
@@ -25,10 +24,7 @@ class ForcesViewPagerAdapter(
         fragment.arguments = Bundle().apply {
             when (position) {
                 0 -> putSerializable(FORCES_TYPE_ARG, ForcesDataType.CAR)
-                1 -> {
-                    putSerializable(FORCES_TYPE_ARG, ForcesDataType.FIREMAN)
-                    putBoolean(OPEN_ADD_DIALOG_AT_INIT_ARG, openAddDialogAtInit)
-                }
+                1 -> putSerializable(FORCES_TYPE_ARG, ForcesDataType.FIREMAN)
                 2 -> putSerializable(FORCES_TYPE_ARG, ForcesDataType.EQUIPMENT)
             }
         }

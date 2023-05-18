@@ -42,17 +42,13 @@ class StepThirdFragment : Fragment() {
 
         viewModel.viewModelEvents.observe(viewLifecycleOwner) {
             when (it) {
-                is AddActionViewModel.StartAddingNewAction -> {
-                    binding.primaryButton.setProgressBar(true)
-                    binding.cancelButton.setCancelButtonEnable(false)
-                }
-                is AddActionViewModel.ActionAddedSuccessfully -> {
+                is AddActionViewModel.ActionAddedOrEditedSuccessfully -> {
                     findNavController().navigateUp()
                 }
-                is AddActionViewModel.CallBackError -> {
+
+                is AddActionViewModel.ErrorWithAddOrEditAction -> {
                     binding.primaryButton.apply {
                         setPrimaryButtonEnable(true)
-                        setProgressBar(false)
                         setText(resources.getString(R.string.button_retry))
                         setOnClickListener { addOrEditAction() }
                     }
@@ -93,16 +89,7 @@ class StepThirdFragment : Fragment() {
     }
 
     private fun isEveryCarHasDriverFunctions(): Boolean {
-        var checkValue = 0
-        selectedCarsList.forEach { car ->
-            adapter.getFiremans().forEach { fireman ->
-                val firemanFunctions = fireman.functions[car.key]
-                if (firemanFunctions?.contains(FiremanFunction.DRIVER) == true) {
-                    checkValue++
-                }
-            }
-        }
-        return checkValue == selectedCarsList.size
+        return adapter.getFiremans().filter { it.driverFunction }.size == selectedCarsList.size
     }
 
     private fun prepareAdapter() {

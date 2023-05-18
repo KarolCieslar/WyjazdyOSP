@@ -15,8 +15,48 @@ data class Fireman(
 ) : Forces, Parcelable {
     @Exclude
     @IgnoredOnParcel
-    var selectedCar: String? = null
+    var ownCarFunction: Boolean = false
+
     @Exclude
     @IgnoredOnParcel
-    var functions: MutableMap<String, MutableList<FiremanFunction>> = mutableMapOf()
+    var driverFunction: Boolean = false
+
+    @Exclude
+    @IgnoredOnParcel
+    var commanderFunction: Boolean = false
+
+    @Exclude
+    @IgnoredOnParcel
+    var selectedCar: String? = null
+
+    @Exclude
+    fun changeFiremanFunction(function: FiremanFunction, value: Boolean? = null) {
+        when (function) {
+            FiremanFunction.OWNCAR -> ownCarFunction = value ?: !ownCarFunction
+            FiremanFunction.DRIVER -> driverFunction = value ?: !driverFunction
+            FiremanFunction.COMMANDER -> commanderFunction = value ?: !commanderFunction
+        }
+    }
+
+    @Exclude
+    fun getFiremanFunction(function: FiremanFunction) : Boolean {
+        return when (function) {
+            FiremanFunction.OWNCAR -> ownCarFunction
+            FiremanFunction.DRIVER -> driverFunction
+            FiremanFunction.COMMANDER -> commanderFunction
+        }
+    }
+
+    @Exclude
+    fun convertToHashMap(): HashMap<String, Any?> {
+        return hashMapOf(
+            "selectedCar" to selectedCar,
+            "key" to key,
+            "name" to name,
+            "ownCarFunction" to ownCarFunction,
+            "driverFunction" to driverFunction,
+            "commanderFunction" to commanderFunction
+        )
+    }
+
 }

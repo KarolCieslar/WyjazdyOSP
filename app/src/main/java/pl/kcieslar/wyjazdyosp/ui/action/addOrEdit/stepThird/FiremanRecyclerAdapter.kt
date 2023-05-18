@@ -13,9 +13,7 @@ import pl.kcieslar.wyjazdyosp.model.Fireman
 
 class FiremanRecyclerAdapter(
     val onCheckBoxChange: ((fireman: Fireman, isChecked: Boolean) -> Unit),
-    val onFunctionIconClick: ((fireman: Fireman, firemanFunction: FiremanFunction) -> Unit),
-    private val carKey: String,
-) :
+    val onFunctionIconClick: ((fireman: Fireman, firemanFunction: FiremanFunction) -> Unit)) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var itemList: List<Fireman> = emptyList()
@@ -60,8 +58,7 @@ class FiremanRecyclerAdapter(
     }
 
     private fun getIconSelectStatus(fireman: Fireman, firemanFunction: FiremanFunction): Int {
-        val firemanFunctions = fireman.functions[carKey]
-        return ContextCompat.getColor(context, if (firemanFunctions?.contains(firemanFunction) == true) R.color.black else R.color.black100)
+        return ContextCompat.getColor(context, if (fireman.getFiremanFunction(firemanFunction)) R.color.black else R.color.black100)
     }
 
     override fun getItemCount(): Int {
@@ -71,14 +68,6 @@ class FiremanRecyclerAdapter(
     fun setData(newList: List<Fireman>) {
         this.itemList = newList
         notifyDataSetChanged()
-//        val sortedList = newList.sortedWith(compareBy<Fireman>
-//        { it.selectStatus == null }
-//            .thenBy { it.functions?.contains(FiremanFunction.DRIVER) == false }
-//            .thenBy { it.functions?.contains(FiremanFunction.COMMANDER) == false })
-//        val diffCallback = FiremanDiff(itemList, sortedList)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//        itemList = sortedList
-//        diffResult.dispatchUpdatesTo(this)
     }
 
     class FiremanDiff(private val oldList: List<Fireman>, private val newList: List<Fireman>) : DiffUtil.Callback() {

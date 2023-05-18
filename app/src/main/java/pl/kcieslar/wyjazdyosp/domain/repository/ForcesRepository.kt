@@ -1,8 +1,8 @@
 package pl.kcieslar.wyjazdyosp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
+import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse
+import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
 import pl.kcieslar.wyjazdyosp.model.Forces
 
 interface ForcesRepository {

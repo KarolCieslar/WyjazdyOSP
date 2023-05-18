@@ -2,18 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/helpIcon"
-        android:contentDescription="helpIcon"
-        android:icon="@drawable/ic_help"
-        android:title="Wskazówka"
-        app:showAsAction="always" />
+    <group android:id="@+id/toolbarMenuIcons">
+        <item
+            android:id="@+id/helpIcon"
+            android:contentDescription="helpIcon"
+            android:icon="@drawable/ic_help"
+            android:title="Wskazówka"
+            app:showAsAction="always" />
 
-    <item
-        android:id="@+id/settingsIcon"
-        android:contentDescription="settingsIcon"
-        android:icon="@drawable/ic_settings"
-        android:title="Kontakt"
-        app:showAsAction="always" />
+        <item
+            android:id="@+id/settingsIcon"
+            android:contentDescription="settingsIcon"
+            android:icon="@drawable/ic_settings"
+            android:title="Kontakt"
+            app:showAsAction="always" />
+    </group>
 
 </menu>

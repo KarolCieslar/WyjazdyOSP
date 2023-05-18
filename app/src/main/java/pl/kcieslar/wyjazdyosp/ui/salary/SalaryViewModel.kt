@@ -8,14 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ActionResponse
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ForcesResponse
+import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
+import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
-import pl.kcieslar.wyjazdyosp.model.Action
-import pl.kcieslar.wyjazdyosp.mvvm.SingleLiveEvent
-import pl.kcieslar.wyjazdyosp.mvvm.ViewModelEvent
-import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,10 +19,6 @@ class SalaryViewModel @Inject constructor(
     private val forcesRepository: ForcesRepositoryImpl,
     private val actionRepository: ActionRepositoryImpl
 ) : ViewModel() {
-
-    private var _viewModelEvents = SingleLiveEvent<ViewModelEvent>()
-    val viewModelEvents: LiveData<ViewModelEvent>
-        get() = _viewModelEvents
 
     private val _actionList = MutableLiveData<ActionResponse>()
     val actions: LiveData<ActionResponse>
@@ -37,7 +29,6 @@ class SalaryViewModel @Inject constructor(
         get() = _forcesList
 
     init {
-        _viewModelEvents.value = LoadingData()
         observeActionList()
         observeForcesList()
     }
@@ -61,10 +52,5 @@ class SalaryViewModel @Inject constructor(
             }
         }
     }
-
-    inner class RemovingActionInProgress : ViewModelEvent()
-    inner class RemovedActionSuccessfully(val action: Action) : ViewModelEvent()
-    inner class LoadingData : ViewModelEvent()
-    inner class RemovedActionError(val action: Action, val exception: Exception?) : ViewModelEvent()
 
 }

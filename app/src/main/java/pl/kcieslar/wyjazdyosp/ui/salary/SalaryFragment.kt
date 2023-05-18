@@ -53,9 +53,15 @@ class SalaryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSalaryBinding.inflate(inflater, container, false)
-        sharedPref = activity?.getSharedPreferences("SHARED_PREF_APP_OSP", Context.MODE_PRIVATE)
-        selectedQuarter = Quarter("Default Quarter", Calendar.getInstance().get(Calendar.YEAR), LocalDate.now().get(IsoFields.QUARTER_OF_YEAR))
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedPref = activity?.getSharedPreferences("SHARED_PREF_APP_OSP", Context.MODE_PRIVATE)
+        selectedQuarter = Quarter("Default Quarter", Calendar.getInstance()[(Calendar.YEAR)], LocalDate.now()[IsoFields.QUARTER_OF_YEAR])
+
+        showShimmer(true)
         getNewSalaryValue()
         buildFragmentUI(selectedQuarter)
         initSpinner()
@@ -71,7 +77,6 @@ class SalaryFragment : Fragment() {
         }
 
         setHelpDialogString(HelpDialogStringRes.SALARY)
-        return binding.root
     }
 
     private fun initSpinner() {
@@ -109,6 +114,13 @@ class SalaryFragment : Fragment() {
         }
     }
 
+    private fun showShimmer(show: Boolean) {
+        binding.shimmerFrameLayout.apply {
+            if (show) startShimmerAnimation() else stopShimmerAnimation()
+            isVisible = show
+        }
+    }
+
     private fun setDefaultFromToDate() {
         binding.fromDate.setValue(LocalDateTime.now().minusDays(30).format(dateFormatter))
         binding.toDate.setValue(LocalDateTime.now().format(dateFormatter))
@@ -120,6 +132,7 @@ class SalaryFragment : Fragment() {
         }
 
         if (salaryPerHour == -1) {
+            showShimmer(false)
             binding.viewGroup.isVisible = false
             binding.errorView.apply {
                 isVisible = true
@@ -152,6 +165,7 @@ class SalaryFragment : Fragment() {
     private fun handleSalaryViewData(selectedQuarter: Quarter?) {
         combineTuple(viewModel.forces, viewModel.actions).observe(viewLifecycleOwner) { (forces, actions) ->
             if (forces != null && actions != null) {
+                showShimmer(false)
                 val firemans = forces.getFiremanList()
                 binding.errorView.isVisible = firemans.isEmpty()
                 binding.viewGroup.isVisible = firemans.isNotEmpty()
@@ -171,7 +185,7 @@ class SalaryFragment : Fragment() {
                         val toDate = LocalDate.parse(binding.toDate.getValue(), dateFormatter)
                         date.isEqual(toDate) || date.isEqual(fromDate) || date.isAfter(fromDate) && date.isBefore(toDate)
                     } else {
-                        date.year == selectedQuarter?.year && date.get(IsoFields.QUARTER_OF_YEAR) == selectedQuarter.quarter
+                        date.year == selectedQuarter?.year && date[IsoFields.QUARTER_OF_YEAR] == selectedQuarter.quarter
                     }
                 } ?: listOf()
                 adapter.setData(firemans, filteredActions)

@@ -25,7 +25,7 @@ class CarInActionItemView @JvmOverloads constructor(
         isLastItem: Boolean,
     ) {
         binding.carName.text = car.name
-        val adapter = FiremansInActionAdapter(car.key)
+        val adapter = FiremansInActionAdapter()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.setList(firemanList)

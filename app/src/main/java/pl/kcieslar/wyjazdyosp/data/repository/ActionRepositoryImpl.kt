@@ -8,20 +8,22 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ActionResponse
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
+import kotlinx.coroutines.withTimeout
+import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
+import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse
 import pl.kcieslar.wyjazdyosp.domain.repository.ActionRepository
 import pl.kcieslar.wyjazdyosp.model.Action
 import javax.inject.Inject
 
-class ActionRepositoryImpl @Inject constructor() : ActionRepository {
+class ActionRepositoryImpl @Inject constructor(
+    private val authRepository: AuthRepositoryImpl
+) : ActionRepository {
 
     private val rootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
-    private val actionRef: DatabaseReference = rootRef.child("actions")
+    private val actionRef: DatabaseReference = rootRef.child(authRepository.getUser()!!.uid).child("actions")
 
     override fun getActions(): Flow<ActionResponse?> {
         val response = ActionResponse()
@@ -36,7 +38,7 @@ class ActionRepositoryImpl @Inject constructor() : ActionRepository {
                             item.key = snapShot.key!!
                             list.add(item)
                         }
-                        response.list = list
+                        response.list = list.sortedBy { it.getFormattedOutTime() }.reversed()
                         trySend(response)
                     } catch (exception: Exception) {
                         response.exception = exception
@@ -53,22 +55,28 @@ class ActionRepositoryImpl @Inject constructor() : ActionRepository {
         }
     }
 
-    override suspend fun addAction(action: Action) : FirebaseCallResponse {
+    override suspend fun addAction(action: HashMap<String, Any?>): FirebaseCallResponse {
         return try {
-            actionRef.push().setValue(action).await()
+            withTimeout(5000) {
+                actionRef.push().setValue(action).await()
+                FirebaseCallResponse(true, null)
+            }
+        } catch (exception: Exception) {
+            FirebaseCallResponse(false, exception)
+        }
+    }
+
+    override suspend fun editAction(actionKey: String, action: HashMap<String, Any?>): FirebaseCallResponse {
+        return try {
+            actionRef.child(actionKey).setValue(action).await()
             FirebaseCallResponse(true, null)
         } catch (exception: Exception) {
             FirebaseCallResponse(false, exception)
         }
     }
 
-    override suspend fun editAction(action: Action) : FirebaseCallResponse {
-        return FirebaseCallResponse(true, null)
-    }
-
-    override suspend fun removeAction(action: Action) : FirebaseCallResponse {
+    override suspend fun removeAction(action: Action): FirebaseCallResponse {
         return try {
-            delay(5000)
             actionRef.child(action.key).removeValue().await()
             FirebaseCallResponse(true, null)
         } catch (exception: Exception) {

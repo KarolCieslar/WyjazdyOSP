@@ -64,7 +64,6 @@ class StepThirdAdapter(
             firemansAdapter = FiremanRecyclerAdapter(
                 onCheckBoxChange = { fireman, isChecked -> changeFiremanSelectStatus(fireman, carKey, isChecked) },
                 onFunctionIconClick = { fireman, function -> changeFiremanFunction(allFiremansList.first { it == fireman }, function, carKey) },
-                carKey = carKey
             )
             binding.firemanRecyclerView.adapter = firemansAdapter
             val filteredItems = getFilteredFiremans(carKey)
@@ -73,26 +72,25 @@ class StepThirdAdapter(
         }
 
         private fun changeFiremanSelectStatus(fireman: Fireman, carKey: String, isSelected: Boolean) {
-            allFiremansList.first { it == fireman }.selectedCar = if (isSelected) carKey else null
+            allFiremansList.first { it == fireman }.apply {
+                selectedCar = if (isSelected) carKey else null
+                if (!isSelected) {
+                    changeFiremanFunction(FiremanFunction.OWNCAR, false)
+                    changeFiremanFunction(FiremanFunction.DRIVER, false)
+                    changeFiremanFunction(FiremanFunction.COMMANDER, false)
+                }
+            }
             firemansAdapter.setData(getFilteredFiremans(carKey))
         }
 
         private fun changeFiremanFunction(fireman: Fireman, function: FiremanFunction, carKey: String) {
             val filteredFiremans = getFilteredFiremans(carKey).toMutableList()
-            val firemanFunctions = fireman.functions[carKey] ?: mutableListOf()
-            if (firemanFunctions.contains(function)) {
-                firemanFunctions.remove(function)
-            } else {
-                if (function != FiremanFunction.OWNCAR) {
-                    filteredFiremans.forEach {
-                        val thisFiremanFunctions = it.functions[carKey] ?: mutableListOf()
-                        thisFiremanFunctions.remove(function)
-                        it.functions[carKey] = thisFiremanFunctions
-                    }
+            if (function != FiremanFunction.OWNCAR) {
+                filteredFiremans.forEach { othersFireman ->
+                    if (othersFireman != fireman) othersFireman.changeFiremanFunction(function, false)
                 }
-                firemanFunctions.add(function)
-                fireman.functions[carKey] = firemanFunctions
             }
+            fireman.changeFiremanFunction(function)
             firemansAdapter.setData(filteredFiremans)
         }
 
@@ -108,7 +106,7 @@ class StepThirdAdapter(
                 currentExpandedCar = UNSELECTED
                 handleExpandLayoutVisible(binding, false)
             } else {
-                currentExpandedCar = carKey!!
+                currentExpandedCar = carKey
                 handleExpandLayoutVisible(binding, true)
             }
             prepareAdapterAndSetData(binding, carKey)
@@ -138,10 +136,15 @@ class StepThirdAdapter(
     private fun getFilteredFiremans(carKey: String): List<Fireman> {
         allFiremansList.forEach { fireman ->
             if (!itemList.map { it.key }.contains(fireman.selectedCar)) {
-                fireman.selectedCar = null
+                fireman.apply {
+                    selectedCar = null
+                    changeFiremanFunction(FiremanFunction.OWNCAR, false)
+                    changeFiremanFunction(FiremanFunction.DRIVER, false)
+                    changeFiremanFunction(FiremanFunction.COMMANDER, false)
+                }
             }
         }
-        return allFiremansList.filter { it.selectedCar == null || it.selectedCar == carKey }
+        return allFiremansList.filter { it.selectedCar == null || it.selectedCar == carKey }.sortedBy { it.name }
     }
 
     companion object {

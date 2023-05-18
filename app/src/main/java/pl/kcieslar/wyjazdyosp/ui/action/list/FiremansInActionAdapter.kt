@@ -7,11 +7,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import pl.kcieslar.wyjazdyosp.databinding.ItemFiremanInActionBinding
 import pl.kcieslar.wyjazdyosp.model.Fireman
-import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepThird.FiremanFunction
 
-class FiremansInActionAdapter(
-    private val carKey: String
-): RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
+class FiremansInActionAdapter: RecyclerView.Adapter<FiremansInActionAdapter.MyViewHolder>() {
 
     private var firemanList: List<Fireman> = emptyList()
     private lateinit var context: Context
@@ -27,11 +24,10 @@ class FiremansInActionAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         with(holder) {
             with(firemanList[position]) {
-                val firemanFunctions = this.functions[carKey]
                 binding.name.text = this.name
-                binding.commanderIcon.isVisible = firemanFunctions?.contains(FiremanFunction.COMMANDER) ?: false
-                binding.driverIcon.isVisible = firemanFunctions?.contains(FiremanFunction.DRIVER) ?: false
-                binding.ownCarIcon.isVisible = firemanFunctions?.contains(FiremanFunction.OWNCAR) ?: false
+                binding.commanderIcon.isVisible = this.commanderFunction
+                binding.driverIcon.isVisible = this.driverFunction
+                binding.ownCarIcon.isVisible = this.ownCarFunction
             }
         }
     }

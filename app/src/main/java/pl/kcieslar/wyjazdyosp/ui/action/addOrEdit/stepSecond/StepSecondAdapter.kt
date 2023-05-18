@@ -36,14 +36,17 @@ class StepSecondAdapter(
                 val binding = ItemStepSecondEquipmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 EquipmentElementViewHolder(binding)
             }
+
             ViewType.CAR -> {
                 val binding = ItemStepSecondCarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 CarElementViewHolder(binding)
             }
+
             ViewType.SEPARATOR -> {
                 val binding = ItemStepSecondSeparatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 SeparatorViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("viewType not exists")
         }
     }
@@ -53,9 +56,11 @@ class StepSecondAdapter(
             ForcesDataType.EQUIPMENT -> {
                 (holder as EquipmentElementViewHolder).bind(itemList[position] as Equipment)
             }
+
             ForcesDataType.CAR -> {
                 (holder as CarElementViewHolder).bind(itemList[position] as Car)
             }
+
             ForcesDataType.FIREMAN -> {
                 (holder as SeparatorViewHolder).bind()
             }
@@ -133,8 +138,12 @@ class StepSecondAdapter(
         this.itemList = list.sortedBy { it is Equipment }.toMutableList()
 
         val removedItems = mutableListOf<Forces>()
-        action.equipment.forEach { if(!itemList.contains(it)) removedItems.add(it) }
-        action.carsInAction.map { it.car }.forEach { if(!itemList.contains(it)) removedItems.add(it) }
+        action.equipment.forEach { equipment ->
+            if (!itemList.any { it.key == equipment.key }) removedItems.add(equipment)
+        }
+        action.carsInAction.map { it.car }.forEach { car ->
+            if (!itemList.any { it.key == car.key }) removedItems.add(car)
+        }
         if (removedItems.isNotEmpty()) {
             itemList.add(Fireman(name = "SEPARATOR"))
             itemList.addAll(removedItems)

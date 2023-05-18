@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.ActionResponse
-import pl.kcieslar.wyjazdyosp.data.firebaserepo.FirebaseCallResponse
+import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
 import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.model.*
@@ -71,7 +70,6 @@ class ActionListViewModel @Inject constructor(
     }
 
     fun removeAction(action: Action) {
-        _viewModelEvents.value = RemovingActionInProgress()
         viewModelScope.launch {
             val response = actionRepository.removeAction(action)
             if (response.isSuccess) {
@@ -82,7 +80,6 @@ class ActionListViewModel @Inject constructor(
         }
     }
 
-    inner class RemovingActionInProgress : ViewModelEvent()
     inner class RemovedActionSuccessfully(val action: Action) : ViewModelEvent()
     inner class LoadingData : ViewModelEvent()
     inner class RemovedActionError(val action: Action, val exception: Exception?) : ViewModelEvent()
