@@ -143,11 +143,6 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
-            R.id.exportDatabaseIcon -> {
-                sendToBackupRoomFragment()
-                true
-            }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -167,19 +162,6 @@ class MainActivity : AppCompatActivity() {
         }
         val dialog = HelpDialogView(this)
         dialog.setDescription(this.resources.getString(stringRes))
-    }
-
-    private fun sendToBackupRoomFragment() {
-        val path = this.getDatabasePath("main_database_10").absolutePath
-        val fileWithinMyDir = File(path)
-
-        if (fileWithinMyDir.exists()) {
-            findNavController(R.id.nav_host_fragment_activity_main).navigate(
-                R.id.action_global_to_backupRoomFragment
-            )
-        } else {
-            showSnackBar("Nie znaleziono bazy danych")
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -16,13 +16,6 @@
             android:icon="@drawable/ic_settings"
             android:title="Kontakt"
             app:showAsAction="always" />
-
-        <item
-            android:id="@+id/exportDatabaseIcon"
-            android:contentDescription="exportDatabase"
-            android:icon="@drawable/ic_export"
-            android:title="Export ROOM"
-            app:showAsAction="always" />
     </group>
 
 </menu>
