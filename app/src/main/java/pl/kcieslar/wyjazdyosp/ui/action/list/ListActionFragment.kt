@@ -71,7 +71,6 @@ class ListActionFragment : Fragment() {
             }
         }
 
-        // TODO: Zrobić export starej bazy ROOM DATABASE
         viewModel.actions.observe(viewLifecycleOwner) {
             if (it.exception != null) {
                 logFirebaseCrash(it.exception!!, "ListActionFragment - viewModel.action.observe exception != null")
