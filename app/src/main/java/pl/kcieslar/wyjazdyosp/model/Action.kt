@@ -3,6 +3,12 @@ package pl.kcieslar.wyjazdyosp.model
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
@@ -22,6 +28,11 @@ data class Action(
     fun getFormattedOutTime(): String {
         val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)
         return outTime.format(dateFormatterHelper)
+    }
+
+    @Exclude
+    fun getOutTimeInUnix(): Long {
+        return SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ROOT).parse(outTime)?.time ?: 0
     }
 
     @Exclude

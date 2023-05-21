@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import pl.kcieslar.wyjazdyosp.data.MainDatabase
-import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.utils.getOrAwaitValue
 

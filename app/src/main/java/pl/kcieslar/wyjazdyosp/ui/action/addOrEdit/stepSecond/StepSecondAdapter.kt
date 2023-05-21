@@ -14,6 +14,7 @@ import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondEquipmentBinding
 import pl.kcieslar.wyjazdyosp.databinding.ItemStepSecondSeparatorBinding
 import pl.kcieslar.wyjazdyosp.model.*
 import pl.kcieslar.wyjazdyosp.model.Forces
+import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
 class StepSecondAdapter(

@@ -28,6 +28,7 @@ class ForcesRepositoryImpl @Inject constructor(
 
     private val rootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val forcesRef: DatabaseReference = rootRef.child(authRepository.getUser()!!.uid).child("forces")
+    private val actionRef: DatabaseReference = rootRef.child(authRepository.getUser()!!.uid).child("actions")
 
     override fun getForces(): Flow<ForcesResponse?> {
         val response = ForcesResponse()
@@ -82,15 +83,36 @@ class ForcesRepositoryImpl @Inject constructor(
             itemMap["name"] = item.name
             itemMap["type"] = item.type.name
             forcesRef.child(item.key).setValue(itemMap).await()
+            handleNameEditInActions(item)
             FirebaseCallResponse(true, null)
         } catch (exception: Exception) {
             FirebaseCallResponse(false, exception)
         }
     }
 
+    private suspend fun handleNameEditInActions(item: Forces, isRemovedAction: Boolean = false) {
+        val name = if (isRemovedAction) "${item.name} [USUNIĘTO]" else item.name
+        actionRef.get().await().children.forEach { action ->
+            action.child("carsInAction").children.forEach { carObject ->
+                if (item is Car) {
+                    carObject.children.filter { it.child("key").value == item.key }.forEach { car ->
+                        car.ref.child("name").setValue(name)
+                    }
+                } else {
+                    carObject.children.forEach { equipmentOrFiremanList ->
+                        equipmentOrFiremanList.children.filter { it.child("key").value == item.key }.forEach { forces ->
+                            forces.ref.child("name").setValue(name)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override suspend fun removeItem(item: Forces): FirebaseCallResponse {
         return try {
             forcesRef.child(item.key).setValue(null).await()
+            handleNameEditInActions(item, isRemovedAction = true)
             FirebaseCallResponse(true, null)
         } catch (exception: Exception) {
             FirebaseCallResponse(false, exception)

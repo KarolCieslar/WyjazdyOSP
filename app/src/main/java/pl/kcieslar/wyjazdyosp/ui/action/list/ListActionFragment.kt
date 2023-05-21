@@ -1,7 +1,8 @@
 package pl.kcieslar.wyjazdyosp.ui.action.list
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
@@ -21,6 +21,8 @@ import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.RetryDialogView
+import java.io.File
+
 
 @AndroidEntryPoint
 class ListActionFragment : Fragment() {
@@ -70,10 +72,6 @@ class ListActionFragment : Fragment() {
         }
 
         // TODO: Zrobić export starej bazy ROOM DATABASE
-        // TODO: Sprawdzic co sie stanie jak zmieni sie nazwa ratownika
-        // TODO: Sortowanie akcji po dacie
-        // TODO: Zrobić tak aby w liscie akcji brało nazwę firemana
-        // TODO: Zrobić tak aby na stepSecondFragment brało pod uwagę ID a nie nazwę bo jak sie zmieni nazwę to sypie się step 2 i step 3
         viewModel.actions.observe(viewLifecycleOwner) {
             if (it.exception != null) {
                 logFirebaseCrash(it.exception!!, "ListActionFragment - viewModel.action.observe exception != null")

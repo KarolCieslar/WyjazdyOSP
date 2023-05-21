@@ -60,14 +60,14 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     // Room components
-    //implementation("androidx.room:room-runtime:2.5.1")
+    implementation("androidx.room:room-runtime:2.5.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.firebase:firebase-crashlytics:18.3.7")
     implementation("com.google.firebase:firebase-analytics:21.2.2")
     implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     implementation 'androidx.test:rules:1.5.0'
-    //kapt("androidx.room:room-compiler:2.5.1")
-    //implementation("androidx.room:room-ktx:2.5.1")
+    kapt("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.room:room-ktx:2.5.1")
 
     // Lifecycle components
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")

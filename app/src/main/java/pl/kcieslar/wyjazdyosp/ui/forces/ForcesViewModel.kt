@@ -91,5 +91,7 @@ class ForcesViewModel @Inject constructor(
 
     inner class LoadingData : ViewModelEvent()
     inner class CrudItemSuccessfully : ViewModelEvent()
+    inner class ErrorWithGettingForceByKey(val exception: Exception?) : ViewModelEvent()
+    inner class SuccessfulGetForceByKey(val force: Forces) : ViewModelEvent()
     inner class CrudItemError(val exception: Exception?, val retryAction: (() -> Unit)) : ViewModelEvent()
 }

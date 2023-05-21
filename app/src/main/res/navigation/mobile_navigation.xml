@@ -11,6 +11,11 @@
         app:destination="@id/settingsFragment" />
 
     <action
+        android:id="@+id/action_global_to_backupRoomFragment"
+        app:popUpToInclusive="true"
+        app:destination="@id/backupRoomFragment" />
+
+    <action
         android:id="@+id/action_global_to_loginFragment"
         app:popUpToInclusive="true"
         app:destination="@id/loginFragment" />
@@ -55,6 +60,13 @@
         android:name="pl.kcieslar.wyjazdyosp.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings">
+    </fragment>
+
+    <fragment
+        android:id="@+id/backupRoomFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.backup_room.BackupRoomFragment"
+        android:label="@string/title_backup_room"
+        tools:layout="@layout/fragment_backup_room">
     </fragment>
 
     <fragment

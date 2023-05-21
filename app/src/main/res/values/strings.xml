@@ -5,6 +5,7 @@
     <string name="title_forces">Siły i Środki</string>
     <string name="title_salary">Ekwiwalent</string>
     <string name="title_settings">Ustawienia</string>
+    <string name="title_backup_room">Export Danych</string>
 
     <string name="tutorial_question_mark_title">Służę pomocą!</string>
     <string name="tutorial_question_mark_desc">Na każdym ekranie w aplikacji znajdziesz taką ikonkę. Kliknij w nią jeśli będziesz miał problem ze zrozumieniem funkcji.\n</string>
@@ -106,5 +107,7 @@
     <string name="help_view_add_or_edit_action_step_second">Zaznacz sprzęt oraz pojazdy, które brały udział w akcji. Do wybranych przez Ciebie pojazdów będzie można przypisać druhów. Musisz zaznaczyć minimum jeden pojazd aby przejść dalej.</string>
     <string name="help_view_add_or_edit_action_step_third"><![CDATA[Przypisz druhów do pojazdów. Wybierz dowódcę oraz kierowcę zaznaczając odpowiednią ikonę przy jego nazwisku. Ikona samochodu oznacza, że druh dojechał własnym środkiem transportu.<br><br>Zaznaczony druh w jednym samochodzie automatycznie zniknie z pozostałych. Każdy samochód musi mieć przypisanego minimum jednego ratownika.]]></string>
     <string name="salary_edit_dialog_description">Wprowadź stawkę jaką otrzymuje strażak ochotnik za każdą rozpoczęto godzinę akcji.</string>
+    <string name="room_export_full">Poprzednie wersje aplikacji posiadały zepsuty system zarządzania danymi. W aktualnej wersji został on całkowicie przebudowany. Dzięki nowemu systemowi nie utracisz danych nawet po odinstalowaniu aplikacji. Wszystkie dane będą dostępne ponownie po zalogowaniu się na Twoje konto.\n\nJeśli bardzo zależy Ci na Twoich poprzednich danych kliknij przycisk PRZYWRÓĆ i zaczekaj około 1 dzień. Po kliknięciu przycisku zostanie otwarta aplikacja pocztowa, która pozwoli Ci na wysyłkę starej bazy danych do twórcy aplikacji.</string>
+    <string name="room_export_no_database">Poprzednie wersje aplikacji posiadały zepsuty system zarządzania danymi. W aktualnej wersji został on całkowicie przebudowany. Dzięki nowemu systemowi nie utracisz danych nawet po odinstalowaniu aplikacji. Wszystkie dane będą dostępne ponownie po zalogowaniu się na Twoje konto.\n\nWygląda na to, że nie posiadasz starej bazy danych na swoim telefonie. Korzystaj z aplikacji bez obaw!</string>
 
 </resources>

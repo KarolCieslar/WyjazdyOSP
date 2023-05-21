@@ -1,6 +1,7 @@
 package pl.kcieslar.wyjazdyosp.data.repository
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -11,7 +12,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withTimeout
 import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
 import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse
 import pl.kcieslar.wyjazdyosp.domain.repository.ActionRepository
@@ -38,7 +38,9 @@ class ActionRepositoryImpl @Inject constructor(
                             item.key = snapShot.key!!
                             list.add(item)
                         }
-                        response.list = list.sortedBy { it.getFormattedOutTime() }.reversed()
+
+
+                        response.list = list.sortedBy { it.getOutTimeInUnix() }.reversed()
                         trySend(response)
                     } catch (exception: Exception) {
                         response.exception = exception
@@ -57,10 +59,8 @@ class ActionRepositoryImpl @Inject constructor(
 
     override suspend fun addAction(action: HashMap<String, Any?>): FirebaseCallResponse {
         return try {
-            withTimeout(5000) {
-                actionRef.push().setValue(action).await()
-                FirebaseCallResponse(true, null)
-            }
+            actionRef.push().setValue(action).await()
+            FirebaseCallResponse(true, null)
         } catch (exception: Exception) {
             FirebaseCallResponse(false, exception)
         }

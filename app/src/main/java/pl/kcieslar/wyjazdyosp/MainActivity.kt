@@ -16,11 +16,11 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
+import java.io.File
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -67,14 +67,17 @@ class MainActivity : AppCompatActivity() {
                     navView.isVisible = false
                     binding.arcView.isVisible = false
                 }
+
                 R.id.addOrEditAction -> {
                     navView.isVisible = false
                     binding.myToolbar.menu.findItem(R.id.settingsIcon).isVisible = false
                 }
+
                 R.id.settingsFragment -> {
                     navView.isVisible = false
                     binding.myToolbar.menu.setGroupVisible(R.id.toolbarMenuIcons, false)
                 }
+
                 else -> {
                     binding.arcView.isVisible = true
                     navView.isVisible = true
@@ -133,11 +136,18 @@ class MainActivity : AppCompatActivity() {
                 showHelpDialog()
                 true
             }
+
             R.id.settingsIcon -> {
                 val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
                 navHostFragment.navController.navigate(R.id.action_global_to_settingsFragment)
                 true
             }
+
+            R.id.exportDatabaseIcon -> {
+                sendToBackupRoomFragment()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -157,6 +167,19 @@ class MainActivity : AppCompatActivity() {
         }
         val dialog = HelpDialogView(this)
         dialog.setDescription(this.resources.getString(stringRes))
+    }
+
+    private fun sendToBackupRoomFragment() {
+        val path = this.getDatabasePath("main_database_10").absolutePath
+        val fileWithinMyDir = File(path)
+
+        if (fileWithinMyDir.exists()) {
+            findNavController(R.id.nav_host_fragment_activity_main).navigate(
+                R.id.action_global_to_backupRoomFragment
+            )
+        } else {
+            showSnackBar("Nie znaleziono bazy danych")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
