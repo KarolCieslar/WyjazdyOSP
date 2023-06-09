@@ -1,9 +1,11 @@
 package pl.kcieslar.wyjazdyosp
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -26,6 +28,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    // TODO: Spolszczenie komunikatów błędów firebase
+    // TODO: Poprawa wyglądu ekranów logowania i rejestracji oraz resetu hasła
 
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ROOT)
@@ -84,10 +89,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        showTutorial()
     }
 
-    private fun showTutorial() {
+    fun showTutorial() {
+        this.currentFocus?.let { view ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
         val sharedPref = getSharedPreferences("SHARED_PREF_APP_OSP", MODE_PRIVATE)
         if (!sharedPref.getBoolean("TUTORIAL_SHOWED", false)) {
             TapTargetSequence(this)

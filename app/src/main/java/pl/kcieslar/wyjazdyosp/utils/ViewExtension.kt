@@ -32,6 +32,12 @@ fun Fragment.showSnackBar(text: String) {
     }
 }
 
+fun Fragment.showTutorial() {
+    if (activity is MainActivity) {
+        (activity as MainActivity).showTutorial()
+    }
+}
+
 fun Fragment.setHelpDialogString(helpDialogStringRes: HelpDialogStringRes) {
     if (activity is MainActivity) {
         (activity as MainActivity).setHelpDialogString(helpDialogStringRes)

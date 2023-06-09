@@ -18,6 +18,7 @@ import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
+import pl.kcieslar.wyjazdyosp.utils.showTutorial
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.RetryDialogView
@@ -76,8 +77,10 @@ class ListActionFragment : Fragment() {
                 logFirebaseCrash(it.exception!!, "ListActionFragment - viewModel.action.observe exception != null")
                 showCallErrorView(true, it.exception?.message.toString())
                 showShimmer(false)
+                showTutorial()
             } else {
                 it.list?.let { list ->
+                    showTutorial()
                     showShimmer(false)
                     binding.errorView.isVisible = list.isEmpty()
                     binding.actionListRecyclerView.isVisible = list.isNotEmpty()

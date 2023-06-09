@@ -7,11 +7,11 @@
 
     <action
         android:id="@+id/action_global_to_settingsFragment"
-        app:popUpToInclusive="true"
         app:destination="@id/settingsFragment" />
 
     <action
         android:id="@+id/action_global_to_loginFragment"
+        app:popUpTo="@id/actionListFragment"
         app:popUpToInclusive="true"
         app:destination="@id/loginFragment" />
 
