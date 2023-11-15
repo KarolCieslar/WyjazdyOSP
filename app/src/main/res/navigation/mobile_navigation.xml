@@ -5,6 +5,8 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/loginFragment">
 
+    <include app:graph="@navigation/status_navigation" />
+
     <action
         android:id="@+id/action_global_to_settingsFragment"
         app:destination="@id/settingsFragment" />

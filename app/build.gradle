@@ -16,8 +16,8 @@ android {
         applicationId "pl.kcieslar.wyjazdyosp"
         minSdk 21
         targetSdk 33
-        versionCode 19
-        versionName "2.0.1"
+        versionCode 20
+        versionName "2.0.2"
 
         testInstrumentationRunner "pl.kcieslar.wyjazdyosp.HiltTestRunner"
     }
@@ -46,7 +46,8 @@ android {
         jvmTarget = '17'
     }
     buildFeatures {
-        viewBinding true
+        viewBinding = true
+        dataBinding = true
     }
     namespace 'pl.kcieslar.wyjazdyosp'
 }
@@ -84,6 +85,7 @@ dependencies {
     implementation("io.github.florent37:shapeofview:1.4.7")
     implementation("com.google.android.material:material:1.9.0")
     implementation("org.greenrobot:eventbus:3.3.1")
+    implementation "io.github.kaustubhpatange:realtime-extensions:0.1.4"
     implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
     implementation("com.github.chivorns:smartmaterialspinner:1.5.0")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
@@ -94,6 +96,10 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     // Kotlin components
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21")

@@ -4,14 +4,8 @@ import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.HashMap
+import java.util.Locale
 
 @Parcelize
 data class Action(
@@ -24,6 +18,9 @@ data class Action(
     val carsInAction: List<CarInAction> = emptyList(),
     val equipment: List<Equipment> = emptyList(),
 ) : Parcelable {
+
+    constructor() : this("key", "outTime", "inTime", "location", "number", "description", listOf(), listOf())
+
     @Exclude
     fun getFormattedOutTime(): String {
         val dateFormatterHelper: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.ROOT)

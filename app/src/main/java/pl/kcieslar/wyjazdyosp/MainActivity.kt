@@ -22,15 +22,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.databinding.ActivityMainBinding
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.HelpDialogView
-import java.io.File
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     // TODO: Spolszczenie komunikatów błędów firebase
     // TODO: Poprawa wyglądu ekranów logowania i rejestracji oraz resetu hasła
+    // TODO: Porobić rzeczy z settingsów
+    // TODO: Dodać eksport do bazy excela
 
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ROOT)
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.actionListFragment, R.id.salaryFragment, R.id.forcesFragment, R.id.addOrEditAction
+                R.id.actionListFragment, R.id.statusGroupListFragment, R.id.salaryFragment, R.id.forcesFragment, R.id.addOrEditAction
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

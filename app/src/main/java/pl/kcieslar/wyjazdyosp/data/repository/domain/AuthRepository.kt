@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.domain.repository
+package pl.kcieslar.wyjazdyosp.data.repository.domain
 
 import com.google.firebase.auth.FirebaseUser
 
@@ -11,6 +11,8 @@ interface AuthRepository {
     fun signOut(): FirebaseUser?
 
     fun getUser(): FirebaseUser?
+
+    fun getUserUid(): String
 
     suspend fun sendPasswordReset(email: String): Boolean
 }

@@ -1,7 +1,6 @@
 package pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.stepSecond
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,19 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.databinding.FragmentStepSecondBinding
 import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
+import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
+import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
 import pl.kcieslar.wyjazdyosp.utils.mergeList
 import pl.kcieslar.wyjazdyosp.utils.setHorizontalMargin
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
-import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
 
 class StepSecondFragment : Fragment() {
 

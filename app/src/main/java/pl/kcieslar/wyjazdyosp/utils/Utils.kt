@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import pl.kcieslar.wyjazdyosp.R
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
-import java.lang.Exception
 
 fun getForcesString(context: Context, stringType: ForcesStringType, forcesDataType: ForcesDataType, textVariable: String? = null) : String {
     val stringRes = when (stringType) {

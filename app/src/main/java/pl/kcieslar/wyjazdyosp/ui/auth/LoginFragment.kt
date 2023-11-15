@@ -1,32 +1,21 @@
 package pl.kcieslar.wyjazdyosp.ui.auth
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.base.BaseFragment
 import pl.kcieslar.wyjazdyosp.databinding.FragmentLoginBinding
+import pl.kcieslar.wyjazdyosp.utils.observeNonNull
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment<FragmentLoginBinding, AuthViewModel>() {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
-    private val viewModel: AuthViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override val layoutId: Int = R.layout.fragment_login
+    override val viewModel: AuthViewModel by viewModels()
 
     override fun onStart() {
         super.onStart()
@@ -36,16 +25,18 @@ class LoginFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
-            when (event) {
-                is AuthViewModel.LoginSuccessful -> {
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToActionListFragment())
-                }
+    override fun onReady(savedInstanceState: Bundle?) {
+        viewModel.viewModelEvents.observeNonNull(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { event ->
+                when (event) {
+                    is AuthViewModel.LoginSuccessful -> {
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToActionListFragment())
+                    }
 
-                is AuthViewModel.OperationError -> {
-                    binding.loginButton.setProgressBar(false)
-                    showErrorText(event.error)
+                    is AuthViewModel.OperationError -> {
+                        binding.loginButton.setProgressBar(false)
+                        showErrorText(event.error)
+                    }
                 }
             }
         }

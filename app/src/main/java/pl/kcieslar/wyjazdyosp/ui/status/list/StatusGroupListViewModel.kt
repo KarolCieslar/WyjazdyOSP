@@ -1,56 +1,45 @@
-package pl.kcieslar.wyjazdyosp.ui.salary
+package pl.kcieslar.wyjazdyosp.ui.status.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
-import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
-import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
-import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
+import pl.kcieslar.wyjazdyosp.base.BaseViewModel
+import pl.kcieslar.wyjazdyosp.data.repository.impl.StatusRepositoryImpl
+import pl.kcieslar.wyjazdyosp.model.Group
 import javax.inject.Inject
 
 @HiltViewModel
-class SalaryViewModel @Inject constructor(
-    private val forcesRepository: ForcesRepositoryImpl,
-    private val actionRepository: ActionRepositoryImpl
-) : ViewModel() {
+class StatusGroupListViewModel @Inject constructor(
+    private val statusRepository: StatusRepositoryImpl
+) : BaseViewModel() {
 
-    private val _actionList = MutableLiveData<ActionResponse>()
-    val actions: LiveData<ActionResponse>
-        get() = _actionList
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
 
-    private val _forcesList = MutableLiveData<ForcesResponse>()
-    val forces: LiveData<ForcesResponse>
-        get() = _forcesList
+    private val _groupList = MutableLiveData<List<Group>>()
+    val groupList: LiveData<List<Group>>
+        get() = _groupList
 
     init {
-        observeActionList()
-        observeForcesList()
+        observeGroupsList()
     }
 
-    private fun observeActionList() {
+    private fun observeGroupsList() {
+        _isLoading.value = true
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                actionRepository.getActions().collect {
-                    _actionList.postValue(it)
-                }
+            try {
+                _groupList.value = statusRepository.getGroups()
+            } catch (_: Exception) {
+
             }
         }
+        _isLoading.value = false
     }
 
-    private fun observeForcesList() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                forcesRepository.getForces().collect {
-                    _forcesList.postValue(it)
-                }
-            }
-        }
+    fun navigateToAddGroupFragment() {
+        navigate(StatusGroupListFragmentDirections.actionToAddOrCreateGroupBottomDialog())
     }
-
 }

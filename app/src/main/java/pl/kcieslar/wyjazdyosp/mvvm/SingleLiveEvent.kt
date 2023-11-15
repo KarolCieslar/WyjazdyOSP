@@ -1,45 +1,27 @@
 package pl.kcieslar.wyjazdyosp.mvvm
 
-import android.util.Log
-import androidx.annotation.MainThread
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import java.util.concurrent.atomic.AtomicBoolean
+/**
+ * Used as a wrapper for data that is exposed via a LiveData that represents an event.
+ * @see https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150
+ */
+open class SingleLiveEvent<out T>(private val content: T) {
 
-class SingleLiveEvent<T> : MutableLiveData<T>() {
+    private var hasBeenHandled = false
 
-    private val pending = AtomicBoolean(false)
-
-    @MainThread
-    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        if (hasActiveObservers()) {
-            Log.d(TAG, "Multiple observers registered but only one will be notified of changes.")
+    /**
+     * Returns the content and prevents its use again.
+     */
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
         }
-
-        // Observe the internal MutableLiveData
-        super.observe(owner, Observer<T> { t ->
-            if (pending.compareAndSet(true, false)) {
-                observer.onChanged(t)
-            }
-        })
-    }
-
-    @MainThread
-    override fun setValue(t: T?) {
-        pending.set(true)
-        super.setValue(t)
     }
 
     /**
-     * Used for cases where T is Void, to make calls cleaner.
+     * Returns the content, even if it's already been handled.
      */
-    @MainThread
-    fun call() {
-        value = null
-    }
-
-    companion object {
-        private const val TAG = "SingleLiveEvent"
-    }
+    fun peekContent(): T = content
 }

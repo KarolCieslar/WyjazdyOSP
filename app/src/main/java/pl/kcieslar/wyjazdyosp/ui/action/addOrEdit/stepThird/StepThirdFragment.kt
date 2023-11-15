@@ -19,6 +19,7 @@ import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
+import pl.kcieslar.wyjazdyosp.utils.observeNonNull
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.views.FunctionNotSelectedDialogView
 
@@ -40,21 +41,23 @@ class StepThirdFragment : Fragment() {
         setBottomButtonsListener()
         prepareAdapter()
 
-        viewModel.viewModelEvents.observe(viewLifecycleOwner) {
-            when (it) {
-                is AddActionViewModel.ActionAddedOrEditedSuccessfully -> {
-                    findNavController().navigateUp()
-                }
-
-                is AddActionViewModel.ErrorWithAddOrEditAction -> {
-                    binding.primaryButton.apply {
-                        setPrimaryButtonEnable(true)
-                        setText(resources.getString(R.string.button_retry))
-                        setOnClickListener { addOrEditAction() }
+        viewModel.viewModelEvents.observeNonNull(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { event ->
+                when (event) {
+                    is AddActionViewModel.ActionAddedOrEditedSuccessfully -> {
+                        findNavController().navigateUp()
                     }
-                    binding.cancelButton.setCancelButtonEnable(true)
-                    showSnackBar(resources.getString(R.string.add_action_error))
-                    logFirebaseCrash(it.exception!!, "StepThirdFragment ErrorWithAddOrEditAction")
+
+                    is AddActionViewModel.ErrorWithAddOrEditAction -> {
+                        binding.primaryButton.apply {
+                            setPrimaryButtonEnable(true)
+                            setText(resources.getString(R.string.button_retry))
+                            setOnClickListener { addOrEditAction() }
+                        }
+                        binding.cancelButton.setCancelButtonEnable(true)
+                        showSnackBar(resources.getString(R.string.add_action_error))
+                        logFirebaseCrash(event.exception!!, "StepThirdFragment ErrorWithAddOrEditAction")
+                    }
                 }
             }
         }

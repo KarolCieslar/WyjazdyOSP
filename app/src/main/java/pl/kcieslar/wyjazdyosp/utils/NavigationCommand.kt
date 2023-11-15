@@ -1,4 +1,4 @@
-package pl.kcieslar.leocrm.utils
+package pl.kcieslar.wyjazdyosp.utils
 
 import androidx.navigation.NavDirections
 

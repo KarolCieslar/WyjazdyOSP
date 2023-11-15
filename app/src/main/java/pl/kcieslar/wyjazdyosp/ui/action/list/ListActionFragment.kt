@@ -1,49 +1,32 @@
 package pl.kcieslar.wyjazdyosp.ui.action.list
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.base.BaseFragment
 import pl.kcieslar.wyjazdyosp.databinding.FragmentListActionBinding
 import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
+import pl.kcieslar.wyjazdyosp.utils.observeNonNull
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 import pl.kcieslar.wyjazdyosp.utils.showTutorial
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.RetryDialogView
-import java.io.File
-
 
 @AndroidEntryPoint
-class ListActionFragment : Fragment() {
+class ListActionFragment : BaseFragment<FragmentListActionBinding, ActionListViewModel>() {
 
-    private val viewModel: ActionListViewModel by viewModels()
-    private var _binding: FragmentListActionBinding? = null
-    private val binding get() = _binding!!
+    override val layoutId: Int = R.layout.fragment_list_action
+    override val viewModel: ActionListViewModel by viewModels()
     private lateinit var adapter: ListActionAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentListActionBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onReady(savedInstanceState: Bundle?) {
         showShimmer(true)
 
         adapter = ListActionAdapter(
@@ -54,20 +37,22 @@ class ListActionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
-            when (event) {
-                is ActionListViewModel.LoadingData -> {
-                    showShimmer(true)
-                    showCallErrorView(false)
-                }
+        viewModel.viewModelEvents.observeNonNull(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { event ->
+                when (event) {
+                    is ActionListViewModel.LoadingData -> {
+                        showShimmer(true)
+                        showCallErrorView(false)
+                    }
 
-                is ActionListViewModel.RemovedActionSuccessfully -> {
-                    adapter.removeFromExpanded(event.action)
-                }
+                    is ActionListViewModel.RemovedActionSuccessfully -> {
+                        adapter.removeFromExpanded(event.action)
+                    }
 
-                is ActionListViewModel.RemovedActionError -> {
-                    showErrorDialogWithRetry { viewModel.removeAction(event.action) }
-                    logFirebaseCrash(event.exception!!, "ListActionFragment CallBackError - RemovedActionError")
+                    is ActionListViewModel.RemovedActionError -> {
+                        showErrorDialogWithRetry { viewModel.removeAction(event.action) }
+                        logFirebaseCrash(event.exception!!, "ListActionFragment CallBackError - RemovedActionError")
+                    }
                 }
             }
         }
@@ -151,10 +136,5 @@ class ListActionFragment : Fragment() {
     private fun showErrorDialogWithRetry(retryAction: () -> Unit) {
         val retryDialog = RetryDialogView(requireContext())
         retryDialog.setRetryButtonAction(retryAction)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

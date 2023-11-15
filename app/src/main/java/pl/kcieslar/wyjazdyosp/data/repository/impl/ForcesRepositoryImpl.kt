@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.data.repository
+package pl.kcieslar.wyjazdyosp.data.repository.impl
 
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
@@ -13,13 +13,12 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse
 import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
-import pl.kcieslar.wyjazdyosp.domain.repository.ForcesRepository
+import pl.kcieslar.wyjazdyosp.data.repository.domain.ForcesRepository
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
 import pl.kcieslar.wyjazdyosp.model.Forces
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class ForcesRepositoryImpl @Inject constructor(

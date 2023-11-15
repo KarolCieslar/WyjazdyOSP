@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="pl.kcieslar.wyjazdyosp.ui.status.choose.AddOrCreateGroupBottomDialogViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="32dp">
+
+        <TextView
+            android:id="@+id/add_or_create_group_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Możesz dołączyć do już istniejącej grupy lub stworzyć nową w której będzie administratorem."
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <pl.kcieslar.wyjazdyosp.views.PrimaryButtonView
+            android:id="@+id/add_or_create_group_create_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:onClickListener="@{() -> viewModel.navigateToJoinGroupDialog()}"
+            app:custom_buttonText="Dołącz"
+            app:layout_constraintEnd_toStartOf="@+id/add_or_create_group_join_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_or_create_group_info" />
+
+        <pl.kcieslar.wyjazdyosp.views.CancelButtonView
+            android:id="@+id/add_or_create_group_join_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:onClickListener="@{() -> viewModel.navigateToCreateGroupDialog()}"
+            app:custom_buttonText="Stwórz nową"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/add_or_create_group_create_button"
+            app:layout_constraintTop_toBottomOf="@+id/add_or_create_group_info" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

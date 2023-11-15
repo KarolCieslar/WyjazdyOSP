@@ -1,4 +1,4 @@
-package pl.kcieslar.leocrm.base
+package pl.kcieslar.wyjazdyosp.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import pl.kcieslar.leocrm.utils.NavigationCommand
-import pl.kcieslar.leocrm.BR
-import pl.kcieslar.leocrm.utils.observeNonNull
-import pl.kcieslar.leocrm.utils.showSnackBar
+import pl.kcieslar.wyjazdyosp.utils.NavigationCommand
+import pl.kcieslar.wyjazdyosp.utils.observeNonNull
+import pl.kcieslar.wyjazdyosp.utils.showSnackBar
 
-abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
+abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 
     @get:LayoutRes
     protected abstract val layoutId: Int
@@ -39,7 +38,7 @@ abstract class BaseFragment<BINDING : ViewDataBinding, VM : BaseViewModel>() : F
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            setVariable(BR.viewModel, viewModel)
+            setVariable(1, viewModel)
         }
 
         return binding.root

@@ -3,13 +3,10 @@ package pl.kcieslar.wyjazdyosp.ui.salary
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,22 +20,27 @@ import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatterHelper
 import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.base.BaseFragment
 import pl.kcieslar.wyjazdyosp.databinding.FragmentSalaryBinding
 import pl.kcieslar.wyjazdyosp.model.Quarter
 import pl.kcieslar.wyjazdyosp.utils.convertStringToLocalDateTime
 import pl.kcieslar.wyjazdyosp.utils.setHelpDialogString
 import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import pl.kcieslar.wyjazdyosp.views.SalaryValueDialogView
-import java.time.*
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.temporal.IsoFields
-import java.util.*
+import java.util.Calendar
 
 @AndroidEntryPoint
-class SalaryFragment : Fragment() {
+class SalaryFragment : BaseFragment<FragmentSalaryBinding, SalaryViewModel>() {
 
-    private val viewModel: SalaryViewModel by viewModels()
-    private var _binding: FragmentSalaryBinding? = null
-    private val binding get() = _binding!!
+    override val layoutId: Int = R.layout.fragment_salary
+    override val viewModel: SalaryViewModel by viewModels()
+
     private var sharedPref: SharedPreferences? = null
     private var salaryPerHour = -1
     private val adapter = SalaryAdapter()
@@ -48,16 +50,7 @@ class SalaryFragment : Fragment() {
         private var dateButtonSelected: Boolean = false
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSalaryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onReady(savedInstanceState: Bundle?) {
         sharedPref = activity?.getSharedPreferences("SHARED_PREF_APP_OSP", Context.MODE_PRIVATE)
         selectedQuarter = Quarter("Default Quarter", Calendar.getInstance()[(Calendar.YEAR)], LocalDate.now()[IsoFields.QUARTER_OF_YEAR])
 
@@ -81,6 +74,10 @@ class SalaryFragment : Fragment() {
 
     private fun initSpinner() {
         val quarterList: MutableList<Quarter> = mutableListOf()
+        quarterList.add(Quarter("PAZ - GRU - 2024", 2024, 4))
+        quarterList.add(Quarter("LIP - WRZ - 2024", 2024, 3))
+        quarterList.add(Quarter("KWI - CZE - 2024", 2024, 2))
+        quarterList.add(Quarter("STY - MAR - 2024", 2024, 1))
         quarterList.add(Quarter("PAZ - GRU - 2023", 2023, 4))
         quarterList.add(Quarter("LIP - WRZ - 2023", 2023, 3))
         quarterList.add(Quarter("KWI - CZE - 2023", 2023, 2))

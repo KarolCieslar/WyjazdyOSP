@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Wyjazdy OSP</string>
     <string name="title_list_action">Wyjazdy</string>
+    <string name="title_status">Status</string>
+    <string name="title_new_group">Stwórz grupę</string>
     <string name="title_add_action">Dodaj Wyjazd</string>
     <string name="title_forces">Siły i Środki</string>
     <string name="title_salary">Ekwiwalent</string>

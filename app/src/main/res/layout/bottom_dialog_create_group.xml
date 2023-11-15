@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="pl.kcieslar.wyjazdyosp.ui.status.create.CreateGroupBottomDialogViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="32dp">
+
+            <TextView
+                android:id="@+id/fragment_add_group_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Podaj nazwę grupy gotowości oraz opcjonalnie jej opis. Powyższy kod umożliwia dołączenie innych użytkowników do Twojej grupy. \n\nPo utworzeniu grupy zostaniesz do niej automatycznie dodany oraz będziesz posiadał uprawnienia administratora, które pozwolą Ci na modyfikowanie jej nazwy, opisu oraz usuwanie członków."
+                android:textAlignment="textStart"
+                android:textColor="@color/black600"
+                android:textSize="15sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_add_group_il_name"
+                style="@style/EditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_add_group_info">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_add_group_et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:afterTextChanged="@{(text) -> viewModel.onGroupNameChange(text)}"
+                    android:background="@android:color/transparent"
+                    android:hint="Nazwa grupy"
+                    android:inputType="text"
+                    android:maxLength="64"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_add_group_il_description"
+                style="@style/EditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_add_group_il_name">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_add_group_et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:afterTextChanged="@{(text) -> viewModel.onGroupDescriptionChange(text)}"
+                    android:background="@android:color/transparent"
+                    android:hint="Opis grupy"
+                    android:inputType="text"
+                    android:maxLength="64" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/fragment_add_group_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:isVisible="@{viewModel.isLoading}"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_group_create_button"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_add_group_create_button"
+                app:layout_constraintStart_toStartOf="@+id/fragment_add_group_create_button"
+                app:layout_constraintTop_toTopOf="@id/fragment_add_group_create_button" />
+
+            <pl.kcieslar.wyjazdyosp.views.PrimaryButtonView
+                android:id="@+id/fragment_add_group_create_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:alpha="@{viewModel.createButtonEnabled ? 1f : 0.5f}"
+                android:clickable="@{viewModel.createButtonEnabled}"
+                android:onClickListener="@{() -> viewModel.generateGroupCode()}"
+                app:custom_buttonText="Stwórz grupę"
+                app:isInvisible="@{viewModel.isLoading}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fragment_add_group_cancel_button"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_add_group_il_description" />
+
+            <pl.kcieslar.wyjazdyosp.views.CancelButtonView
+                android:id="@+id/fragment_add_group_cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:onClickListener="@{() -> viewModel.navigateBack()}"
+                app:custom_buttonText="Anuluj"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_add_group_create_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_add_group_il_description" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

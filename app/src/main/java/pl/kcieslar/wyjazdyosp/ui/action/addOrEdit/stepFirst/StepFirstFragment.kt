@@ -9,20 +9,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
-import pl.kcieslar.wyjazdyosp.databinding.FragmentStepFirstBinding
 import org.greenrobot.eventbus.EventBus
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatter
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.dateFormatterHelper
 import pl.kcieslar.wyjazdyosp.MainActivity.Companion.timeFormatter
 import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.databinding.FragmentStepFirstBinding
 import pl.kcieslar.wyjazdyosp.eventbus.SetCurrentViewPagerItem
 import pl.kcieslar.wyjazdyosp.model.Action
+import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddOrEditActionFragment
 import pl.kcieslar.wyjazdyosp.utils.checkIsNullAndSetError
 import pl.kcieslar.wyjazdyosp.utils.showSnackBar
-import pl.kcieslar.wyjazdyosp.ui.action.addOrEdit.AddActionViewModel
 import pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
-import java.time.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 
 class StepFirstFragment(

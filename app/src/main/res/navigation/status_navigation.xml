@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/status_navigation"
+    app:startDestination="@+id/statusGroupListFragment">
+
+    <fragment
+        android:id="@+id/statusGroupListFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.status.list.StatusGroupListFragment"
+        android:label="@string/title_status"
+        tools:layout="@layout/fragment_group_list">
+
+        <action
+            android:id="@+id/action_to_addOrCreateGroupBottomDialog"
+            app:destination="@id/addOrCreateGroupBottomDialog" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/addOrCreateGroupBottomDialog"
+        android:name="pl.kcieslar.wyjazdyosp.ui.status.choose.AddOrCreateGroupBottomDialog"
+        tools:layout="@layout/bottom_dialog_add_or_create_group">
+
+        <action
+            android:id="@+id/action_to_createGroupBottomDialog"
+            app:popUpTo="@+id/statusGroupListFragment"
+            app:destination="@id/createGroupBottomDialog" />
+
+        <action
+            android:id="@+id/action_to_joinGroupFragment"
+            app:popUpTo="@+id/statusGroupListFragment"
+            app:destination="@id/joinGroupFragment" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/joinGroupFragment"
+        android:name="pl.kcieslar.wyjazdyosp.ui.status.join.JoinGroupBottomDialog"
+        tools:layout="@layout/bottom_dialog_join_group">
+
+        <action
+            android:id="@+id/action_to_groupListFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/statusGroupListFragment"
+            app:destination="@id/statusGroupListFragment" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/createGroupBottomDialog"
+        android:name="pl.kcieslar.wyjazdyosp.ui.status.create.CreateGroupBottomDialog"
+        tools:layout="@layout/bottom_dialog_create_group">
+
+        <action
+            android:id="@+id/action_to_groupListFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/statusGroupListFragment"
+            app:destination="@id/statusGroupListFragment" />
+
+    </dialog>
+</navigation>

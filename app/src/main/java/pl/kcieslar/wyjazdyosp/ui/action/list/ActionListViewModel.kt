@@ -2,17 +2,16 @@ package pl.kcieslar.wyjazdyosp.ui.action.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pl.kcieslar.wyjazdyosp.base.BaseViewModel
+import pl.kcieslar.wyjazdyosp.data.repository.impl.ActionRepositoryImpl
+import pl.kcieslar.wyjazdyosp.data.repository.impl.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
-import pl.kcieslar.wyjazdyosp.data.repository.ActionRepositoryImpl
-import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
-import pl.kcieslar.wyjazdyosp.model.*
+import pl.kcieslar.wyjazdyosp.model.Action
 import pl.kcieslar.wyjazdyosp.mvvm.SingleLiveEvent
 import pl.kcieslar.wyjazdyosp.mvvm.ViewModelEvent
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
@@ -22,11 +21,10 @@ import javax.inject.Inject
 class ActionListViewModel @Inject constructor(
     private val actionRepository: ActionRepositoryImpl,
     private val forcesRepository: ForcesRepositoryImpl
-) : ViewModel() {
+) : BaseViewModel() {
 
-    private var _viewModelEvents = SingleLiveEvent<ViewModelEvent>()
-    val viewModelEvents: LiveData<ViewModelEvent>
-        get() = _viewModelEvents
+    private val _viewModelEvents = MutableLiveData<SingleLiveEvent<ViewModelEvent?>>()
+    val viewModelEvents: LiveData<SingleLiveEvent<ViewModelEvent?>> get() = _viewModelEvents
 
     private val _actionList = MutableLiveData<ActionResponse>()
     val actions: LiveData<ActionResponse>
@@ -37,7 +35,7 @@ class ActionListViewModel @Inject constructor(
         get() = _isAnyCarsAndFiremans
 
     init {
-        _viewModelEvents.value = LoadingData()
+        _viewModelEvents.value = SingleLiveEvent(LoadingData())
         observeActionList()
         observerCarsAndFiremansCount()
     }
@@ -65,7 +63,7 @@ class ActionListViewModel @Inject constructor(
     }
 
     fun refreshData() {
-        _viewModelEvents.value = LoadingData()
+        _viewModelEvents.value = SingleLiveEvent(LoadingData())
         observeActionList()
     }
 
@@ -73,9 +71,9 @@ class ActionListViewModel @Inject constructor(
         viewModelScope.launch {
             val response = actionRepository.removeAction(action)
             if (response.isSuccess) {
-                _viewModelEvents.value = RemovedActionSuccessfully(action)
+                _viewModelEvents.value = SingleLiveEvent(RemovedActionSuccessfully(action))
             } else {
-                _viewModelEvents.value = RemovedActionError(action, response.exception)
+                _viewModelEvents.value = SingleLiveEvent(RemovedActionError(action, response.exception))
             }
         }
     }

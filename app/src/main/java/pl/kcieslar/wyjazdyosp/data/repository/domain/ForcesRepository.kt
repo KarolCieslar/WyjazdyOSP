@@ -1,4 +1,4 @@
-package pl.kcieslar.wyjazdyosp.domain.repository
+package pl.kcieslar.wyjazdyosp.data.repository.domain
 
 import kotlinx.coroutines.flow.Flow
 import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse

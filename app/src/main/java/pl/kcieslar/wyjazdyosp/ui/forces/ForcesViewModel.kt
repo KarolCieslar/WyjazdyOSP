@@ -2,14 +2,14 @@ package pl.kcieslar.wyjazdyosp.ui.forces
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pl.kcieslar.wyjazdyosp.base.BaseViewModel
+import pl.kcieslar.wyjazdyosp.data.repository.impl.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.data.response.ForcesResponse
-import pl.kcieslar.wyjazdyosp.data.repository.ForcesRepositoryImpl
 import pl.kcieslar.wyjazdyosp.model.Car
 import pl.kcieslar.wyjazdyosp.model.Equipment
 import pl.kcieslar.wyjazdyosp.model.Fireman
@@ -21,18 +21,17 @@ import javax.inject.Inject
 @HiltViewModel
 class ForcesViewModel @Inject constructor(
     private val forcesRepository: ForcesRepositoryImpl
-) : ViewModel() {
+) : BaseViewModel() {
 
-    private var _viewModelEvents = SingleLiveEvent<ViewModelEvent>()
-    val viewModelEvents: LiveData<ViewModelEvent>
-        get() = _viewModelEvents
+    private val _viewModelEvents = MutableLiveData<SingleLiveEvent<ViewModelEvent?>>()
+    val viewModelEvents: LiveData<SingleLiveEvent<ViewModelEvent?>> get() = _viewModelEvents
 
     private val _forcesList = MutableLiveData<ForcesResponse>()
     val forces: LiveData<ForcesResponse>
         get() = _forcesList
 
     init {
-        _viewModelEvents.value = LoadingData()
+        _viewModelEvents.value = SingleLiveEvent(LoadingData())
         observeForcesList()
     }
 
@@ -47,7 +46,7 @@ class ForcesViewModel @Inject constructor(
     }
 
     fun refreshData() {
-        _viewModelEvents.value = LoadingData()
+        _viewModelEvents.value = SingleLiveEvent(LoadingData())
         observeForcesList()
     }
 
@@ -60,9 +59,9 @@ class ForcesViewModel @Inject constructor(
             }
             val response = forcesRepository.addItem(item)
             if (response.isSuccess) {
-                _viewModelEvents.value = CrudItemSuccessfully()
+                _viewModelEvents.value = SingleLiveEvent(CrudItemSuccessfully())
             } else {
-                _viewModelEvents.value = CrudItemError(response.exception) { addItem(forcesDataType, name) }
+                _viewModelEvents.value = SingleLiveEvent(CrudItemError(response.exception) { addItem(forcesDataType, name) })
             }
         }
     }
@@ -71,9 +70,9 @@ class ForcesViewModel @Inject constructor(
         viewModelScope.launch {
             val response = forcesRepository.editItem(item)
             if (response.isSuccess) {
-                _viewModelEvents.value = CrudItemSuccessfully()
+                _viewModelEvents.value = SingleLiveEvent(CrudItemSuccessfully())
             } else {
-                _viewModelEvents.value = CrudItemError(response.exception) { editItem(item) }
+                _viewModelEvents.value = SingleLiveEvent(CrudItemError(response.exception) { editItem(item) })
             }
         }
     }
@@ -82,9 +81,9 @@ class ForcesViewModel @Inject constructor(
         viewModelScope.launch {
             val response = forcesRepository.removeItem(item)
             if (response.isSuccess) {
-                _viewModelEvents.value = CrudItemSuccessfully()
+                _viewModelEvents.value = SingleLiveEvent(CrudItemSuccessfully())
             } else {
-                _viewModelEvents.value = CrudItemError(response.exception) { removeItem(item) }
+                _viewModelEvents.value = SingleLiveEvent(CrudItemError(response.exception) { removeItem(item) })
             }
         }
     }

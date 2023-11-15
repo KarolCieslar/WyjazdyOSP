@@ -15,7 +15,7 @@ import pl.kcieslar.wyjazdyosp.views.HelpDialogStringRes
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.*
+import java.util.Locale
 
 
 fun EditText.checkIsNullAndSetError(errorText: String) : Boolean {

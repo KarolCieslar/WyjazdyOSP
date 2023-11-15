@@ -1,142 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/margin16"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/boxForQuarter"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/edit_text_background"
-        android:fontFamily="@font/inter_regular"
-        android:paddingStart="14dp"
-        android:paddingTop="2dp"
-        android:text="Kwartał"
-        android:textColor="@color/black400"
-        android:textSize="13dp"
-        app:layout_constraintEnd_toStartOf="@id/openDateButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-        android:id="@+id/quarterSelect"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:foreground="@drawable/ripple_drawable"
-        android:paddingStart="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/boxForQuarter"
-        app:layout_constraintStart_toStartOf="@+id/boxForQuarter"
-        app:layout_constraintTop_toTopOf="@id/boxForQuarter"
-        app:smsp_arrowPaddingBottom="7dp"
-        app:smsp_arrowPaddingLeft="5dp"
-        app:smsp_hint=""
-        app:smsp_hintColor="@color/black400"
-        app:smsp_hintSize="0dp"
-        app:smsp_itemColor="@color/black"
-        app:smsp_itemListColor="@color/black"
-        app:smsp_outlinedBoxColor="@color/black100"
-        app:smsp_selectedItemListColor="@color/red"
-        app:smsp_underlineSize="0dp" />
-
-    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
-        android:id="@+id/fromDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin16"
-        android:layout_marginEnd="8dp"
-        app:custom_iconDrawable="@drawable/ic_calendar"
-        app:custom_labelText="Data od"
-        app:layout_constraintEnd_toStartOf="@+id/toDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
+        tools:context=".MainActivity">
 
-    <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
-        android:id="@+id/toDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/margin16"
-        android:layout_marginEnd="@dimen/margin16"
-        app:custom_iconDrawable="@drawable/ic_calendar"
-        app:custom_labelText="Data do"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fromDate"
-        app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
+        <TextView
+            android:id="@+id/boxForQuarter"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edit_text_background"
+            android:fontFamily="@font/inter_regular"
+            android:paddingStart="14dp"
+            android:paddingTop="2dp"
+            android:text="Kwartał"
+            android:textColor="@color/black400"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toStartOf="@id/openDateButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/openDateButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/open_date_select_button_drawable"
-        android:foreground="@drawable/ripple_drawable"
-        android:padding="12dp"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintEnd_toStartOf="@+id/salaryValueEdit"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/quarterSelect"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:foreground="@drawable/ripple_drawable"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/boxForQuarter"
+            app:layout_constraintStart_toStartOf="@+id/boxForQuarter"
+            app:layout_constraintTop_toTopOf="@id/boxForQuarter"
+            app:smsp_arrowPaddingBottom="7dp"
+            app:smsp_arrowPaddingLeft="5dp"
+            app:smsp_hint=""
+            app:smsp_hintColor="@color/black400"
+            app:smsp_hintSize="0dp"
+            app:smsp_itemColor="@color/black"
+            app:smsp_itemListColor="@color/black"
+            app:smsp_outlinedBoxColor="@color/black100"
+            app:smsp_selectedItemListColor="@color/red"
+            app:smsp_underlineSize="0dp" />
 
-    <ImageView
-        android:id="@+id/salaryValueEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="16dp"
-        android:foreground="@drawable/ripple_drawable"
-        android:src="@drawable/ic_salary_options"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
+            android:id="@+id/fromDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/margin16"
+            android:layout_marginEnd="8dp"
+            app:custom_iconDrawable="@drawable/ic_calendar"
+            app:custom_labelText="Data od"
+            app:layout_constraintEnd_toStartOf="@+id/toDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/margin16"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromDate" />
+        <pl.kcieslar.wyjazdyosp.views.DateTimeFormFieldView
+            android:id="@+id/toDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/margin16"
+            android:layout_marginEnd="@dimen/margin16"
+            app:custom_iconDrawable="@drawable/ic_calendar"
+            app:custom_labelText="Data do"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fromDate"
+            app:layout_constraintTop_toBottomOf="@+id/salaryValueEdit" />
 
-    <pl.kcieslar.wyjazdyosp.views.ErrorView
-        android:id="@+id/errorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin50"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/openDateButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/open_date_select_button_drawable"
+            android:foreground="@drawable/ripple_drawable"
+            android:padding="12dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintEnd_toStartOf="@+id/salaryValueEdit"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/viewGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="recyclerView,salaryValueEdit, toDate, openDateButton, fromDate, quarterSelect, boxForQuarter" />
+        <ImageView
+            android:id="@+id/salaryValueEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="16dp"
+            android:foreground="@drawable/ripple_drawable"
+            android:src="@drawable/ic_salary_options"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerFrameLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:auto_start="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        shimmer:duration="800">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/margin16"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fromDate" />
 
-        <include layout="@layout/shimmer_salary_view" />
+        <pl.kcieslar.wyjazdyosp.views.ErrorView
+            android:id="@+id/errorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin50"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.facebook.shimmer.ShimmerFrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/viewGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="recyclerView,salaryValueEdit, toDate, openDateButton, fromDate, quarterSelect, boxForQuarter" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerFrameLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:auto_start="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            shimmer:duration="800">
+
+            <include layout="@layout/shimmer_salary_view" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

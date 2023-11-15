@@ -24,7 +24,6 @@ import androidx.core.util.Preconditions
 import androidx.fragment.app.Fragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import pl.kcieslar.wyjazdyosp.HiltTestActivity
 
 /**
  * launchFragmentInContainer from the androidx.fragment:fragment-testing library

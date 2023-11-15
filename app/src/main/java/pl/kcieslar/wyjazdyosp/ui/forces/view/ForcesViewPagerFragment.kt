@@ -1,18 +1,13 @@
 package pl.kcieslar.wyjazdyosp.ui.forces.view
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
 import pl.kcieslar.wyjazdyosp.R
+import pl.kcieslar.wyjazdyosp.base.BaseFragment
 import pl.kcieslar.wyjazdyosp.databinding.FragmentForcesViewPagerBinding
 import pl.kcieslar.wyjazdyosp.model.Forces
 import pl.kcieslar.wyjazdyosp.ui.forces.FORCES_TYPE_ARG
@@ -21,28 +16,22 @@ import pl.kcieslar.wyjazdyosp.ui.forces.ForcesViewModel
 import pl.kcieslar.wyjazdyosp.utils.ForcesStringType
 import pl.kcieslar.wyjazdyosp.utils.getForcesString
 import pl.kcieslar.wyjazdyosp.utils.logFirebaseCrash
+import pl.kcieslar.wyjazdyosp.utils.observeNonNull
 import pl.kcieslar.wyjazdyosp.views.AddOrEditForcesDialogView
 import pl.kcieslar.wyjazdyosp.views.ConfirmDialogView
 import pl.kcieslar.wyjazdyosp.views.RetryDialogView
 
 @AndroidEntryPoint
-class ForcesViewPagerFragment : Fragment() {
+class ForcesViewPagerFragment : BaseFragment<FragmentForcesViewPagerBinding, ForcesViewModel>() {
+
+    override val layoutId: Int = R.layout.fragment_forces_view_pager
+    override val viewModel: ForcesViewModel by viewModels()
+
     private var forcesDataType: ForcesDataType = ForcesDataType.CAR
 
-    private val viewModel: ForcesViewModel by viewModels()
-    private var _binding: FragmentForcesViewPagerBinding? = null
-    private val binding get() = _binding!!
     private lateinit var adapter: ViewPagerListAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentForcesViewPagerBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onReady(savedInstanceState: Bundle?) {
         arguments?.let {
             if (it.containsKey(FORCES_TYPE_ARG)) forcesDataType = it.getSerializable(FORCES_TYPE_ARG) as ForcesDataType
         }
@@ -54,17 +43,18 @@ class ForcesViewPagerFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.viewModelEvents.observeNonNull(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { event ->
+                when (event) {
+                    is ForcesViewModel.LoadingData -> {
+                        showShimmer(true)
+                        showCallErrorView(false)
+                    }
 
-        viewModel.viewModelEvents.observe(viewLifecycleOwner) { event ->
-            when (event) {
-                is ForcesViewModel.LoadingData -> {
-                    showShimmer(true)
-                    showCallErrorView(false)
-                }
-
-                is ForcesViewModel.CrudItemError -> {
-                    showErrorDialogWithRetry { event.retryAction() }
-                    logFirebaseCrash(event.exception!!, "ForcesViewPagerFragment CrudItemError")
+                    is ForcesViewModel.CrudItemError -> {
+                        showErrorDialogWithRetry { event.retryAction() }
+                        logFirebaseCrash(event.exception!!, "ForcesViewPagerFragment CrudItemError")
+                    }
                 }
             }
         }

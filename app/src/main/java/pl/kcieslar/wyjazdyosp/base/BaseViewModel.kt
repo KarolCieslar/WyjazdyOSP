@@ -1,13 +1,22 @@
-package pl.kcieslar.leocrm.base
+package pl.kcieslar.wyjazdyosp.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
-import pl.kcieslar.leocrm.utils.NavigationCommand
-import pl.kcieslar.leocrm.utils.SingleLiveEvent
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import pl.kcieslar.wyjazdyosp.data.repository.impl.FirebaseLogServiceImpl
+import pl.kcieslar.wyjazdyosp.mvvm.SingleLiveEvent
+import pl.kcieslar.wyjazdyosp.utils.NavigationCommand
+import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {
+
+    @Inject
+    lateinit var logService: FirebaseLogServiceImpl
 
     private val _navigation = MutableLiveData<SingleLiveEvent<NavigationCommand>>()
     val navigation: LiveData<SingleLiveEvent<NavigationCommand>> get() = _navigation
@@ -34,5 +43,17 @@ abstract class BaseViewModel : ViewModel() {
     fun showMessageRes(stringRes: Int) {
         _messageRes.value = SingleLiveEvent(stringRes)
     }
+
+    fun launchCatching(snackbar: Boolean = true, invokeOnCompletion: () -> Unit? = {}, block: suspend CoroutineScope.() -> Unit) =
+        viewModelScope.launch(
+            CoroutineExceptionHandler { _, throwable ->
+                if (snackbar) {
+                    showMessage(throwable.message.orEmpty())
+                }
+                logService.logNonFatalCrash(throwable)
+                logService.printStackTrace(throwable)
+            },
+            block = block
+        ).invokeOnCompletion { invokeOnCompletion() }
 }
 

@@ -1,7 +1,6 @@
-package pl.kcieslar.wyjazdyosp.data.repository
+package pl.kcieslar.wyjazdyosp.data.repository.impl
 
 import android.util.Log
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import pl.kcieslar.wyjazdyosp.data.response.ActionResponse
 import pl.kcieslar.wyjazdyosp.data.response.FirebaseCallResponse
-import pl.kcieslar.wyjazdyosp.domain.repository.ActionRepository
+import pl.kcieslar.wyjazdyosp.data.repository.domain.ActionRepository
 import pl.kcieslar.wyjazdyosp.model.Action
 import javax.inject.Inject
 
