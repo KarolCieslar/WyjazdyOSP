@@ -1,12 +1,14 @@
 package pl.kcieslar.wyjazdyosp.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+@Keep
 @Parcelize
 data class Action(
     var key: String = "",

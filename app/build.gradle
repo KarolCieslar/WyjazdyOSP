@@ -16,8 +16,8 @@ android {
         applicationId "pl.kcieslar.wyjazdyosp"
         minSdk 21
         targetSdk 33
-        versionCode 20
-        versionName "2.0.2"
+        versionCode 22
+        versionName "2.0.4"
 
         testInstrumentationRunner "pl.kcieslar.wyjazdyosp.HiltTestRunner"
     }
@@ -27,6 +27,7 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
 
         debug {

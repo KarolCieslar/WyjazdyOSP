@@ -1,10 +1,12 @@
 package pl.kcieslar.wyjazdyosp.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
 import pl.kcieslar.wyjazdyosp.ui.forces.ForcesDataType
 
+@Keep
 @Parcelize
 data class Car(
     override var key: String = "",

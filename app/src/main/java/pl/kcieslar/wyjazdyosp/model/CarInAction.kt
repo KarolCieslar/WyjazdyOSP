@@ -1,9 +1,11 @@
 package pl.kcieslar.wyjazdyosp.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class CarInAction(
     val car: Car = Car(),
